@@ -8,18 +8,173 @@
 
 <style>
     body{
-        background-color: rgb(55, 54, 54);
+        background-color: #EFF1F2;
+        margin: 0;
     }
 
-    img{
-        width: 500px;
+    #bild_logo{
+        width: 300px;
         height: auto;
+    }
+
+    #logo{
+        text-align: center;
+        background-color: #e6e6e6;
+        /* -webkit-box-shadow: 6px 5px 22px 2px #000000; 
+        box-shadow: 6px 5px 22px 2px #000000; */
+    }
+
+    #abteilungen{
+        display: flex;
+        justify-content: space-between;
+        background-color: #295ab7;
+        padding: 15px;
+    }
+
+    #bild_fussball{
+        width: 250px;
+        height: auto;
+    }
+
+    #name_fb{
+        margin-left: 215px;
+    }
+
+    #fussball {
+        border: solid 3px;
+        display: flex;
+        background-color: #eff0f0;
+        text-align: center;
+        justify-content: center;
+        width: 200px;
+        height: 200px;
+        margin-left: 150px;
+        border-radius: 10px;
+        -webkit-box-shadow: 6px 5px 22px 2px #00000092; 
+        box-shadow: 6px 5px 22px 2px #00000092;
+        transition: transform .5s;
+    }
+
+    #fussball:hover{
+        transform: scale(1.03);
+        border-color: #1900ff;
+    }
+
+    
+    #bild_handball{
+        width: 150px;
+        height: auto;
+    }
+
+    #name_hb{
+        margin-left: 62px;
+    }
+
+    #handball {
+        border: solid 3px;
+        background-color: #eff0f0;
+        display: flex;
+        text-align: center;
+        justify-items: center;
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        -webkit-box-shadow: 6px 5px 22px 2px #00000092; 
+        box-shadow: 6px 5px 22px 2px #00000092;
+        transition: transform .5s;
+    }
+
+    #handball:hover{
+         transform: scale(1.03);
+        border-color: #1900ff;  
+    }
+
+    
+    #bild_tennis{
+        width: 150px;
+        height: auto;
+    }
+
+    #name_tn{
+        margin-left: 75px;
+    }
+
+    #tennis {
+        border: solid 3px;
+        background-color: #eff0f0;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        width: 200px;
+        height: 200px;
+        margin-right: 150px;
+        border-radius: 10px;
+        -webkit-box-shadow: 6px 5px 22px 2px #00000092; 
+        box-shadow: 6px 5px 22px 2px #00000092;
+         transition: transform .5s;
+    }
+
+    #tennis:hover{
+         transform: scale(1.03);
+        border-color: #1900ff;  
+    }
+
+    #news{
+        width: 100%;
+        height: 200px;
+    }
+
+    #impressum{
+        background-color: #295ab7;
+        width: 100%;
+        height: 150px;
+        margin-top: 20px;
+        /* border-radius: 10px; */
     }
 
 </style>
 <body>
 
-    <img src="/Vereins-Webseite/logo_v2.png">
+<div id="logo">
+    <img src="/Vereins-Webseite/Logo_v3.png" id="bild_logo">
+</div>
+
+<div id="abteilungen">
+    <div>
+    <h3 id="name_fb">Fussball</h3>
+    <div id="fussball">
+        <img src="/Vereins-Webseite/fussball.png" id="bild_fussball">
+    </div>
+    </div>
+
+
+    <div>
+    <h3 id="name_hb">Handball</h3>
+    <div id="handball">
+        <img src="/Vereins-Webseite/handball.png" id="bild_handball">
+        
+    </div>
+    </div>
+
+
+
+    <div>
+    <h3 id="name_tn">Tennis</h3>
+    <div id="tennis">
+        <img src="/Vereins-Webseite/tennis.png" id="bild_tennis">
+    </div>
+    </div>
+
+</div>
+
+<div id="news">
+    <h2>NEWS</h2>
+</div>
+
+<div id="impressum">
+    <h3>Impressum</h3>
+</div>
+    
     
 </body>
 </html>
