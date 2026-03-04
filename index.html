@@ -44,6 +44,11 @@
     #bild_fussball{
         width: 250px;
         height: auto;
+        transition: transform .5s;
+    }
+
+    #bild_fussball:hover{
+        transform: scale(1.05);
     }
 
     #name_fb{
@@ -67,14 +72,20 @@
     }
 
     #fussball:hover{
-        transform: scale(1.03);
+        transform: scale(1.02);
         border-color: #1900ff;
+        
     }
 
     
     #bild_handball{
         width: 150px;
         height: auto;
+        transition: transform .5s;
+    }
+
+    #bild_handball:hover{
+        transform: scale(1.05);
     }
 
     #name_hb{
@@ -97,7 +108,7 @@
     }
 
     #handball:hover{
-         transform: scale(1.03);
+         transform: scale(1.02);
         border-color: #1900ff;  
     }
 
@@ -105,6 +116,11 @@
     #bild_tennis{
         width: 150px;
         height: auto;
+        transition: transform .5s;
+    }
+
+    #bild_tennis:hover{
+         transform: scale(1.05);
     }
 
     #name_tn{
@@ -128,12 +144,12 @@
     }
 
     #tennis:hover{
-         transform: scale(1.03);
+         transform: scale(1.02);
         border-color: #1900ff;  
     }
 
     #news{
-        width: 100%;
+        width: 98%;
         height: 500px;
         padding: 10px;
     }
@@ -147,8 +163,22 @@
         justify-content: space-evenly;
     }
 
-    #fussball_news{
+    #fussball_bild{
         width: 400px;
+        height: auto;
+        overflow: hidden;
+        position: relative;
+    }
+
+    #fussball_news{
+        width: 100%;
+        height: 100%;
+  object-fit: cover; /* Bild füllt Container ohne Verzehrung */
+  transition: transform 0.3s ease; /* Sanfter Zoom-Effekt */
+    }
+
+    #fussball_news:hover{
+         transform: scale(1.2); /* Vergrößert das Bild um 20% */
     }
 
     #handball_news{
@@ -173,39 +203,36 @@
 <div id="logo">
     <img src="./Logo_v3.png" id="bild_logo">
 </div>
-
+<!--------------------------------------------------------------------->
 <div id="abteilungen">
     <div>
-    <h3 id="name_fb">Fussball</h3>
-    <div id="fussball">
-        <img src="./fussball.png" id="bild_fussball">
+        <h3 id="name_fb">Fussball</h3>
+        <div id="fussball">
+            <img src="./fussball.png" id="bild_fussball">
+        </div>
     </div>
-    </div>
-
-
+<!--------------------------------------------------------------------->
     <div>
-    <h3 id="name_hb">Handball</h3>
-    <div id="handball">
-        <img src="./handball.png" id="bild_handball">
-        
+        <h3 id="name_hb">Handball</h3>
+        <div id="handball">
+            <img src="./handball.png" id="bild_handball">
+        </div>
     </div>
-    </div>
-
-
-
+<!--------------------------------------------------------------------->
     <div>
-    <h3 id="name_tn">Tennis</h3>
-    <div id="tennis">
-        <img src="./tennis.png" id="bild_tennis">
+        <h3 id="name_tn">Tennis</h3>
+        <div id="tennis">
+            <img src="./tennis.png" id="bild_tennis">
+        </div>
     </div>
-    </div>
-
 </div>
-
+<!--------------------------------------------------------------------->
 <div id="news">
     <h1 id="news_text">Neuigkeiten aus dem Verein</h1>
     <div id="news_bilder">
+        <div id="fussball_bild">
     <img src="./fussball_news.png" id="fussball_news">
+    </div>
     <img src="./handball_news.png" id="handball_news">
     <img src="./tennis_news.png" id="tennis_news">
     </div>
