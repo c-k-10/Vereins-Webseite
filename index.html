@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <title>Vereinswebseite</title>
 </head>
 
@@ -10,11 +13,17 @@
     body{
         background-color: #EFF1F2;
         margin: 0;
+        font-family: "Montserrat", sans-serif;
     }
 
     #bild_logo{
         width: 300px;
         height: auto;
+        transition: transform .5s;
+    }
+
+    #bild_logo:hover{
+        transform: scale(1.05);
     }
 
     #logo{
@@ -29,6 +38,7 @@
         justify-content: space-between;
         background-color: #295ab7;
         padding: 15px;
+        height: 300px;
     }
 
     #bild_fussball{
@@ -37,7 +47,8 @@
     }
 
     #name_fb{
-        margin-left: 215px;
+        margin-left: 202px;
+        font-size: 23px;
     }
 
     #fussball {
@@ -67,7 +78,8 @@
     }
 
     #name_hb{
-        margin-left: 62px;
+        margin-left: 47px;
+        font-size: 23px;
     }
 
     #handball {
@@ -96,7 +108,8 @@
     }
 
     #name_tn{
-        margin-left: 75px;
+        margin-left: 60px;
+        font-size: 23px;
     }
 
     #tennis {
@@ -121,7 +134,29 @@
 
     #news{
         width: 100%;
-        height: 200px;
+        height: 500px;
+        padding: 10px;
+    }
+
+    #news_text {
+        margin-left: 40px;
+    }
+
+    #news_bilder{
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    #fussball_news{
+        width: 400px;
+    }
+
+    #handball_news{
+        width: 400px;
+    }
+
+    #tennis_news{
+        width: 400px;
     }
 
     #impressum{
@@ -168,7 +203,12 @@
 </div>
 
 <div id="news">
-    <h2>NEWS</h2>
+    <h1 id="news_text">Neuigkeiten aus dem Verein</h1>
+    <div id="news_bilder">
+    <img src="./fussball_news.png" id="fussball_news">
+    <img src="./handball_news.png" id="handball_news">
+    <img src="./tennis_news.png" id="tennis_news">
+    </div>
 </div>
 
 <div id="impressum">
