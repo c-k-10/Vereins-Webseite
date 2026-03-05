@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="./Logo_v3.png" type="image/png">
     <title>TSH-News-Fussball</title>
 </head>
 <style>
@@ -28,10 +29,16 @@
         /* -webkit-box-shadow: 6px 5px 22px 2px #000000; 
         box-shadow: 6px 5px 22px 2px #000000; */
     }
+
     #name_fb{
         margin-left: 40px;
         width: 94%;
         height: 22px;
+    }
+
+    #zurück{
+        color: black;
+        text-decoration: none;
     }
 
     #navigation {
@@ -110,9 +117,14 @@
     #impressum{
         background-color: #295ab7;
         width: 100%;
-        height: 150px;
+        height: 190px;
         margin-top: 20px;
         /* border-radius: 10px; */
+    }
+
+    #beschriftung {
+        display: flex;
+        justify-content: space-evenly;
     }
 
 </style>
@@ -122,7 +134,7 @@
     <img src="./Logo_v3.png" id="bild_logo">
 </div>
         </div>
-              <div id="navigation""><h3 id="name_fb">Abteilung - Fussball - Neuigkeiten</h3></div>
+              <div id="navigation"><h3 id="name_fb"><a id=zurück href="./index.html">Zurück | </a>Abteilung - Fussball - Neuigkeiten</h3></div>
         <div>
         <h1 id="Überschrift"><strong>Überragender Sieg des TSH im letzten Heimspiel</strong></h1>
         </div>
@@ -148,10 +160,40 @@
 </div>
 
 
-<div id="impressum">
-    <h3>Impressum</h3>
+<div>
+    <div id="impressum">
+    <h3  style="text-decoration: underline;">Impressum</h3>
+    <div id="beschriftung">
+    <div><div>        <p style="text-decoration: underline;">TSH Herzogenaurach</p>
+        <p> 
+        Adalbert-Stifter-Str. 50 <br>
+        91074 Herzogenaurach <br>
+        Tel. 09132/1054 <br>
+        info@tsherzogenaurach.de
+        </p>
+        </div>
+    </div>
+    <div>
+        <div>
+        <p style="text-decoration: underline;">Abteilungen</p>
+        <p>
+        Fussball <br>
+        Handball <br>
+        Tennis <br>
+        </p>
+        </div>
+    </div>
+    <div><div>
+        <p style="text-decoration: underline;">Links</p>
+        <p>
+        Instagramm<br>
+        TikTok<br>
+        Facebook<br>
+        WhatsApp
+        </p>
+        </div>
+    </div>
+    </div>
 </div>
-    
-    
 </body>
 </html>
