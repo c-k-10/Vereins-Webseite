@@ -55,16 +55,17 @@
         animation: AnimationName 8s ease infinite;
     }
 
-@-webkit-keyframes AnimationName {
-    0%{background-position:70% 0%}
-    50%{background-position:31% 100%}
-    100%{background-position:70% 0%}
-}
-@keyframes AnimationName {
-    0%{background-position:70% 0%}
-    50%{background-position:31% 100%}
-    100%{background-position:70% 0%}
-}
+    @-webkit-keyframes AnimationName {
+        0%{background-position:70% 0%}
+        50%{background-position:31% 100%}
+        100%{background-position:70% 0%}
+    }
+
+    @keyframes AnimationName {
+        0%{background-position:70% 0%}
+        50%{background-position:31% 100%}
+        100%{background-position:70% 0%}
+    }
 
     #bild_fussball{
         width: 250px;
@@ -175,7 +176,7 @@
 
     #news{
         width: 98%;
-        height: 500px;
+        height: 400px;
         padding: 10px;
     }
 
@@ -230,6 +231,12 @@
         transform: scale(1.2);
     }
 
+    /* .features{
+        background-color: #295ab7;
+        height: 300px;
+        margin-bottom: 30px;
+    } */
+
     #impressum{
         background-color: #295ab7;
         width: 98.6%;
@@ -247,11 +254,11 @@
 <body>
 <!--------------------------------------------------------------------->
 <div id="header">
-    <!-- <h2 class="header_text">TURNERSCHAFT</h2> -->
+    <h2 class="header_text">&raquo; Meine Stadt &laquo;</h2>
     <div id="logo">
         <img src="./Logo_v3.png" id="bild_logo">
     </div>
-    <!-- <h2 class="header_text">HERZOGENAURACH</h2> -->
+    <h2 class="header_text">&raquo; Mein Verein &laquo;</h2>
 </div>
 <!--------------------------------------------------------------------->
 <div id="abteilungen">
@@ -292,6 +299,22 @@
         </div>
     </div>
 </div>
+<!--------------------------------------------------------------------->
+
+<!-- <div class="features">
+
+    <h3>Weitere Features</h3>
+
+</div> -->
+
+<!--------------------------------------------------------------------->
+
+<!-- <div class="features">
+
+    <h3>Weitere Features</h3>
+
+</div> -->
+
 <!--------------------------------------------------------------------->
 <div id="impressum">
     <h3  style="text-decoration: underline;">Impressum</h3>
