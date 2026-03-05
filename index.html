@@ -105,7 +105,7 @@
 
     
     #bild_handball{
-        width: 150px;
+        width: 180px;
         height: auto;
         transition: transform .5s;
     }
@@ -121,8 +121,8 @@
 
     #handball {
         border: solid 3px;
-        background-color: #eff0f0;
         display: flex;
+        background-color: #eff0f0;
         text-align: center;
         justify-items: center;
         width: 200px;
@@ -176,7 +176,7 @@
 
     #news{
         width: 98%;
-        height: 400px;
+        height: 500px;
         padding: 10px;
     }
 
@@ -247,12 +247,25 @@
 
     #beschriftung{
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
+    }
+
+    #anschrift{
+        margin-left: 50px;
+    }
+
+    #socials{
+        margin-right: 80px;
+    }
+
+    .socails_links{
+        color: black;
+        text-decoration: none;
     }
 
 </style>
 <body>
-<!--------------------------------------------------------------------->
+<!-----------------------------HEADER---------------------------------------->
 <div id="header">
     <h2 class="header_text">&raquo; Meine Stadt &laquo;</h2>
     <div id="logo">
@@ -260,25 +273,25 @@
     </div>
     <h2 class="header_text">&raquo; Mein Verein &laquo;</h2>
 </div>
-<!--------------------------------------------------------------------->
+<!------------------------ABTEILUNGEN----------------------------------------->
 <div id="abteilungen">
     <div>
         <h3 id="name_fb">Fussball</h3>
-        <div id="fussball">
+        <div id="fussball" onclick="window.location.href='./fussball.html';">
             <img src="./Bilder/fussball.png" id="bild_fussball">
         </div>
     </div>
 <!--------------------------------------------------------------------->
     <div>
         <h3 id="name_hb">Handball</h3>
-        <div id="handball">
+        <div id="handball" onclick="window.location.href='./handball.html';">
             <img src="./Bilder/handball.png" id="bild_handball">
         </div>
     </div>
 <!--------------------------------------------------------------------->
     <div>
         <h3 id="name_tn">Tennis</h3>
-        <div id="tennis">
+        <div id="tennis" onclick="window.location.href='./tennis.html';">
             <img src="./Bilder/tennis.png" id="bild_tennis">
         </div>
     </div>
@@ -288,14 +301,25 @@
     <h1 id="news_text">Neuigkeiten aus dem Verein</h1>
 
     <div id="news_bilder">
-        <div class="div_news_bild">
-            <img src="./Bilder/fussball_news.png" id="fussball_news" onclick="window.location.href='./news_fussball.html';">
+        <div>
+            <div class="div_news_bild">
+                <img src="./Bilder/fussball_news.png" id="fussball_news" onclick="window.location.href='./news_fussball.html';">
+            </div>
+            <h3>Überragender Sieg des TSH im letzten <br>Heimspiel!</h3>
         </div>
-        <div class="div_news_bild">
-            <img src="./Bilder/handball_news.png" id="handball_news">
+        
+        <div>
+            <div class="div_news_bild">
+                <img src="./Bilder/handball_news.png" id="handball_news">
+            </div>
+            <h3>In letzter Sekunde zwei Punkte geholt!</h3>
         </div>
-        <div class="div_news_bild">
-            <img src="./Bilder/tennis_news.png" id="tennis_news">
+
+        <div>
+            <div class="div_news_bild">
+                <img src="./Bilder/tennis_news.png" id="tennis_news">
+            </div>
+            <h3>Überraschung des Tages: Außenseiter <br>schlägt Top Favoriten</h3>
         </div>
     </div>
 </div>
@@ -319,7 +343,7 @@
 <div id="impressum">
     <h3  style="text-decoration: underline;">Impressum</h3>
     <div id="beschriftung">
-    <div>
+    <div id="anschrift">
         <p style="text-decoration: underline;">TSH Herzogenaurach</p>
         <p> 
         Adalbert-Stifter-Str. 50 <br>
@@ -336,13 +360,13 @@
         Tennis <br>
         </p>
     </div>
-    <div>
+    <div id="socials">
         <p style="text-decoration: underline;">Links</p>
         <p>
-        Instagramm<br>
-        TikTok<br>
-        Facebook<br>
-        WhatsApp
+        <a class="socails_links" href="https://www.instagram.com/sg_frankenpower?igsh=Nmp2eXZsaTYzaHR5">Instagramm</a><br>
+        <a class="socails_links" href="https://www.tiktok.com/@sg.frankenpower?_r=1&_t=ZG-94R1UEez4Xw">TikTok</a><br>
+        <a class="socails_links" href="joke.html">Facebook</a><br>
+        <a class="socails_links" href="https://www.tiktok.com/@sg.frankenpower?_r=1&_t=ZG-94R1UEez4Xw">WhatsApp</a>
         </p>
     </div>
     </div>
