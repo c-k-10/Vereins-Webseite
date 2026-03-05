@@ -6,7 +6,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <title>Vereinswebseite</title>
+    <link rel="icon" href="./Logo_v3.png" type="image/png">
+    <title>TSH Herzogenaurach</title>
 </head>
 
 <style>
@@ -14,6 +15,17 @@
         background-color: #EFF1F2;
         margin: 0;
         font-family: "Montserrat", sans-serif;
+    }
+
+    #header {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .header_text{
+        color: #295ab7;
+        font-size: 30px;
+        margin-top: 130px;
     }
 
     #bild_logo{
@@ -28,18 +40,31 @@
 
     #logo{
         text-align: center;
-        background-color: #e6e6e6;
-        /* -webkit-box-shadow: 6px 5px 22px 2px #000000; 
-        box-shadow: 6px 5px 22px 2px #000000; */
+        background-color: #EFF1F2;
     }
 
     #abteilungen{
         display: flex;
         justify-content: space-between;
-        background-color: #295ab7;
+        /* background-color: #295ab7; */
         padding: 15px;
         height: 300px;
+         background: linear-gradient(170deg, rgb(57, 228, 222), #295ab7, rgb(60, 80, 235));
+        background-size: 600% 600%;
+        -webkit-animation: AnimationName 8s ease infinite;
+        animation: AnimationName 8s ease infinite;
     }
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:70% 0%}
+    50%{background-position:31% 100%}
+    100%{background-position:70% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:70% 0%}
+    50%{background-position:31% 100%}
+    100%{background-position:70% 0%}
+}
 
     #bild_fussball{
         width: 250px;
@@ -163,7 +188,7 @@
         justify-content: space-evenly;
     }
 
-    #fussball_bild{
+    .div_news_bild{
         width: 400px;
         height: auto;
         overflow: hidden;
@@ -173,35 +198,60 @@
     #fussball_news{
         width: 100%;
         height: 100%;
-  object-fit: cover; /* Bild füllt Container ohne Verzehrung */
-  transition: transform 0.3s ease; /* Sanfter Zoom-Effekt */
+        object-fit: cover;
+        transition: transform 0.3s ease; 
     }
 
     #fussball_news:hover{
-         transform: scale(1.2); /* Vergrößert das Bild um 20% */
+        transform: scale(1.2);
     }
 
     #handball_news{
         width: 400px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease; 
+    }
+
+    #handball_news:hover{
+        transform: scale(1.2);
     }
 
     #tennis_news{
         width: 400px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease; 
+    }
+
+    #tennis_news:hover{
+        transform: scale(1.2);
     }
 
     #impressum{
         background-color: #295ab7;
-        width: 100%;
-        height: 150px;
-        margin-top: 20px;
-        /* border-radius: 10px; */
+        width: 98.6%;
+        height: 200px;
+        /* margin-top: 20px; */
+        padding: 10px;
+    }
+
+    #beschriftung{
+        display: flex;
+        justify-content: space-evenly;
     }
 
 </style>
 <body>
-
-<div id="logo">
-    <img src="./Logo_v3.png" id="bild_logo">
+<!--------------------------------------------------------------------->
+<div id="header">
+    <!-- <h2 class="header_text">TURNERSCHAFT</h2> -->
+    <div id="logo">
+        <img src="./Logo_v3.png" id="bild_logo">
+    </div>
+    <!-- <h2 class="header_text">HERZOGENAURACH</h2> -->
 </div>
 <!--------------------------------------------------------------------->
 <div id="abteilungen">
@@ -229,17 +279,50 @@
 <!--------------------------------------------------------------------->
 <div id="news">
     <h1 id="news_text">Neuigkeiten aus dem Verein</h1>
+
     <div id="news_bilder">
-        <div id="fussball_bild">
-    <img src="./fussball_news.png" id="fussball_news">
-    </div>
-    <img src="./handball_news.png" id="handball_news">
-    <img src="./tennis_news.png" id="tennis_news">
+        <div class="div_news_bild">
+            <img src="./fussball_news.png" id="fussball_news">
+        </div>
+        <div class="div_news_bild">
+            <img src="./handball_news.png" id="handball_news">
+        </div>
+        <div class="div_news_bild">
+            <img src="./tennis_news.png" id="tennis_news">
+        </div>
     </div>
 </div>
-
+<!--------------------------------------------------------------------->
 <div id="impressum">
-    <h3>Impressum</h3>
+    <h3  style="text-decoration: underline;">Impressum</h3>
+    <div id="beschriftung">
+    <div>
+        <p style="text-decoration: underline;">TSH Herzogenaurach</p>
+        <p> 
+        Adalbert-Stifter-Str. 50 <br>
+        91074 Herzogenaurach <br>
+        Tel. 09132/1054 <br>
+        info@tsherzogenaurach.de
+        </p>
+    </div>
+    <div>
+        <p style="text-decoration: underline;">Abteilungen</p>
+        <p>
+        Fussball <br>
+        Handball <br>
+        Tennis <br>
+        </p>
+    </div>
+    <div>
+        <p style="text-decoration: underline;">Links</p>
+        <p>
+        Instagramm<br>
+        TikTok<br>
+        Facebook<br>
+        WhatsApp
+        </p>
+    </div>
+    </div>
 </div>
     
     
