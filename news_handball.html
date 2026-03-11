@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="./Bilder/Logo_v3.png" type="image/png">
-    <title>TSH-News-Fussball</title>
+    <title>TSH-News-Handball</title>
 </head>
 <style>
     body{
@@ -46,7 +46,8 @@
     }
 
     #Überschrift{
-        margin-left: 324px;
+        text-align: center;
+        /*margin-left: 455px;*/
         /*text-decoration: underline;*/
     }
 
@@ -55,7 +56,7 @@
         margin-top: 0%;
     }
 
-    #fussball_news{
+    #handball_news{
         width: 50%;
         height: 30%;
         margin-left: 380px;
@@ -84,13 +85,13 @@
         justify-content: space-evenly;
     }
 
-    #handball_news{
+    #fussball_news{
         width: 400px;
         object-fit: cover; /* Bild füllt Container ohne Verzehrung */
         transition: transform 0.3s ease; /* Sanfter Zoom-Effekt */
     }
 
-    #handball_news:hover{
+    #fussball_news:hover{
          transform: scale(1.05); /* Vergrößert das Bild um 20% */
     }
 
@@ -148,12 +149,12 @@
     <img src="./Bilder/Logo_v3.png" id="bild_logo">
 </div>
         </div>
-              <div id="navigation"><h3 id="name_fb"><a id=zurück_zu_Startseite href="./index.html">Zurück zur Startseite | </a>Abteilung - Fussball - Neuigkeiten</h3></div>
+              <div id="navigation"><h3 id="name_fb"><a id=zurück_zu_Startseite href="./index.html">Zurück zur Startseite | </a>Abteilung - Handball - Neuigkeiten</h3></div>
         <div>
-        <h1 id="Überschrift"><strong>Überragender Sieg des TSH im letzten Heimspiel</strong></h1>
+        <h1 id="Überschrift"><strong>In letzter Sekunde 2 Punkte geholt!</strong></h1>
         </div>
-        <img src="./Bilder/fussball_news.png" id="fussball_news">
-        <h5 id="Unterüberschrift"><strong> Max Mastermann (links) mit 4 Toren gegen einen starken Gegner.</strong></h5>
+        <img src="./Bilder/handball_news.png" id="handball_news">
+        <h5 id="Unterüberschrift"><strong> Christian Kies (in rot) musste gegen den Gegner hart arbeiten.</strong></h5>
         <div> <br>
         <h3 id="Text"> Ein ganz langer Text wie toll der TSH gespielt hat. ddddddddd ddddddddd dddddddddd ddddddd dddddddddd dddddddd dddddddddddd ddddddddddd wow wahnsinn, top 1a neuigkeiten aus dem verein.
             <br> <br>Um zu den Spielen, Ergebnissen und der Tabelle zu gelangen <a href="https://www.youtube.com/watch?v=bzni5Pr1puA&list=RDbzni5Pr1puA&start_radio=1" >klicke hier</a>.</h3>
@@ -164,9 +165,9 @@
         </div>
         <div>
             <div id="news_bilder">
-            <img src="./Bilder/handball_news.png" id="handball_news" onclick="window.location.href='./news_handball.html';">
+            <img src="./Bilder/fussball_news.png" id="fussball_news" onclick="window.location.href='./news_fussball.html';">
             <img src="./Bilder/tennis_news.png" id="tennis_news" onclick="window.location.href='./news_tennnis.html';">
-            <img src="./Bilder/Werbung.png" id="Werbung" onclick="window.location.href='./werbung.html';">
+            <img src="./Bilder/werbung_casino.png" id="Werbung" onclick="window.location.href='./Werbung.html';">
             </div>
         </div>
     </div>
