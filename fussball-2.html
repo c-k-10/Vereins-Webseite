@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/static/Logo_v3.png" type="image/png">
+<title>Tabelle – Turnerschaft Herzogenaurach</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(120deg, #0a1a3d, #0f3b7a, #1a73e8, #00b4ff);
+        background-size: 400% 400%;
+        animation: gradientMove 12s ease infinite;
+        color: white;
+        text-align: center;
+        padding-bottom: 60px;
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Logo */
+    .logo {
+        width: 180px;
+        margin-top: 40px;
+        filter: drop-shadow(0 0 12px rgba(0,0,0,0.4));
+    }
+
+    /* Headline */
+    .slogan {
+        margin-top: 10px;
+        font-size: 22px;
+        letter-spacing: 1px;
+        opacity: 0.9;
+    }
+
+    /* Tabelle Container */
+    .table-box {
+        margin: 40px auto;
+        width: 85%;
+        max-width: 900px;
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 25px;
+        border: 1px solid rgba(255,255,255,0.25);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+        margin-top: 0;
+        font-size: 28px;
+        text-shadow: 0 0 12px rgba(255,255,255,0.6);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        color: white;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    th {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        font-size: 16px;
+    }
+
+    tr:hover {
+        background: rgba(255,255,255,0.1);
+    }
+
+</style>
+</head>
+
+<body>
+
+    <img src="{{ url_for('static', filename='Logo_v3.png') }}" class="logo" alt="TSH Logo">
+
+    <div class="slogan">» Meine Stadt « &nbsp;&nbsp; » Mein Verein «</div>
+
+    <div class="table-box">
+        <h2>Tabelle</h2>
+<table>
+    <tr>
+        <th>Rang</th>
+        <th>Verein</th>
+        <th>Spiele</th>
+        <th>Gewonnen</th>
+        <th>Unentschieden</th>
+        <th>Verloren</th>
+        <th>Punkte</th>
+    </tr>
+
+    {% for row in data %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ row['verein'] }}</td>
+        <td>{{ row['spiele'] }}</td>
+        <td>{{ row['gewonnen'] }}</td>
+        <td>{{ row['unentschieden'] }}</td>
+        <td>{{ row['verloren'] }}</td>
+        <td>{{ row['punkte'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+    </div>
+
+</body>
+</html>

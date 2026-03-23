@@ -62,11 +62,14 @@ connection.commit()
 #Tabelle Fussball
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS Fussball (
-    id INTEGER PRIMARY KEY,
-    rang INTEGER,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     verein TEXT,
-    begegnungen INTEGER,
-    punkte INTEGER
+    spiele INTEGER,
+    gewonnen INTEGER,
+    unentschieden INTEGER,
+    verloren INTEGER,
+    punkte TEXT
+
 )
 """)
 connection.commit()
@@ -75,9 +78,9 @@ cursor.execute("SELECT COUNT(*) FROM Fussball")
 
 if cursor.fetchone()[0] == 0:
 
-    cursor.execute("INSERT INTO Fussball (id, rang, verein, begegnungen, punkte) VALUES (?, ?, ?, ?, ?)", (1, 1, "TS Herzo", 5, 15))
-    cursor.execute("INSERT INTO Fussball (id, rang, verein, begegnungen, punkte) VALUES (?, ?, ?, ?, ?)", (2, 2, "FC Rasenmäher", 5, 9))
-    cursor.execute("INSERT INTO Fussball (id, rang, verein, begegnungen, punkte) VALUES (?, ?, ?, ?, ?)", (3, 3, "SV Hopfenblüte", 5, 2))
+   cursor.execute(
+    "INSERT INTO Fussball (id, rang, verein, begegnungen, punkte) VALUES (?, ?, ?, ?, ?)", (1, 1, "TS Herzo", 5, 15)
+)
 
 connection.commit()
 

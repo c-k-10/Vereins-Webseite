@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turnerschaft Herzogenaurach – Sportarten</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(120deg, #0a1a3d, #0f3b7a, #1a73e8, #00b4ff);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Logo */
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            box-shadow: 0 0 35px rgba(0,180,255,0.7);
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(0,180,255,0.4); }
+            50% { box-shadow: 0 0 45px rgba(0,180,255,1); }
+            100% { box-shadow: 0 0 20px rgba(0,180,255,0.4); }
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 32px;
+            text-shadow: 0 0 12px rgba(255,255,255,0.6);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* Sportkarten */
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto 80px auto;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px 20px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,180,255,0.6);
+            border-color: rgba(0,180,255,0.6);
+        }
+
+        .card img {
+            width: 80px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(0,180,255,0.7));
+            transition: 0.3s;
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 15px rgba(0,180,255,1));
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 22px;
+            text-shadow: 0 0 8px rgba(255,255,255,0.5);
+        }
+
+        /* Divider */
+        .section-divider {
+            width: 80%;
+            height: 4px;
+            margin: 60px auto;
+            background: linear-gradient(90deg, transparent, #00b4ff, transparent);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,180,255,0.8);
+            animation: glow 3s infinite ease-in-out;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .section-divider:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(0,180,255,1);
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px rgba(0,180,255,0.4); }
+            50% { box-shadow: 0 0 25px rgba(0,180,255,1); }
+            100% { box-shadow: 0 0 10px rgba(0,180,255,0.4); }
+        }
+
+        /* NEWS SECTION */
+        .news-title {
+            font-size: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px rgba(255,255,255,0.6);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+        }
+
+        .news-card {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            transition: 0.35s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,180,255,0.6);
+            border-color: rgba(0,180,255,0.6);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .news-card:hover img {
+            filter: brightness(1.15);
+        }
+
+        .news-content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .news-content h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            text-shadow: 0 0 8px rgba(255,255,255,0.5);
+        }
+
+        .news-content p {
+            margin: 0;
+            font-size: 15px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* Collapsed state */
+        .news-collapsed {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.6s ease, opacity 0.5s ease;
+        }
+
+        /* Expanded state */
+        .news-expanded {
+            max-height: 2000px;
+            opacity: 1;
+            transition: max-height 0.6s ease, opacity 0.5s ease;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 80px;
+            padding: 25px 10px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 -10px 25px rgba(0,0,0,0.3);
+            border-radius: 20px 20px 0 0;
+        }
+
+        footer p {
+            margin: 5px 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        footer .footer-small {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+    </style>
+
+    <script>
+        function toggleNews() {
+            const section = document.getElementById("news-section");
+
+            if (section.classList.contains("news-collapsed")) {
+                section.classList.remove("news-collapsed");
+                section.classList.add("news-expanded");
+            } else {
+                section.classList.remove("news-expanded");
+                section.classList.add("news-collapsed");
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <img src="./static/Logo_v3.png" class="logo" alt="Vereinslogo">
+
+    <h1>Turnerschaft Herzogenaurach 1861</h1>
+    <div class="subtitle">» Meine Stadt – Mein Verein «</div>
+
+    <div class="sports-grid">
+
+        <div class="card" onclick="window.location.href='/fussball';">
+            <img src="./static/fussball.png" alt="Fußball Icon" >
+            <h3>Fußball</h3>
+        </div>
+
+        <div class="card" onclick="window.location.href='/handball';">
+            <img src="./static/handball.png" alt="Handball Icon" >
+            <h3>Handball</h3>
+        </div>
+
+        <div class="card" onclick="window.location.href='/tennis';">
+            <img src="./static/tennis.png" alt="Tennis Icon">
+            <h3>Tennis</h3>
+        </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="section-divider" onclick="toggleNews()"></div>
+
+    <!-- NEWS SECTION (toggle) -->
+    <div id="news-section" class="news-collapsed">
+
+        <h2 class="news-title">Neuigkeiten aus dem Verein</h2>
+
+        <div class="news-grid">
+
+            <div class="news-card" onclick="window.location.href='/news_fussball';">
+                <img src="./static/fussball_news.png" alt="Fußball News">
+                <div class="news-content">
+                    <h3>Überragender Sieg im letzten Heimspiel!</h3>
+                    <p>Unsere Fußballmannschaft dominiert das Spielfeld und holt sich einen beeindruckenden Sieg vor heimischem Publikum.</p>
+                </div>
+            </div>
+
+            <div class="news-card" onclick="window.location.href='/news_handball';">
+                <img src="./static/handball_news.png" alt="Handball News" >
+                <div class="news-content">
+                    <h3>In letzter Sekunde zwei Punkte geholt!</h3>
+                    <p>Ein packendes Handballspiel endet mit einem sensationellen Treffer in der Schlusssekunde.</p>
+                </div>
+            </div>
+
+            <div class="news-card" onclick="window.location.href='/news_tennis';">
+                <img src="./static/tennis_news.png" alt="Tennis News">
+                <div class="news-content">
+                    <h3>Außenseiter schlägt Top-Favoriten</h3>
+                    <p>Überraschung beim Tennisturnier: Unser Nachwuchstalent setzt sich gegen den Favoriten durch.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Turnerschaft Herzogenaurach 1861 e.V.</p>
+        <p>Sport • Gemeinschaft • Leidenschaft</p>
+        <p class="footer-small">© 2026 – Alle Rechte vorbehalten</p>
+    </footer>
+
+</body>
+</html>
