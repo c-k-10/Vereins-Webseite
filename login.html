@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <link rel="icon" href="/static/Logo_v3.png" type="image/png">
-    <title>TSH Herzogenaurach</title>
+    <title>Login</title>
 </head>
 
 <style>
@@ -44,17 +40,18 @@
         background-color: #EFF1F2;
     }
 
-    #tabelle {
-        color: #295ab7;
-        width: 80%;
-        height: 300px;
+    #login {
+        text-align: center;
+        background-color: #295ab7;
+        margin-bottom: 50px;
+        margin-top: 30px;
+        padding: 20px;
+        width: 30%;
+        border-radius: 15px;
     }
 
-    tr {
-        margin-left: 50px;
-    }
 
-    #impressum{
+     #impressum{
         background-color: #295ab7;
         width: 98.6%;
         height: 200px;
@@ -80,57 +77,40 @@
         text-decoration: none;
     }
 
-</style>
 
+</style>
 
 <body>
 
     <div id="header">
-    <h2 class="header_text">&raquo; Meine Stadt &laquo;</h2>
-    <div id="logo">
-        <img src="/static/Logo_v3.png" id="bild_logo">
+        <h2 class="header_text">&raquo; Meine Stadt &laquo;</h2>
+            <div id="logo">
+                <img src="/static/Logo_v3.png" id="bild_logo">
+            </div>
+        <h2 class="header_text">&raquo; Mein Verein &laquo;</h2>
     </div>
-    <h2 class="header_text">&raquo; Mein Verein &laquo;</h2>
-</div>
 
-    <h1 style="margin-left: 40px;">Tabelle</h1>
+    <div style="display: flex; text-align: center; justify-content: center;">
+        <div id="login">
 
-<div id="tabelle">
+            <h1>LOGIN</h1>
 
-    <table border="1">
-  <tr>
-    <th>Rank</th>
-    <th>Verein</th>
-    <th>Spiele</th>
-    <th>Gewonnen</th>
-    <th>Uentschieden</th>
-    <th>Verloren</th>
-    <th>Punkte</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>TSH Herzogenaurach</td>
-    <td>10</td>
-    <td>8</td>
-    <th>1</th>
-    <th>1</th>
-    <th>17:3</th>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>TSH Herzogenaurach</td>
-    <td>10</td>
-    <td>8</td>
-    <th>1</th>
-    <th>1</th>
-    <th>17:3</th>
-  </tr>
-</table>
+            <form action="/login" method="post">
 
-</div>
+            User Name <input type="text" name="username"> <br> <br>
+            Passwort <input type="password" name="password"> <br> <br>
 
-<!------------------------------------------------------------------------------------->
-<div id="impressum">
+            <a href="">Registrierung</a> <br> <br>  
+
+            <button type="submit">Login</button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <div id="impressum">
     <h3  style="text-decoration: underline;">Impressum</h3>
     <div id="beschriftung">
     <div id="anschrift">
