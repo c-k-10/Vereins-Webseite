@@ -59,9 +59,10 @@ cursor.execute("SELECT COUNT(*) FROM handball")
 
 if cursor.fetchone()[0] == 0:
 
-   cursor.execute(
-    "INSERT INTO handball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (1, "TS Herzo", 5, 3, 1, 1, "17:3")
-)
+   cursor.execute("INSERT INTO handball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (1, "TSH Herzogenaurach", 5, 3, 1, 1, "17:3"))
+   cursor.execute("INSERT INTO handball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (2, "FC Rasenmäher", 5, 2, 1, 2, "14:3"))
+   cursor.execute("INSERT INTO handball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (3, "TSV Röttenbach", 5, 1, 1, 3, "10:3"))
+   cursor.execute("INSERT INTO handball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (4, "TSV Altenberg", 5, 0, 1, 4, "3:17"))
 connection.commit()
 
 #Tabelle Fussball
@@ -83,10 +84,10 @@ cursor.execute("SELECT COUNT(*) FROM Fussball")
 
 if cursor.fetchone()[0] == 0:
 
-   cursor.execute(
-    "INSERT INTO Fussball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (1, "TS Herzo", 5, 3, 1, 1, "17:3")
-)
-
+   cursor.execute("INSERT INTO Fussball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (1, "TSH Herzogenaurach", 5, 3, 1, 1, "17:3"))
+   cursor.execute("INSERT INTO Fussball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (2, "FC Rasenmäher", 5, 2, 1, 2, "14:3"))
+   cursor.execute("INSERT INTO Fussball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (3, "TSV Röttenbach", 5, 1, 1, 3, "10:3"))
+   cursor.execute("INSERT INTO Fussball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (4, "TSV Altenberg", 5, 0, 1, 4, "3:17"))
 connection.commit()
 
 #Tabelle Tennis

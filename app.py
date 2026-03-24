@@ -18,6 +18,12 @@ def login():
         return render_template("index-2.html", username=username)
     else:
         return render_template("login-2.html", error="Anmeldung fehlgeschlagen")
+    
+@app.route("/new-user", methods=["GET", "POST"])
+def new_user():
+    if request.method == "GET":
+        return render_template("registrierung.html")
+    # Hier könntest du die Logik für die Erstellung eines neuen Benutzers hinzufügen
 
 @app.route("/")
 def home():
