@@ -21,11 +21,29 @@ def check_login(username, password):
     stored_password = result[0]
     return stored_password == password
 
-def get_table_data():
+def get_fussball_table_data():
     conn = sqlite3.connect("projekt-verein.db")
     conn.row_factory = sqlite3.Row  # ermöglicht Zugriff per Spaltenname
     cur = conn.cursor()
     cur.execute("SELECT * FROM Fussball ORDER BY punkte DESC")
+    rows = cur.fetchall()
+    conn.close()
+    return rows
+
+def get_handball_table_data():
+    conn = sqlite3.connect("projekt-verein.db")
+    conn.row_factory = sqlite3.Row  # ermöglicht Zugriff per Spaltenname
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Handball ORDER BY punkte DESC")
+    rows = cur.fetchall()
+    conn.close()
+    return rows
+
+def get_tennis_table_data():
+    conn = sqlite3.connect("projekt-verein.db")
+    conn.row_factory = sqlite3.Row  # ermöglicht Zugriff per Spaltenname
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Handball ORDER BY punkte DESC")
     rows = cur.fetchall()
     conn.close()
     return rows

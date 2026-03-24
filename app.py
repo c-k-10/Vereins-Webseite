@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import sqlite3
-from routes.functions import check_login, get_table_data
+from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data
 
 DATABASE = "projekt-verein.db"
 
@@ -41,16 +41,18 @@ def news_fussball():
 
 @app.route("/fussball")
 def fussball():
-    data = get_table_data()
+    data = get_fussball_table_data()
     return render_template("fussball-2.html", data=data)
 
 @app.route("/handball")
 def handball():
-    return render_template("handball.html")
+    data = get_handball_table_data()
+    return render_template("handball-2.html")
 
 @app.route("/tennis")
 def tennis():
-    return render_template("tennis.html")
+    data = get_tennis_table_data()
+    return render_template("tennis-2.html")
 
 
 
