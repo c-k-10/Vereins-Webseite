@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/static/Logo_v3.png" type="image/png">
-    <title>Login</title>
+    <title>Registrieren</title>
+
     <style>
         body {
             margin: 0;
@@ -15,7 +15,7 @@
             align-items: center;
             overflow: hidden;
 
-            /* Dynamischer animierter Farbverlauf */
+            /* Animierter Hintergrund */
             background: linear-gradient(120deg, #0a1a3d, #0f3b7a, #1a73e8, #00b4ff);
             background-size: 400% 400%;
             animation: gradientMove 12s ease infinite;
@@ -52,13 +52,13 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        .login-container {
+        .register-container {
             position: relative;
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(20px);
             padding: 50px;
             border-radius: 22px;
-            width: 380px;
+            width: 400px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.45);
             border: 1px solid rgba(255,255,255,0.25);
             animation: fadeIn 0.8s ease;
@@ -100,7 +100,7 @@
         }
 
         .input-group input {
-            width: 93%;
+            width: 94%;
             padding: 14px 12px;
             border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.4);
@@ -176,9 +176,8 @@
 
 <body>
 
-    <!-- Partikel generieren -->
+    <!-- Partikel -->
     <div class="particles">
-        <!-- 25 Partikel -->
         <script>
             for (let i = 0; i < 25; i++) {
                 const p = document.createElement("span");
@@ -190,16 +189,16 @@
         </script>
     </div>
 
-    <div class="login-container">
+    <div class="register-container">
 
-        <img src="./static/Logo_v3.png" alt="Logo" class="logo">
+        <img src="../static/Logo_v3.png" alt="Logo" class="logo">
 
-        <h2>Einloggen</h2>
+        <h2>Konto erstellen</h2>
 
-         <form action="/login2" method="post">
+        <form action="" method="post">
             <div class="input-group">
-                <input name="username" placeholder=" " required>
-                <label for="email">User-name</label>
+                <input type="email" name="user-name" placeholder=" " required>
+                <label for="email">User-Name</label>
             </div>
 
             <div class="input-group">
@@ -207,29 +206,15 @@
                 <label for="password">Passwort</label>
             </div>
 
-            {% if error %}
-                <div style="
-                    margin-top: 12px;
-                    margin-bottom: 20px;
-                    padding: 12px;
-                    background: rgba(255, 80, 80, 0.2);
-                    border: 1px solid rgba(255, 80, 80, 0.5);
-                    color: #ff4d4d;
-                    border-radius: 10px;
-                    font-size: 15px;
-                    text-shadow: 0 0 6px rgba(255, 80, 80, 0.6);
-                    box-shadow: 0 0 12px rgba(255, 80, 80, 0.4);
-                    ">
-                    {{ error }}
-                </div>
-            {% endif %}
+            <div class="input-group">
+                <input type="password" name="password2" placeholder=" " required>
+                <label for="password2">Passwort bestätigen</label>
+            </div>
 
-
-            <button type="submit">Einloggen</button>
+            <button type="submit">Registrieren</button>
 
             <div class="links">
-                <a href="/pw_vergessen">Passwort vergessen?</a><br>
-                <a href="/registrieren">Neues Konto erstellen</a>
+                <a href="/login2">Bereits ein Konto? Jetzt einloggen</a>
             </div>
         </form>
     </div>

@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import sqlite3
 from routes.functions import check_login, get_table_data
+from routes.route import app
 
 DATABASE = "projekt-verein.db"
 
@@ -51,6 +52,15 @@ def handball():
 @app.route("/tennis")
 def tennis():
     return render_template("tennis.html")
+
+
+@app.route("/pw_vergessen")
+def pw_vergessen():
+    return render_template("passwort_vergessen.html")
+
+@app.route("/registrieren")
+def registrieren():
+    return render_template("registrierung.html")
 
 
 

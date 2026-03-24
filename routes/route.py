@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 import sqlite3
 
-app = Flask(__name__, template_folder=".")
+app = Flask(__name__, template_folder="../templates")
 
 @app.route("/")
 def home():
@@ -34,3 +34,6 @@ def handball():
 @app.route("/tennis")
 def tennis():
     return render_template("tennis.html")
+
+
+

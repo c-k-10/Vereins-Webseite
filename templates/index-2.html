@@ -98,14 +98,17 @@
         /* Divider */
         .section-divider {
             width: 80%;
-            height: 4px;
+            height: 50px;
             margin: 60px auto;
-            background: linear-gradient(90deg, transparent, #00b4ff, transparent);
+            background: linear-gradient(90deg, transparent, #0295d4, transparent);
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0,180,255,0.8);
             animation: glow 3s infinite ease-in-out;
             cursor: pointer;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .section-divider:hover {
@@ -113,11 +116,11 @@
             box-shadow: 0 0 30px rgba(0,180,255,1);
         }
 
-        @keyframes glow {
+        /* @keyframes glow {
             0% { box-shadow: 0 0 10px rgba(0,180,255,0.4); }
             50% { box-shadow: 0 0 25px rgba(0,180,255,1); }
             100% { box-shadow: 0 0 10px rgba(0,180,255,0.4); }
-        }
+        } */
 
         /* NEWS SECTION */
         .news-title {
@@ -218,19 +221,7 @@
         }
     </style>
 
-    <script>
-        function toggleNews() {
-            const section = document.getElementById("news-section");
 
-            if (section.classList.contains("news-collapsed")) {
-                section.classList.remove("news-collapsed");
-                section.classList.add("news-expanded");
-            } else {
-                section.classList.remove("news-expanded");
-                section.classList.add("news-collapsed");
-            }
-        }
-    </script>
 
 </head>
 
@@ -261,12 +252,8 @@
     </div>
 
     <!-- Divider -->
-    <div class="section-divider" onclick="toggleNews()"></div>
-
-    <!-- NEWS SECTION (toggle) -->
-    <div id="news-section" class="news-collapsed">
-
-        <h2 class="news-title">Neuigkeiten aus dem Verein</h2>
+    <div class="section-divider"><h2>Neuigkeiten aus dem Verein</h2></div>
+      
 
         <div class="news-grid">
 
@@ -295,7 +282,7 @@
             </div>
 
         </div>
-    </div>
+ 
 
     <!-- FOOTER -->
     <footer>
