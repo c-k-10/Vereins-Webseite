@@ -47,12 +47,12 @@ def fussball():
 @app.route("/handball")
 def handball():
     data = get_handball_table_data()
-    return render_template("handball-2.html")
+    return render_template("handball-2.html", data=data)
 
 @app.route("/tennis")
 def tennis():
     data = get_tennis_table_data()
-    return render_template("tennis-2.html")
+    return render_template("tennis-2.html", data=data)
 
 
 @app.route("/pw_vergessen")

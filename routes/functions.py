@@ -34,7 +34,7 @@ def get_handball_table_data():
     conn = sqlite3.connect("projekt-verein.db")
     conn.row_factory = sqlite3.Row  # ermöglicht Zugriff per Spaltenname
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Handball ORDER BY punkte DESC")
+    cur.execute("SELECT * FROM handball ORDER BY punkte DESC")
     rows = cur.fetchall()
     conn.close()
     return rows
@@ -43,7 +43,7 @@ def get_tennis_table_data():
     conn = sqlite3.connect("projekt-verein.db")
     conn.row_factory = sqlite3.Row  # ermöglicht Zugriff per Spaltenname
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Handball ORDER BY punkte DESC")
+    cur.execute("SELECT * FROM tennis ORDER BY punkte DESC")
     rows = cur.fetchall()
     conn.close()
     return rows

@@ -43,10 +43,12 @@ connection.commit()
 #Tabelle Handball
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS handball (
-    id INTEGER PRIMARY KEY,
-    rang INTEGER,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     verein TEXT,
-    begegnungen INTEGER,
+    spiele INTEGER,
+    gewonnen INTEGER,
+    unentschieden INTEGER,
+    verloren INTEGER,
     punkte TEXT
   
 )
@@ -54,9 +56,12 @@ CREATE TABLE IF NOT EXISTS handball (
 connection.commit()
 
 cursor.execute("SELECT COUNT(*) FROM handball")
+
 if cursor.fetchone()[0] == 0:
-    cursor.execute("INSERT INTO handball (id, rang, verein, begegnungen, punkte) VALUES (?, ?, ?, ?, ?)", (1, 1, "TSH Herzogenaurach", 5, "8:2"))
-    
+
+   cursor.execute(
+    "INSERT INTO handball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (1, "TS Herzo", 5, 3, 1, 1, "17:3")
+)
 connection.commit()
 
 #Tabelle Fussball
@@ -87,20 +92,24 @@ connection.commit()
 #Tabelle Tennis
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS tennis (
-    id INTEGER PRIMARY KEY,
-    rang INTEGER,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
     verein TEXT,
-    begegnungen INTEGER,
-    punkte INTEGER
+    spiele INTEGER,
+    gewonnen INTEGER,
+    unentschieden INTEGER,
+    verloren INTEGER,
+    punkte TEXT
 )
 """)
 connection.commit()
 
 cursor.execute("SELECT COUNT(*) FROM tennis")
+
 if cursor.fetchone()[0] == 0:
-    cursor.execute("INSERT INTO tennis (id, rang, verein, begegnungen, punkte) VALUES (?, ?, ?, ?, ?)", (1, 1, "TSH Herzogenaurach", 5, "8:2"))
-    
-connection.commit()
+
+   cursor.execute(
+    "INSERT INTO tennis (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (1, "TS Herzo", 5, 3, 1, 1, "17:3")
+)
  
 #Tabelle Kommentare 
 cursor.execute("""
