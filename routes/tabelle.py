@@ -79,7 +79,7 @@ cursor.execute("SELECT COUNT(*) FROM Fussball")
 if cursor.fetchone()[0] == 0:
 
    cursor.execute(
-    "INSERT INTO Fussball (id, rang, verein, begegnungen, punkte) VALUES (?, ?, ?, ?, ?)", (1, 1, "TS Herzo", 5, 15)
+    "INSERT INTO Fussball (id, verein, spiele, gewonnen, unentschieden, verloren, punkte) VALUES (?, ?, ?, ?, ?, ?, ?)", (1, "TS Herzo", 5, 3, 1, 1, "17:3")
 )
 
 connection.commit()
