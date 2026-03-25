@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./static/Logo_v3.png" type="image/png">
 <title>Turnerschaft Herzogenaurach – Sportarten</title>
 
 <style>
@@ -96,6 +96,25 @@ nav a::after {
 nav a:hover::after {
     width: 100%;
 }
+
+.profile-pic {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+
+    border: 2px solid rgba(255,255,255,0.6);
+    box-shadow: 0 0 15px rgba(0,180,255,0.6);
+
+    transition: 0.25s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(0,180,255,0.9);
+}
+
 
 /* BURGER */
 .burger {
@@ -369,29 +388,29 @@ function toggleMenu() {
 <header>
     <img src="./static/Logo_v3.png" class="logo">
 
+    <div class="title-box">
+        <h1>Turnerschaft Herzogenaurach 1861</h1>
+        <div class="subtitle">» Meine Stadt – Mein Verein «</div>
+    </div>
 
-<div class="title-box">
-    <h1>Turnerschaft Herzogenaurach 1861</h1>
-    <div class="subtitle">» Meine Stadt – Mein Verein «</div>
-</div>
+    <nav>
+        <a href="/fussball">Fußball</a>
+        <a href="/handball">Handball</a>
+        <a href="/tennis">Tennis</a>
+    </nav>
 
-<nav>
-    <a href="/fussball">Fußball</a>
-    <a href="/handball">Handball</a>
-    <a href="/tennis">Tennis</a>
-</nav>
+    <!-- ⭐ NEU: Profilbild -->
+    <img src="./static/pb.png" class="profile-pic" onclick="window.location.href='/profil'">
 
-<div class="burger" onclick="toggleMenu()">
-    <div></div><div></div><div></div>
-</div>
+    <div class="burger" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
 
-<div class="mobile-nav">
-    <a href="/fussball">Fußball</a>
-    <a href="/handball">Handball</a>
-    <a href="/tennis">Tennis</a>
-</div>
-
-
+    <div class="mobile-nav">
+        <a href="/fussball">Fußball</a>
+        <a href="/handball">Handball</a>
+        <a href="/tennis">Tennis</a>
+    </div>
 </header>
 
 <div class="main-layout">
