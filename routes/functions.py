@@ -108,3 +108,42 @@ def register_user():
 
     # 7. Weiterleitung nach erfolgreicher Registrierung
     return render_template("login-2.html", message="Registrierung erfolgreich!")
+
+
+
+def reset_password():
+    username = request.form.get("user-name")
+    new_password = request.form.get("password")
+    new_password2 = request.form.get("password2")
+
+    # 1. Felder prüfen
+    if not username or not new_password or not new_password2:
+        return render_template("passwort_vergessen.html", error="Bitte alle Felder ausfüllen")
+
+    # 2. Passwörter vergleichen
+    if new_password != new_password2:
+        return render_template("passwort_vergessen.html", error="Die Passwörter stimmen nicht überein")
+
+    # 3. DB-Verbindung
+    conn = sqlite3.connect("projekt-verein.db")
+    cursor = conn.cursor()
+
+    # 4. Prüfen, ob Benutzer existiert
+    cursor.execute("SELECT name FROM login WHERE name = ?", (username,))
+    if cursor.fetchone() is None:
+        conn.close()
+        return render_template("passwort_vergessen.html", error="Benutzer wurde nicht gefunden")
+
+    # 5. Neues Passwort hashen
+    pw_hash = bcrypt.generate_password_hash(new_password).decode("utf-8")
+
+    # 6. Passwort aktualisieren
+    cursor.execute(
+        "UPDATE login SET passwort = ? WHERE name = ?",
+        (pw_hash, username)
+    )
+    conn.commit()
+    conn.close()
+
+    # 7. Weiterleitung zum Login
+    return render_template("login-2.html", message="Passwort erfolgreich zurückgesetzt!")

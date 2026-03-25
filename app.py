@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import sqlite3
-from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data, register_user
+from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data, register_user, reset_password
 
 DATABASE = "projekt-verein.db"
 
@@ -30,6 +30,14 @@ def register_route():
     if request.method == "POST":
         return register_user()   # WICHTIG: Immer return!
     return render_template("registrierung.html")  # GET-Aufruf
+
+
+@app.route("/pwreset", methods=["GET", "POST"])
+def pwreset_route():
+    if request.method == "POST":
+        return reset_password()
+    return render_template("passwort_vergessen.html")
+
     
 
 @app.route("/")
