@@ -211,6 +211,23 @@
                 <label for="password2">Passwort bestätigen</label>
             </div>
 
+                {% if error %}
+                <div style="
+                    margin-top: 12px;
+                    margin-bottom: 20px;
+                    padding: 12px;
+                    background: rgba(255, 80, 80, 0.2);
+                    border: 1px solid rgba(255, 80, 80, 0.5);
+                    color: #ff4d4d;
+                    border-radius: 10px;
+                    font-size: 15px;
+                    text-shadow: 0 0 6px rgba(255, 80, 80, 0.6);
+                    box-shadow: 0 0 12px rgba(255, 80, 80, 0.4);
+                    ">
+                    {{ error }}
+                </div>
+            {% endif %}
+
             <button type="submit">Registrieren</button>
 
             <div class="links">
