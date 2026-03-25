@@ -25,12 +25,11 @@ def new_user():
         return render_template("registrierung.html")
     
 
-@app.post("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register_route():
-    if register_user():
-        return render_template("login-2.html", message="Account erfolgreich erstellt")
-    else:        
-        return render_template("registrierung.html", error="Benutzername existiert bereits")
+    if request.method == "POST":
+        return register_user()   # WICHTIG: Immer return!
+    return render_template("registrierung.html")  # GET-Aufruf
     
 
 @app.route("/")
