@@ -55,7 +55,7 @@ def register_user():
     password = request.form.get("password")
 
     if not username or not password:
-        return jsonify({"error": "Username und Passwort erforderlich"}), 400
+        return ({"error": "Username und Passwort erforderlich"})
 
     # Verbindung zur SQLite-Datenbank
     conn = sqlite3.connect("projekt-verein.db")
@@ -65,7 +65,7 @@ def register_user():
     cursor.execute("SELECT name FROM login WHERE name = ?", (username,))
     if cursor.fetchone() is not None:
         conn.close()
-        return jsonify({"error": "Benutzername existiert bereits"}), 409
+        return ({"error": "Benutzername existiert bereits"}),
 
     # Passwort hashen
     pw_hash = bcrypt.generate_password_hash(password).decode("utf-8")
@@ -78,4 +78,4 @@ def register_user():
     conn.commit()
     conn.close()
 
-    return jsonify({"message": "Account erfolgreich erstellt"}), 201
+    return ({"message": "Account erfolgreich erstellt"})
