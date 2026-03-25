@@ -50,27 +50,55 @@ def get_tennis_table_data():
 
 bcrypt = Bcrypt()
 
+from flask import redirect, url_for, render_template, request
+import sqlite3
+from flask_bcrypt import Bcrypt
+
+bcrypt = Bcrypt()
+
+from flask import Flask, request, render_template, redirect, url_for
+import sqlite3
+from flask_bcrypt import Bcrypt
+
+app = Flask(__name__, template_folder=".")
+bcrypt = Bcrypt(app)
+
+
+@app.route("/registrieren", methods=["GET", "POST"])
+def register_page():
+    if request.method == "POST":
+        return register_user()
+    # Seite beim ersten Aufruf ohne Fehler anzeigen
+    return render_template("registrierung.html")
+
+
 def register_user():
     username = request.form.get("user-name")
     password = request.form.get("password")
+    password2 = request.form.get("password2")   # zweites Passwortfeld
 
-    if not username or not password:
-        return ({"error": "Username und Passwort erforderlich"})
+    # 1. Felder prüfen
+    if not username or not password or not password2:
+        return render_template("registrierung.html", error="Bitte alle Felder ausfüllen")
 
-    # Verbindung zur SQLite-Datenbank
+    # 2. Passwörter vergleichen
+    if password != password2:
+        return render_template("registrierung.html", error="Die Passwörter stimmen nicht überein")
+
+    # 3. DB-Verbindung
     conn = sqlite3.connect("projekt-verein.db")
     cursor = conn.cursor()
 
-    # Prüfen, ob Benutzername existiert
+    # 4. Prüfen, ob Benutzer existiert
     cursor.execute("SELECT name FROM login WHERE name = ?", (username,))
     if cursor.fetchone() is not None:
         conn.close()
-        return ({"error": "Benutzername existiert bereits"}),
+        return render_template("registrierung.html", error="Benutzername existiert bereits")
 
-    # Passwort hashen
+    # 5. Passwort hashen
     pw_hash = bcrypt.generate_password_hash(password).decode("utf-8")
 
-    # Benutzer einfügen
+    # 6. Einfügen
     cursor.execute(
         "INSERT INTO login (name, passwort) VALUES (?, ?)",
         (username, pw_hash)
@@ -78,4 +106,5 @@ def register_user():
     conn.commit()
     conn.close()
 
-    return ({"message": "Account erfolgreich erstellt"})
+    # 7. Weiterleitung nach erfolgreicher Registrierung
+    return render_template("login-2.html", message="Registrierung erfolgreich!")
