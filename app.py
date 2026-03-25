@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import sqlite3
-from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data
+from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data, register_user
 
 DATABASE = "projekt-verein.db"
 
@@ -24,6 +24,11 @@ def new_user():
     if request.method == "GET":
         return render_template("registrierung.html")
     # Hier könntest du die Logik für die Erstellung eines neuen Benutzers hinzufügen
+
+@app.post("/register")
+def register_route():
+    return register_user()
+    
 
 @app.route("/")
 def home():

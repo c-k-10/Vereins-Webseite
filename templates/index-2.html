@@ -1,295 +1,479 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turnerschaft Herzogenaurach – Sportarten</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turnerschaft Herzogenaurach – Sportarten</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(120deg, #0a1a3d, #0f3b7a, #1a73e8, #00b4ff);
-            background-size: 400% 400%;
-            animation: gradientMove 12s ease infinite;
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
+<style>
 
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+/* GLOBAL */
+* {
+    box-sizing: border-box;
+}
 
-        /* Logo */
-        .logo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-            box-shadow: 0 0 35px rgba(0,180,255,0.7);
-            animation: pulse 3s infinite ease-in-out;
-        }
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(120deg, #09352b, #0c2e5d, #144e9b, #460d67);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    color: white;
+    text-align: center;
+    padding-top: 120px;
+    overflow-x: hidden;
+}
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 20px rgba(0,180,255,0.4); }
-            50% { box-shadow: 0 0 45px rgba(0,180,255,1); }
-            100% { box-shadow: 0 0 20px rgba(0,180,255,0.4); }
-        }
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-        h1 {
-            margin-top: 0;
-            font-size: 32px;
-            text-shadow: 0 0 12px rgba(255,255,255,0.6);
-        }
+/* HEADER */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    background: rgba(0, 40, 80, 0.55);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 0 25px rgba(0,180,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 30px;
+}
 
-        .subtitle {
-            font-size: 18px;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 25px rgba(0,180,255,0.7);
+}
 
-        /* Sportkarten */
-        .sports-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto 80px auto;
-        }
+.title-box {
+    text-align: left;
+}
 
-        .card {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 30px 20px;
-            border: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-            transition: 0.3s;
-        }
+.title-box h1 {
+    margin: 0;
+    font-size: 26px;
+}
 
-        .card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(0,180,255,0.6);
-            border-color: rgba(0,180,255,0.6);
-        }
+.subtitle {
+    font-size: 14px;
+    opacity: 0.85;
+}
 
-        .card img {
-            width: 80px;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px rgba(0,180,255,0.7));
-            transition: 0.3s;
-        }
+/* NAV */
+nav {
+    display: flex;
+    gap: 70px;
+}
 
-        .card:hover img {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 15px rgba(0,180,255,1));
-        }
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+}
 
-        .card h3 {
-            margin: 0;
-            font-size: 22px;
-            text-shadow: 0 0 8px rgba(255,255,255,0.5);
-        }
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #00b4ff;
+    transition: 0.3s;
+}
 
-        /* Divider */
-        .section-divider {
-            width: 80%;
-            height: 50px;
-            margin: 60px auto;
-            background: linear-gradient(90deg, transparent, #0295d4, transparent);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,180,255,0.8);
-            animation: glow 3s infinite ease-in-out;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+nav a:hover::after {
+    width: 100%;
+}
 
-        .section-divider:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 30px rgba(0,180,255,1);
-        }
+/* BURGER */
+.burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
 
-        /* @keyframes glow {
-            0% { box-shadow: 0 0 10px rgba(0,180,255,0.4); }
-            50% { box-shadow: 0 0 25px rgba(0,180,255,1); }
-            100% { box-shadow: 0 0 10px rgba(0,180,255,0.4); }
-        } */
+.burger div {
+    width: 28px;
+    height: 3px;
+    background: white;
+}
 
-        /* NEWS SECTION */
-        .news-title {
-            font-size: 30px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 12px rgba(255,255,255,0.6);
-        }
+/* MOBILE MENU */
+.mobile-nav {
+    display: none;
+    flex-direction: column;
+    background: rgba(0, 40, 80, 0.9);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    padding: 20px;
+    gap: 15px;
+}
 
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
-            max-width: 1200px;
-            margin: 0 auto 60px auto;
-        }
+/* LAYOUT */
+.main-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 20px;
+    align-items: start;
+}
 
-        .news-card {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-            transition: 0.35s;
-        }
+/* SECTIONS */
+.news-section {
+    text-align: left;
+}
 
-        .news-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0,180,255,0.6);
-            border-color: rgba(0,180,255,0.6);
-        }
+.sports-section {
+    text-align: center;
+}
 
-        .news-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: 0.3s;
-        }
+/* SECTION TITLE */
+.section-divider {
+    position: relative;
+    margin: 0 0 25px 0;
+    padding: 14px 20px;
+    border-radius: 14px;
 
-        .news-card:hover img {
-            filter: brightness(1.15);
-        }
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
 
-        .news-content {
-            padding: 20px;
-            text-align: left;
-        }
+    border: 1px solid rgba(255,255,255,0.2);
 
-        .news-content h3 {
-            margin: 0 0 10px 0;
-            font-size: 20px;
-            text-shadow: 0 0 8px rgba(255,255,255,0.5);
-        }
+    box-shadow: 
+        0 0 15px rgba(0,180,255,0.3),
+        inset 0 0 10px rgba(255,255,255,0.1);
 
-        .news-content p {
-            margin: 0;
-            font-size: 15px;
-            opacity: 0.9;
-            line-height: 1.5;
-        }
+    overflow: hidden;
+}
 
-        /* Collapsed state */
-        .news-collapsed {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.6s ease, opacity 0.5s ease;
-        }
+/* Glow-Linie Animation */
+.section-divider::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
 
-        /* Expanded state */
-        .news-expanded {
-            max-height: 2000px;
-            opacity: 1;
-            transition: max-height 0.6s ease, opacity 0.5s ease;
-        }
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(0,180,255,0.6),
+        transparent
+    );
 
-        /* FOOTER */
-        footer {
-            margin-top: 80px;
-            padding: 25px 10px;
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 -10px 25px rgba(0,0,0,0.3);
-            border-radius: 20px 20px 0 0;
-        }
+    animation: shine 4s infinite;
+}
 
-        footer p {
-            margin: 5px 0;
-            opacity: 0.9;
-            font-size: 14px;
-        }
+/* Text Styling */
+.section-divider h2 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 1px;
+    text-align: center;
 
-        footer .footer-small {
-            font-size: 12px;
-            opacity: 0.7;
-        }
-    </style>
+    background: linear-gradient(90deg, #ffffff, #00b4ff);
+    
+/* Standard + Webkit für volle Unterstützung */
+background-clip: text;
+-webkit-background-clip: text;
 
+-webkit-text-fill-color: transparent;
+color: transparent; /* 🔥 wichtig als Fallback */
 
+}
+
+.news-section {
+    position: relative;
+    padding-right: 40px;
+}
+
+.news-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 100%;
+
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(0,180,255,0.7),
+        transparent
+    );
+
+    box-shadow: 0 0 10px rgba(0,180,255,0.6);
+}
+
+/* Animation */
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+/* NEWS */
+.news-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+.news-card {
+    background: rgba(255,255,255,0.12);
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+}
+
+.news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.news-content {
+    padding: 15px;
+}
+
+.news-content h3 {
+    margin: 0 0 10px 0;
+}
+
+.news-content p {
+    margin: 0;
+}
+
+/* SPORTS */
+.sports-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.12);
+    border-radius: 15px;
+    padding: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.sponsors-section {
+  max-width: 1100px;
+  margin: 60px auto 80px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.sponsors-section h2 {
+  font-size: 28px;
+  color: white;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #00b4ff, #1a73e8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.sponsors-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.sponsors-grid a {
+  display: inline-block;
+  width: 150px;
+  filter: brightness(0.85);
+  transition: filter 0.3s ease;
+}
+
+.sponsors-grid a:hover {
+  filter: brightness(1);
+}
+
+.sponsors-grid img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 60px;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+
+    nav { display: none; }
+    .burger { display: flex; }
+
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sports-section {
+        order: -1;
+    }
+}
+
+</style>
+
+<script>
+function toggleMenu() {
+    const menu = document.querySelector('.mobile-nav');
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+}
+</script>
 
 </head>
 
 <body>
 
-    <img src="./static/Logo_v3.png" class="logo" alt="Vereinslogo">
+<header>
+    <img src="./static/Logo_v3.png" class="logo">
 
+
+<div class="title-box">
     <h1>Turnerschaft Herzogenaurach 1861</h1>
     <div class="subtitle">» Meine Stadt – Mein Verein «</div>
+</div>
+
+<nav>
+    <a href="/fussball">Fußball</a>
+    <a href="/handball">Handball</a>
+    <a href="/tennis">Tennis</a>
+</nav>
+
+<div class="burger" onclick="toggleMenu()">
+    <div></div><div></div><div></div>
+</div>
+
+<div class="mobile-nav">
+    <a href="/fussball">Fußball</a>
+    <a href="/handball">Handball</a>
+    <a href="/tennis">Tennis</a>
+</div>
+
+
+</header>
+
+<div class="main-layout">
+
+
+<!-- NEWS LINKS -->
+<div class="news-section">
+    <div class="section-divider"><h2>Neuigkeiten</h2></div>
+
+    <div class="news-grid">
+        <div class="news-card" onclick="window.location.href='/news_fussball';">
+            <img src="./static/fussball_news.png">
+            <div class="news-content">
+                <h3>Überragender Sieg im letzten Heimspiel!</h3>
+                <p>Unsere Fußballmannschaft dominiert das Spielfeld...</p>
+            </div>
+        </div>
+
+        <div class="news-card" onclick="window.location.href='/news_handball';">
+            <img src="./static/handball_news.png">
+            <div class="news-content">
+                <h3>In letzter Sekunde zwei Punkte geholt!</h3>
+                <p>Ein packendes Spiel bis zur letzten Sekunde...</p>
+            </div>
+        </div>
+
+         <div class="news-card" onclick="window.location.href='/news_tennis';">
+            <img src="./static/tennis_news.png">
+            <div class="news-content">
+                <h3>In letzter Sekunde zwei Punkte geholt!</h3>
+                <p>Ein packendes Spiel bis zur letzten Sekunde...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ABTEILUNGEN RECHTS -->
+<div class="sports-section">
+    <div class="section-divider"><h2>Abteilungen</h2></div>
 
     <div class="sports-grid">
-
         <div class="card" onclick="window.location.href='/fussball';">
-            <img src="./static/fussball.png" alt="Fußball Icon" >
+            <img src="./static/fussball.png">
             <h3>Fußball</h3>
         </div>
 
         <div class="card" onclick="window.location.href='/handball';">
-            <img src="./static/handball.png" alt="Handball Icon" >
+            <img src="./static/handball.png">
             <h3>Handball</h3>
         </div>
 
         <div class="card" onclick="window.location.href='/tennis';">
-            <img src="./static/tennis.png" alt="Tennis Icon">
+            <img src="./static/tennis.png">
             <h3>Tennis</h3>
         </div>
-
     </div>
 
-    <!-- Divider -->
-    <div class="section-divider"><h2>Neuigkeiten aus dem Verein</h2></div>
-      
+    <section class="sponsors-section">
+  <h2>Unsere Sponsoren</h2>
+  <div class="sponsors-grid">
+    <a href="https://sponsor1.de" target="_blank" rel="noopener">
+      <img src="./static/Werbung_Lebensmittel.png" alt="Sponsor 1 Logo" />
+    </a>
+    <a href="https://sponsor2.de" target="_blank" rel="noopener">
+      <img src="./static/Werbung.png" alt="Sponsor 2 Logo" />
+    </a>
+    <a href="https://sponsor3.de" target="_blank" rel="noopener">
+      <img src="./static/Werbung_casino.png" alt="Sponsor 3 Logo" />
+    </a>
+    <!-- Weitere Sponsoren hier -->
+  </div>
+</section>
+</div>
 
-        <div class="news-grid">
 
-            <div class="news-card" onclick="window.location.href='/news_fussball';">
-                <img src="./static/fussball_news.png" alt="Fußball News">
-                <div class="news-content">
-                    <h3>Überragender Sieg im letzten Heimspiel!</h3>
-                    <p>Unsere Fußballmannschaft dominiert das Spielfeld und holt sich einen beeindruckenden Sieg vor heimischem Publikum.</p>
-                </div>
-            </div>
 
-            <div class="news-card" onclick="window.location.href='/news_handball';">
-                <img src="./static/handball_news.png" alt="Handball News" >
-                <div class="news-content">
-                    <h3>In letzter Sekunde zwei Punkte geholt!</h3>
-                    <p>Ein packendes Handballspiel endet mit einem sensationellen Treffer in der Schlusssekunde.</p>
-                </div>
-            </div>
+</div>
 
-            <div class="news-card" onclick="window.location.href='/news_tennis';">
-                <img src="./static/tennis_news.png" alt="Tennis News">
-                <div class="news-content">
-                    <h3>Außenseiter schlägt Top-Favoriten</h3>
-                    <p>Überraschung beim Tennisturnier: Unser Nachwuchstalent setzt sich gegen den Favoriten durch.</p>
-                </div>
-            </div>
-
-        </div>
- 
-
-    <!-- FOOTER -->
-    <footer>
-        <p>Turnerschaft Herzogenaurach 1861 e.V.</p>
-        <p>Sport • Gemeinschaft • Leidenschaft</p>
-        <p class="footer-small">© 2026 – Alle Rechte vorbehalten</p>
-    </footer>
+<footer>
+    <p>Turnerschaft Herzogenaurach 1861 e.V.</p>
+    <p>© 2026</p>
+</footer>
 
 </body>
 </html>
