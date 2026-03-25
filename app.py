@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import sqlite3
-from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data
+from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data, register_user
 
 DATABASE = "projekt-verein.db"
 
@@ -18,6 +18,17 @@ def login():
         return render_template("index-2.html", username=username)
     else:
         return render_template("login-2.html", error="Anmeldung fehlgeschlagen")
+    
+@app.route("/new-user", methods=["GET", "POST"])
+def new_user():
+    if request.method == "GET":
+        return render_template("registrierung.html")
+    # Hier könntest du die Logik für die Erstellung eines neuen Benutzers hinzufügen
+
+@app.post("/register")
+def register_route():
+    return register_user()
+    
 
 @app.route("/")
 def home():
@@ -47,12 +58,12 @@ def fussball():
 @app.route("/handball")
 def handball():
     data = get_handball_table_data()
-    return render_template("handball-2.html")
+    return render_template("handball-2.html", data=data)
 
 @app.route("/tennis")
 def tennis():
     data = get_tennis_table_data()
-    return render_template("tennis-2.html")
+    return render_template("tennis-2.html", data=data)
 
 
 @app.route("/pw_vergessen")
