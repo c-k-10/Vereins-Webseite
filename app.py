@@ -50,11 +50,11 @@ def index():
 
 @app.route("/news_tennis")
 def news_tennis():
-    return render_template("news_tennis.html")
+    return render_template("news_tennis-2.html")
 
 @app.route("/news_handball")
 def news_handball():
-    return render_template("news_handball.html")
+    return render_template("news_handball-2.html")
 
 @app.route("/news_fussball")
 def news_fussball():
