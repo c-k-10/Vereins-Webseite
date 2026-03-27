@@ -76,6 +76,10 @@ def news_handball():
 def news_fussball():
     return render_template("news-fussball-2.html")
 
+@app.route("/Werbung")
+def news_Werbung():
+    return render_template("Werbung.html")
+
 @app.route("/fussball")
 def fussball():
     data = get_fussball_table_data()
