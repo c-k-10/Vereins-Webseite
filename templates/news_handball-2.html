@@ -6,14 +6,19 @@
     <title>News – Turnerschaft Herzogenaurach</title>
 
     <style>
-        body {
+        html, body {
+            height: 100%;
             margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
             font-family: 'Inter', sans-serif;
             background: linear-gradient(120deg, #0a1a3d, #0f3b7a, #1a73e8, #00b4ff);
             background-size: 400% 400%;
             animation: gradientMove 12s ease infinite;
             color: white;
-            padding-bottom: 60px;
         }
 
         @keyframes gradientMove {
@@ -82,18 +87,21 @@
             border-color: rgba(0,180,255,0.7);
         }
 
-        footer {
-            margin-top: 60px;
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
+        /* FOOTER – immer unten */
+        .footer {
+            margin-top: 100px;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+
+            background: rgba(255,255,255,0.10);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.25);
+
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.3);
         }
-
-
-        footer span::after {
-  content: "\A";   /* erzeugt einen Zeilenumbruch */
-  white-space: pre;
-}
-
     </style>
 </head>
 
@@ -108,7 +116,7 @@
         <h1>In letzter Sekunde 2 Punkte geholt!</h1>
 
         <div class="meta">
-            Kategorie: Handball • 16. März 2026
+            Kategorie: Handball • 17. März 2026
         </div>
 
         <p>
@@ -126,10 +134,10 @@
 
     </div>
 
-<footer>
-    <p>Turnerschaft Herzogenaurach 1861 e.V.</p>
-    <p>© 2026</p>
-</footer>
+    <footer class="footer">
+        <div>Turnerschaft Herzogenaurach 1861 e.V.</div>
+        <div>© 2026</div>
+    </footer>
 
 </body>
 </html>
