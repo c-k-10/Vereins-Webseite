@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, redirect, request, render_template
 import sqlite3
 from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data, register_user, reset_password
 
@@ -37,6 +37,22 @@ def pwreset_route():
     if request.method == "POST":
         return reset_password()
     return render_template("passwort_vergessen.html")
+
+
+
+# @app.post("/kommentar_hinzufuegen")
+# def kommentar_hinzufuegen():
+#     spiel_id = request.form["spiel_id"]
+#     text = request.form["kommentar"]
+
+#     db.execute(
+#         "INSERT INTO kommentare (spiel_id, user, text) VALUES (?, ?, ?)",
+#         (spiel_id, "Fan", text)
+#     )
+#     db.commit()
+
+#     return redirect(request.referrer)
+    
 
     
 

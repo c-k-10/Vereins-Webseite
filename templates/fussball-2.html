@@ -8,108 +8,99 @@
 
 <style>
 
-    * {
-        box-sizing: border-box;
-    }
-    body {
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-        background: linear-gradient(120deg, #0a1a3d, #0f3b7a, #1a73e8, #00b4ff);
-        background-size: 400% 400%;
-        animation: gradientMove 12s ease infinite;
-        color: white;
-        text-align: center;
-        padding-bottom: 60px;
-        padding-top: 140px;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    @keyframes gradientMove {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(120deg, #09352b, #0c2e5d, #144e9b, #460d67);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    color: white;
+    text-align: center;
+    padding-top: 140px;
+}
 
-     header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 50;
-            background: rgba(0, 40, 80, 0.55);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 0 25px rgba(0,180,255,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 40px;
-        }
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-        .logo {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 0 25px rgba(0,180,255,0.7);
-            animation: pulse 3s infinite ease-in-out;
-        }
+/* HEADER */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    background: rgba(0, 40, 80, 0.55);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 0 25px rgba(0,180,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+}
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
-            50% { box-shadow: 0 0 35px rgba(0,180,255,1); }
-            100% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
-        }
+.logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 25px rgba(0,180,255,0.7);
+    animation: pulse 3s infinite ease-in-out;
+}
 
-        .title-box {
-            margin-left: 40px;
-            text-align: left;
-        }
+@keyframes pulse {
+    0% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
+    50% { box-shadow: 0 0 35px rgba(0,180,255,1); }
+    100% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
+}
 
-        .title-box h1 {
-            margin-left: 0;
-            font-size: 28px;
-            text-shadow: 0 0 12px rgba(255,255,255,0.6);
-        }
+.title-box {
+    margin-left: 40px;
+    text-align: left;
+}
 
-        .subtitle {
-            font-size: 14px;
-            opacity: 0.85;
-        }
+.title-box h1 {
+    margin: 0;
+    font-size: 28px;
+}
 
-        /* ---------------------------------------------------
-           NAVIGATION
-        --------------------------------------------------- */
-        nav {
-            display: flex;
-            gap: 60px;
-        }
+.subtitle {
+    font-size: 14px;
+    opacity: 0.85;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
-            position: relative;
-            padding-bottom: 4px;
-            transition: 0.3s;
-        }
+/* NAV */
+nav {
+    display: flex;
+    gap: 60px;
+}
 
-        nav a::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: #00b4ff;
-            box-shadow: 0 0 10px #00b4ff;
-            transition: 0.3s;
-        }
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+}
 
-        nav a:hover::after {
-            width: 100%;
-        }
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #00b4ff;
+    transition: 0.3s;
+}
 
-        nav a.active::after {
+nav a:hover::after,
+nav a.active::after {
     width: 100%;
 }
 
@@ -117,103 +108,122 @@ nav a.active {
     color: #00b4ff;
 }
 
-        /* ---------------------------------------------------
-           BURGER MENU (MOBILE)
-        --------------------------------------------------- */
-        .burger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
+/* CONTENT */
+.content {
+    width: 85%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
 
-        .burger div {
-            width: 28px;
-            height: 3px;
-            background: white;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
+/* TABLE */
+.table-box {
+    width: 100%;
+    margin-bottom: 40px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 25px;
+}
 
-        .mobile-nav {
-            display: none;
-            flex-direction: column;
-            background: rgba(0, 40, 80, 0.85);
-            backdrop-filter: blur(12px);
-            padding: 20px;
-            gap: 20px;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 200px;
-            border-left: 1px solid rgba(255,255,255,0.25);
-            border-bottom: 1px solid rgba(255,255,255,0.25);
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-        .mobile-nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-        }
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
 
-    /* Logo */
-    /* .logo {
-        width: 180px;
-        margin-top: 40px;
-        filter: drop-shadow(0 0 12px rgba(0,0,0,0.4));
-    } */
+th {
+    background: rgba(255,255,255,0.15);
+}
 
-    /* Headline */
-    /* .slogan {
-        margin-top: 10px;
-        font-size: 22px;
-        letter-spacing: 1px;
-        opacity: 0.9;
-    } */
+tr:hover {
+    background: rgba(255,255,255,0.1);
+}
 
-    /* Tabelle Container */
-    .table-box {
-      
-        margin: 40px auto;
-        width: 85%;
-        max-width: 900px;
-        background: rgba(255,255,255,0.12);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        padding: 25px;
-        border: 1px solid rgba(255,255,255,0.25);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    }
+/* INFO BOXEN */
+.info-row {
+    display: flex;
+    gap: 30px;
+}
 
-    h2 {
-        margin-top: 0;
-        font-size: 28px;
-        text-shadow: 0 0 12px rgba(255,255,255,0.6);
-    }
+.info-box {
+    flex: 1;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: left;
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        color: white;
-    }
+/* SPIEL-ITEM */
+.spiel-item {
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.08);
+    margin-bottom: 25px;
+    box-shadow: 0 0 12px rgba(0,180,255,0.25);
+}
 
-    th, td {
-        padding: 12px;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
+.spiel-header {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
 
-    th {
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(10px);
-        font-size: 16px;
-    }
+/* KOMMENTARE ALS BUBBLES */
+.kommentar {
+    background: rgba(255,255,255,0.12);
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin: 6px 0;
+    display: inline-block;
+    backdrop-filter: blur(6px);
+}
 
-    tr:hover {
-        background: rgba(255,255,255,0.1);
-    }
+.kommentar b {
+    color: #00b4ff;
+}
 
-    footer {
+/* FORM */
+.kommentar-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    background: rgba(255,255,255,0.08);
+    padding: 8px;
+    border-radius: 12px;
+}
+
+.kommentar-form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+.kommentar-form button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #00b4ff;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,180,255,0.7);
+}
+
+.kommentar-form button:hover {
+    box-shadow: 0 0 15px rgba(0,180,255,1);
+}
+
+/* FOOTER */
+footer {
     margin-top: 60px;
     padding: 20px;
     background: rgba(255,255,255,0.1);
@@ -224,60 +234,101 @@ nav a.active {
 
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <img src="./static/Logo_v3.png" class="logo" alt="Vereinslogo">
+<header>
+    <img src="./static/Logo_v3.png" class="logo">
 
-        <div class="title-box">
-            <h1>Turnerschaft Herzogenaurach 1861</h1>
-            <div class="subtitle">» Meine Stadt – Mein Verein «</div>
-        </div>
+    <div class="title-box">
+        <h1>Turnerschaft Herzogenaurach 1861</h1>
+        <div class="subtitle">» Meine Stadt – Mein Verein «</div>
+    </div>
 
-        <nav>
+    <nav>
         <a href="/fussball" class="active">Fußball</a>
-            <a href="/handball">Handball</a>
-            <a href="/tennis">Tennis</a>
-        </nav>
+        <a href="/handball">Handball</a>
+        <a href="/tennis">Tennis</a>
+    </nav>
+</header>
 
-        <div class="burger" onclick="toggleMenu()">
-            <div></div><div></div><div></div>
-        </div>
+<div class="content">
 
-        <div class="mobile-nav">
-            <a href="/fussball">Fußball</a>
-            <a href="/handball">Handball</a>
-            <a href="/tennis">Tennis</a>
-        </div>
-    </header>
-
-
+    <!-- TABELLE -->
     <div class="table-box">
-        <h2>Tabelle <br>Bezirksmittelliga</h2>
-<table>
-    <tr>
-        <th>Rang</th>
-        <th>Verein</th>
-        <th>Spiele</th>
-        <th>Gewonnen</th>
-        <th>Unentschieden</th>
-        <th>Verloren</th>
-        <th>Punkte</th>
-    </tr>
+        <h2>Tabelle Bezirksmittelliga</h2>
 
-    {% for row in data %}
-    <tr>
-        <td>{{ loop.index }}</td>
-        <td>{{ row['verein'] }}</td>
-        <td>{{ row['spiele'] }}</td>
-        <td>{{ row['gewonnen'] }}</td>
-        <td>{{ row['unentschieden'] }}</td>
-        <td>{{ row['verloren'] }}</td>
-        <td>{{ row['punkte'] }}</td>
-    </tr>
-    {% endfor %}
-</table>
+        <table>
+            <tr>
+                <th>Rang</th>
+                <th>Verein</th>
+                <th>Spiele</th>
+                <th>Gewonnen</th>
+                <th>Unentschieden</th>
+                <th>Verloren</th>
+                <th>Punkte</th>
+            </tr>
+
+            {% for row in data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ row['verein'] }}</td>
+                <td>{{ row['spiele'] }}</td>
+                <td>{{ row['gewonnen'] }}</td>
+                <td>{{ row['unentschieden'] }}</td>
+                <td>{{ row['verloren'] }}</td>
+                <td>{{ row['punkte'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- INFO BOXEN -->
+    <div class="info-row">
+
+        <!-- LETZTE SPIELE -->
+        <div class="info-box">
+            <h3>Letzte Spiele 🏆</h3>
+
+            <div class="spiel-item">
+                <div class="spiel-header">
+                    <strong>FC Musterstadt – SV Beispielhausen: 3:1</strong>
+                </div>
+
+                <div class="kommentare">
+                    <div class="kommentar"><b>Anna:</b> Starkes Spiel!</div>
+                    <div class="kommentar"><b>Tom:</b> Verdient gewonnen.</div>
+                </div>
+
+                <form class="kommentar-form">
+                    <input type="text" placeholder="Kommentar schreiben..." required>
+                    <button type="submit">Senden</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- NÄCHSTE SPIELE -->
+        <div class="info-box">
+            <h3>Nächste Spiele 📅</h3>
+
+            <div class="spiel-item">
+                <div class="spiel-header">
+                    <strong>FC Musterstadt – SG Zukunft (12.04.2025)</strong>
+                </div>
+
+                <div class="kommentare">
+                    <div class="kommentar"><b>Paul:</b> Das wird spannend!</div>
+                </div>
+
+                <form class="kommentar-form">
+                    <input type="text" placeholder="Kommentar schreiben..." required>
+                    <button type="submit">Senden</button>
+                </form>
+            </div>
+
+        </div>
 
     </div>
+
+</div>
 
 <footer>
     <p>Turnerschaft Herzogenaurach 1861 e.V.</p>
