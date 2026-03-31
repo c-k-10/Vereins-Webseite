@@ -87,6 +87,56 @@
             border-color: rgba(0,180,255,0.7);
         }
 
+        .content-box_werbung {
+            max-width: 1300px;
+            margin: -60px auto 0 auto;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+
+        #news_bilder{
+            display: flex;
+            justify-content: space-between;
+            gap: 35px;
+        }
+
+        #tennis_news{
+            width: 400px;
+            object-fit: cover; /* Bild füllt Container ohne Verzehrung */
+            transition: transform 0.3s ease; /* Sanfter Zoom-Effekt */
+            border-radius: 20px;
+        }
+
+        #tennis_news:hover{
+            transform: scale(1.05); /* Vergrößert das Bild um 20% */
+        }
+
+        #handball_news{
+            width: 400px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            border-radius: 20px;
+        }
+
+        #handball_news:hover{
+            transform: scale(1.05);
+        }
+
+        #Werbung{
+            width: 400px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            border-radius: 20px;
+        }
+
+        #Werbung:hover{
+            transform: scale(1.05);
+        }
+
         /* FOOTER – immer unten */
         .footer {
             margin-top: 100px;
@@ -139,7 +189,17 @@
         <a href="/index" class="back-btn">← Zurück</a>
 
     </div>
-
+    <br><br><br><br><br>
+    <div>
+    <div class="content-box_werbung">
+            <h1>Weitere Neuigkeiten</h1>
+            <div id="news_bilder">
+            <img src="/static/tennis_news.png" id="tennis_news" onclick="window.location.href='/news_tennis';">
+            <img src="/static/handball_news.png" id="handball_news" onclick="window.location.href='/news_handball';">
+            <img src="/static/Werbung.png" id="Werbung" onclick="window.location.href='/Werbung';">
+            </div>
+        </div>
+    </div>
     <footer class="footer">
         <div>Turnerschaft Herzogenaurach 1861 e.V.</div>
         <div>© 2026</div>
