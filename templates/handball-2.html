@@ -7,88 +7,258 @@
 <title>Tabelle – Turnerschaft Herzogenaurach</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-        background: linear-gradient(120deg, #0a1a3d, #0f3b7a, #1a73e8, #00b4ff);
-        background-size: 400% 400%;
-        animation: gradientMove 12s ease infinite;
-        color: white;
-        text-align: center;
-        padding-bottom: 60px;
-    }
 
-    @keyframes gradientMove {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
+* {
+    box-sizing: border-box;
+}
 
-    /* Logo */
-    .logo {
-        width: 180px;
-        margin-top: 40px;
-        filter: drop-shadow(0 0 12px rgba(0,0,0,0.4));
-    }
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(120deg, #09352b, #0c2e5d, #144e9b, #460d67);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    color: white;
+    text-align: center;
+    padding-top: 140px;
+}
 
-    /* Headline */
-    .slogan {
-        margin-top: 10px;
-        font-size: 22px;
-        letter-spacing: 1px;
-        opacity: 0.9;
-    }
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-    #handball-title {
-      font-size: 2rem;
-    font-weight: 800;
-    background: linear-gradient(90deg, #1e90ff, #00c6ff);
-    color: transparent;
-    }
+/* HEADER */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    background: rgba(0, 40, 80, 0.55);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 0 25px rgba(0,180,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+}
+
+.logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 25px rgba(0,180,255,0.7);
+    animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
+    50% { box-shadow: 0 0 35px rgba(0,180,255,1); }
+    100% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
+}
+
+.title-box {
+    margin-left: 40px;
+    text-align: left;
+}
+
+.title-box h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.subtitle {
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* NAV */
+nav {
+    display: flex;
+    gap: 60px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #00b4ff;
+    transition: 0.3s;
+}
+
+nav a:hover::after,
+nav a.active::after {
+    width: 100%;
+}
+
+nav a.active {
+    color: #00b4ff;
+}
+
+/* CONTENT */
+.content {
+    width: 85%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+/* TABLE */
+.table-box {
+    width: 100%;
+    margin-bottom: 40px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 25px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+th {
+    background: rgba(255,255,255,0.15);
+}
+
+tr:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* INFO BOXEN */
+.info-row {
+    display: flex;
+    gap: 30px;
+}
+
+.info-box {
+    flex: 1;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: left;
+}
+
+/* SPIEL-ITEM */
+.spiel-item {
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.08);
+    margin-bottom: 25px;
+    box-shadow: 0 0 12px rgba(0,180,255,0.25);
+}
+
+.spiel-header {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+/* KOMMENTARE ALS BUBBLES */
+.kommentar {
+    background: rgba(255,255,255,0.12);
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin: 6px 0;
+    display: inline-block;
+    backdrop-filter: blur(6px);
+}
+
+.kommentar b {
+    color: #00b4ff;
+}
+
+/* FORM */
+.kommentar-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    background: rgba(255,255,255,0.08);
+    padding: 8px;
+    border-radius: 12px;
+}
+
+.kommentar-form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+.kommentar-form button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #00b4ff;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,180,255,0.7);
+}
+
+.kommentar-form button:hover {
+    box-shadow: 0 0 15px rgba(0,180,255,1);
+}
+
+/* HIGHLIGHT MATCH CARDS */
+.highlight-card {
+    background: linear-gradient(135deg, rgba(0,180,255,0.25), rgba(255,255,255,0.12));
+    padding: 22px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 22px rgba(0,180,255,0.35);
+    transition: 0.25s ease;
+}
+
+.highlight-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(0,180,255,0.55);
+}
+
+.highlight-card .teams-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.highlight-card .score {
+    color: #00b4ff;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.highlight-card .details {
+    margin-top: 10px;
+    opacity: 0.85;
+    font-size: 14px;
+}
 
 
-    /* Tabelle Container */
-    .table-box {
-        margin: 40px auto;
-        width: 85%;
-        max-width: 900px;
-        background: rgba(255,255,255,0.12);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        padding: 25px;
-        border: 1px solid rgba(255,255,255,0.25);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    }
-
-    h2 {
-        margin-top: 0;
-        font-size: 28px;
-        text-shadow: 0 0 12px rgba(255,255,255,0.6);
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        color: white;
-    }
-
-    th, td {
-        padding: 12px;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    th {
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(10px);
-        font-size: 16px;
-    }
-
-    tr:hover {
-        background: rgba(255,255,255,0.1);
-    }
-
-    footer {
+/* FOOTER */
+footer {
     margin-top: 60px;
     padding: 20px;
     background: rgba(255,255,255,0.1);
@@ -99,45 +269,102 @@
 
 <body>
 
-    <img src="{{ url_for('static', filename='Logo_v3.png') }}" class="logo" alt="TSH Logo">
+<header>
+       <a href="{{ url_for('index') }}">
+    <img src="./static/Logo_v3.png" class="logo">
+</a>
 
+    <div class="title-box">
+        <h1>Turnerschaft Herzogenaurach 1861</h1>
+        <div class="subtitle">» Meine Stadt – Mein Verein «</div>
+    </div>
 
-     <div class="slogan">» Meine Stadt « &nbsp;&nbsp; » Mein Verein «</div>
-     <br>
-     <div><h2>Handball</h2></div>
+    <nav>
+        <a href="/fussball" >Fußball</a>
+        <a href="/handball" class="active">Handball</a>
+        <a href="/tennis">Tennis</a>
+    </nav>
+</header>
 
+<div class="content">
+
+    <!-- TABELLE -->
     <div class="table-box">
-        <h3>Tabelle - Oberliga</h3>
-<table>
-    <tr>
-        <th>Rang</th>
-        <th>Verein</th>
-        <th>Spiele</th>
-        <th>Gewonnen</th>
-        <th>Unentschieden</th>
-        <th>Verloren</th>
-        <th>Punkte</th>
-    </tr>
+        <h2>Tabelle Oberliga</h2>
 
-    {% for row in data %}
-    <tr>
-        <td>{{ loop.index }}</td>
-        <td>{{ row['verein'] }}</td>
-        <td>{{ row['spiele'] }}</td>
-        <td>{{ row['gewonnen'] }}</td>
-        <td>{{ row['unentschieden'] }}</td>
-        <td>{{ row['verloren'] }}</td>
-        <td>{{ row['punkte'] }}</td>
-    </tr>
-    {% endfor %}
-</table>
+        <table>
+            <tr>
+                <th>Rang</th>
+                <th>Verein</th>
+                <th>Spiele</th>
+                <th>Gewonnen</th>
+                <th>Unentschieden</th>
+                <th>Verloren</th>
+                <th>Punkte</th>
+            </tr>
+
+            {% for row in data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ row['verein'] }}</td>
+                <td>{{ row['spiele'] }}</td>
+                <td>{{ row['gewonnen'] }}</td>
+                <td>{{ row['unentschieden'] }}</td>
+                <td>{{ row['verloren'] }}</td>
+                <td>{{ row['punkte'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+<div class="info-row">
+
+    <!-- LETZTE SPIELE -->
+    <div class="info-box">
+        <h3>Letzten 5 Spiele 🏆</h3>
+
+ {% for spiel in letzte_spiele %}
+<div class="highlight-card">
+    <div class="teams-row">
+        <span>{{ spiel['heimverein'] }}</span>
+        <span class="score">{{ spiel['heim-tore'] }} : {{ spiel['gast-tore'] }}</span>
+        <span>{{ spiel['gastverein'] }}</span>
+    </div>
+    <div class="details">
+        {{ spiel['datum'] }} • {{ spiel['uhrzeit'] }}
+    </div>
+</div>
+{% endfor %}
+    </div>
+
+    <!-- NÄCHSTE SPIELE -->
+    <div class="info-box">
+        <h3>Nächsten 5 Spiele 📅</h3>
+
+   {% for spiel in naechste_spiele %}
+<div class="highlight-card">
+    <div class="teams-row">
+        <span>{{ spiel['heimverein'] }}</span>
+        <span class="score">vs</span>
+        <span>{{ spiel['gastverein'] }}</span>
+    </div>
+    <div class="details">
+        {{ spiel['datum'] }} • {{ spiel['uhrzeit'] }}
+    </div>
+</div>
+{% endfor %}
 
     </div>
 
+</div>
 
-    <footer>
+
+</div>
+
+<footer>
     <p>Turnerschaft Herzogenaurach 1861 e.V.</p>
     <p>© 2026</p>
 </footer>
+
 </body>
 </html>

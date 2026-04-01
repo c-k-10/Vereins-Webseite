@@ -4,6 +4,7 @@ from flask import request, jsonify
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__, template_folder=".")
+bcrypt = Bcrypt()
 
 def check_login(username, password):
     conn = sqlite3.connect("projekt-verein.db")
@@ -47,31 +48,6 @@ def get_tennis_table_data():
     conn.close()
     return rows
 
-
-bcrypt = Bcrypt()
-
-from flask import redirect, url_for, render_template, request
-import sqlite3
-from flask_bcrypt import Bcrypt
-
-bcrypt = Bcrypt()
-
-from flask import Flask, request, render_template, redirect, url_for
-import sqlite3
-from flask_bcrypt import Bcrypt
-
-app = Flask(__name__, template_folder=".")
-bcrypt = Bcrypt(app)
-
-
-@app.route("/registrieren", methods=["GET", "POST"])
-def register_page():
-    if request.method == "POST":
-        return register_user()
-    # Seite beim ersten Aufruf ohne Fehler anzeigen
-    return render_template("registrierung.html")
-
-
 def register_user():
     username = request.form.get("user-name")
     password = request.form.get("password")
@@ -109,9 +85,8 @@ def register_user():
     # 7. Weiterleitung nach erfolgreicher Registrierung
     return render_template("login-2.html", message="Registrierung erfolgreich!")
 
-
-
 def reset_password():
+
     username = request.form.get("user-name")
     new_password = request.form.get("password")
     new_password2 = request.form.get("password2")
@@ -147,3 +122,4 @@ def reset_password():
 
     # 7. Weiterleitung zum Login
     return render_template("login-2.html", message="Passwort erfolgreich zurückgesetzt!")
+

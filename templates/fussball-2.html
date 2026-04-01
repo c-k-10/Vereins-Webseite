@@ -222,6 +222,83 @@ tr:hover {
     box-shadow: 0 0 15px rgba(0,180,255,1);
 }
 
+/* HIGHLIGHT MATCH CARDS */
+.highlight-card {
+    background: linear-gradient(135deg, rgba(0,180,255,0.25), rgba(255,255,255,0.12));
+    padding: 22px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 22px rgba(0,180,255,0.35);
+    transition: 0.25s ease;
+}
+
+.highlight-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(0,180,255,0.55);
+}
+
+.highlight-card .teams-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.highlight-card .score {
+    color: #00b4ff;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.highlight-card .details {
+    margin-top: 10px;
+    opacity: 0.85;
+    font-size: 14px;
+}
+
+.sponsors-section {
+  max-width: 80%;
+  margin: 60px auto 80px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.sponsors-section h2 {
+  font-size: 28px;
+  color: white;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #00b4ff, #1a73e8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.sponsors-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.sponsors-grid a {
+  display: inline-block;
+  width: 250px;
+  filter: brightness(0.80);
+  transition: filter 0.3s ease;
+}
+
+.sponsors-grid a:hover {
+  filter: brightness(1);
+}
+
+.sponsors-grid img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+
 /* FOOTER */
 footer {
     margin-top: 60px;
@@ -235,7 +312,10 @@ footer {
 <body>
 
 <header>
+    <a href="{{ url_for('index') }}">
     <img src="./static/Logo_v3.png" class="logo">
+</a>
+
 
     <div class="title-box">
         <h1>Turnerschaft Herzogenaurach 1861</h1>
@@ -280,55 +360,65 @@ footer {
         </table>
     </div>
 
-    <!-- INFO BOXEN -->
-    <div class="info-row">
+<div class="info-row">
 
-        <!-- LETZTE SPIELE -->
-        <div class="info-box">
-            <h3>Letzte Spiele 🏆</h3>
+    <!-- LETZTE SPIELE -->
+    <div class="info-box">
+        <h3>Letzten 5 Spiele 🏆</h3>
 
-            <div class="spiel-item">
-                <div class="spiel-header">
-                    <strong>FC Musterstadt – SV Beispielhausen: 3:1</strong>
-                </div>
+ {% for spiel in letzte_spiele %}
+<div class="highlight-card">
+    <div class="teams-row">
+        <span>{{ spiel['heimverein'] }}</span>
+        <span class="score">{{ spiel['heim-tore'] }} : {{ spiel['gast-tore'] }}</span>
+        <span>{{ spiel['gastverein'] }}</span>
+    </div>
+    <div class="details">
+        {{ spiel['datum'] }} • {{ spiel['uhrzeit'] }}
+    </div>
+</div>
+{% endfor %}
+    </div>
 
-                <div class="kommentare">
-                    <div class="kommentar"><b>Anna:</b> Starkes Spiel!</div>
-                    <div class="kommentar"><b>Tom:</b> Verdient gewonnen.</div>
-                </div>
+    <!-- NÄCHSTE SPIELE -->
+    <div class="info-box">
+        <h3>Nächsten 5 Spiele 📅</h3>
 
-                <form class="kommentar-form">
-                    <input type="text" placeholder="Kommentar schreiben..." required>
-                    <button type="submit">Senden</button>
-                </form>
-            </div>
-
-        </div>
-
-        <!-- NÄCHSTE SPIELE -->
-        <div class="info-box">
-            <h3>Nächste Spiele 📅</h3>
-
-            <div class="spiel-item">
-                <div class="spiel-header">
-                    <strong>FC Musterstadt – SG Zukunft (12.04.2025)</strong>
-                </div>
-
-                <div class="kommentare">
-                    <div class="kommentar"><b>Paul:</b> Das wird spannend!</div>
-                </div>
-
-                <form class="kommentar-form">
-                    <input type="text" placeholder="Kommentar schreiben..." required>
-                    <button type="submit">Senden</button>
-                </form>
-            </div>
-
-        </div>
+   {% for spiel in naechste_spiele %}
+<div class="highlight-card">
+    <div class="teams-row">
+        <span>{{ spiel['heimverein'] }}</span>
+        <span class="score">vs</span>
+        <span>{{ spiel['gastverein'] }}</span>
+    </div>
+    <div class="details">
+        {{ spiel['datum'] }} • {{ spiel['uhrzeit'] }}
+    </div>
+</div>
+{% endfor %}
 
     </div>
 
 </div>
+
+
+</div>
+
+    <section class="sponsors-section">
+  <h2>Unsere Sponsoren</h2>
+  <div class="sponsors-grid">
+    <a href="https://sponsor1.de" target="_blank" rel="noopener">
+      <img src="./static/Werbung_Lebensmittel.png" alt="Sponsor 1 Logo" />
+    </a>
+    <a href="https://sponsor2.de" target="_blank" rel="noopener">
+      <img src="./static/Werbung.png" alt="Sponsor 2 Logo" />
+    </a>
+    <a href="https://sponsor3.de" target="_blank" rel="noopener">
+      <img src="./static/Werbung_casino.png" alt="Sponsor 3 Logo" />
+    </a>
+    <!-- Weitere Sponsoren hier -->
+  </div>
+</section>
 
 <footer>
     <p>Turnerschaft Herzogenaurach 1861 e.V.</p>

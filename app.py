@@ -4,6 +4,12 @@ from routes.functions import check_login, get_fussball_table_data, get_handball_
 
 DATABASE = "projekt-verein.db"
 
+
+def get_db_connection():
+    conn = sqlite3.connect("projekt-verein.db")
+    conn.row_factory = sqlite3.Row
+    return conn
+
 app = Flask(__name__, template_folder="templates")
 
 @app.route("/login2", methods=["GET", "POST"])
@@ -82,19 +88,78 @@ def news_Werbung():
 
 @app.route("/fussball")
 def fussball():
+        # Tabelle laden (so wie bei dir)
     data = get_fussball_table_data()
-    return render_template("fussball-2.html", data=data)
+
+    # Verbindung öffnen
+    conn = get_db_connection()
+
+    # LETZTE SPIELE (Datum <= heute)
+    letzte_spiele = conn.execute("""
+        SELECT heimverein, gastverein, datum, uhrzeit, "heim-tore", "gast-tore"
+        FROM fussball_spiele
+        WHERE datum <= DATE('now')
+        ORDER BY datum DESC
+        LIMIT 5;
+    """).fetchall()
+
+    # NÄCHSTE SPIELE (Datum > heute)
+    naechste_spiele = conn.execute("""
+        SELECT heimverein, gastverein, datum, uhrzeit
+        FROM fussball_spiele
+        WHERE datum > DATE('now')
+        ORDER BY datum ASC
+        LIMIT 5;
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "fussball-2.html",
+        data=data,
+        letzte_spiele=letzte_spiele,
+        naechste_spiele=naechste_spiele
+    )
 
 @app.route("/handball")
 def handball():
+           # Tabelle laden (so wie bei dir)
     data = get_handball_table_data()
-    return render_template("handball-2.html", data=data)
+
+    # Verbindung öffnen
+    conn = get_db_connection()
+
+    # LETZTE SPIELE (Datum <= heute)
+    letzte_spiele = conn.execute("""
+        SELECT heimverein, gastverein, datum, uhrzeit, "heim-tore", "gast-tore"
+        FROM handball_spiele
+        WHERE datum <= DATE('now')
+        ORDER BY datum DESC
+        LIMIT 5;
+    """).fetchall()
+
+    # NÄCHSTE SPIELE (Datum > heute)
+    naechste_spiele = conn.execute("""
+        SELECT heimverein, gastverein, datum, uhrzeit
+        FROM handball_spiele
+        WHERE datum > DATE('now')
+        ORDER BY datum ASC
+        LIMIT 5;
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "handball-2.html",
+        data=data,
+        letzte_spiele=letzte_spiele,
+        naechste_spiele=naechste_spiele
+    )
 
 @app.route("/tennis")
 def tennis():
     data = get_tennis_table_data()
     return render_template("tennis-2.html", data=data)
-
 
 @app.route("/pw_vergessen")
 def pw_vergessen():
@@ -103,6 +168,10 @@ def pw_vergessen():
 @app.route("/registrieren")
 def registrieren():
     return render_template("registrierung.html")
+
+@app.route("/joke")
+def joke():
+    return render_template("joke.html")
 
 
 
