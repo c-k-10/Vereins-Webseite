@@ -123,3 +123,4 @@ def reset_password():
     # 7. Weiterleitung zum Login
     return render_template("login-2.html", message="Passwort erfolgreich zurückgesetzt!")
 
+

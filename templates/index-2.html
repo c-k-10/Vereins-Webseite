@@ -1,612 +1,419 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="./static/Logo_v3.png" type="image/png">
-<title>Turnerschaft Herzogenaurach – Sportarten</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./static/Logo_v3.png" type="image/png">
+    <link rel="stylesheet" href="../static/header.css">
+    <link rel="stylesheet" href="../static/footer.css">
+    <title>Turnerschaft Herzogenaurach – Sportarten</title>
+</head>
 
 <style>
 
-/* GLOBAL */
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(120deg, #09352b, #0c2e5d, #144e9b, #460d67);
-    background-size: 400% 400%;
-    animation: gradientMove 12s ease infinite;
-    color: white;
-    text-align: center;
-    padding-top: 120px;
-    overflow-x: hidden;
-}
-
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* HEADER */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 50;
-    background: rgba(0, 40, 80, 0.55);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.25);
-    box-shadow: 0 0 25px rgba(0,180,255,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 30px;
-}
-
-.logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 0 25px rgba(0,180,255,0.7);
-}
-
-.title-box {
-    text-align: left;
-}
-
-.title-box h1 {
-    margin: 0;
-    font-size: 26px;
-}
-
-.subtitle {
-    font-size: 14px;
-    opacity: 0.85;
-}
-
-/* NAV */
-nav {
-    display: flex;
-    gap: 70px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    position: relative;
-}
-
-nav a::after {
-    content: "";
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: #00b4ff;
-    transition: 0.3s;
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
-.profile-pic {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 2px solid rgba(255,255,255,0.6);
-    box-shadow: 0 0 15px rgba(0,180,255,0.6);
-    transition: 0.25s ease;
-    margin-top: 5px;
-}
-
-.profile-pic:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 20px rgba(0,180,255,0.9);
-}
-
-.profil-name {
-    margin: 3px;
-}
-
-
-/* BURGER */
-.burger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-}
-
-.burger div {
-    width: 28px;
-    height: 3px;
-    background: white;
-}
-
-/* MOBILE MENU */
-.mobile-nav {
-    display: none;
-    flex-direction: column;
-    background: rgba(0, 40, 80, 0.9);
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 200px;
-    padding: 20px;
-    gap: 15px;
-}
-
-/* LAYOUT */
-.main-layout {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
-    max-width: 1300px;
-    margin: 40px auto;
-    padding: 0 20px;
-    align-items: start;
-}
-
-/* SECTIONS */
-.news-section {
-    text-align: left;
-}
-
-.sports-section {
-    text-align: center;
-}
-
-/* SECTION TITLE */
-.section-divider {
-    position: relative;
-    margin: 0 0 25px 0;
-    padding: 14px 20px;
-    border-radius: 14px;
-
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-
-    border: 1px solid rgba(255,255,255,0.2);
-
-    box-shadow: 
-        0 0 15px rgba(0,180,255,0.3),
-        inset 0 0 10px rgba(255,255,255,0.1);
-
-    overflow: hidden;
-}
-
-/* Glow-Linie Animation */
-.section-divider::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(0,180,255,0.6),
-        transparent
-    );
-
-    animation: shine 4s infinite;
-}
-
-/* Text Styling */
-.section-divider h2 {
-    margin: 0;
-    font-size: 22px;
-    letter-spacing: 1px;
-    text-align: center;
-
-    background: linear-gradient(90deg, #ffffff, #00b4ff);
-    
-/* Standard + Webkit für volle Unterstützung */
-background-clip: text;
--webkit-background-clip: text;
-
--webkit-text-fill-color: transparent;
-color: transparent; /* 🔥 wichtig als Fallback */
-
-}
-
-.news-section {
-    position: relative;
-    padding-right: 40px;
-}
-
-.news-section::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 2px;
-    height: 100%;
-
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(0,180,255,0.7),
-        transparent
-    );
-
-    box-shadow: 0 0 10px rgba(0,180,255,0.6);
-}
-
-/* Animation */
-@keyframes shine {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-/* NEWS */
-.news-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 25px;
-}
-
-.news-card {
-    background: rgba(255,255,255,0.12);
-    border-radius: 15px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.news-card:hover {
-    transform: translateY(-5px);
-}
-
-.news-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.news-content {
-    padding: 15px;
-}
-
-.news-content h3 {
-    margin: 0 0 10px 0;
-}
-
-.news-content p {
-    margin: 0;
-}
-
-/* SPORTS */
-.sports-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-}
-
-.card {
-    background: rgba(255,255,255,0.12);
-    border-radius: 15px;
-    padding: 25px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card img {
-    width: 80px;
-    margin-bottom: 10px;
-}
-
-.sponsors-section {
-  max-width: 1100px;
-  margin: 60px auto 80px auto;
-  padding: 0 20px;
-  text-align: center;
-}
-
-.sponsors-section h2 {
-  font-size: 28px;
-  color: white;
-  margin-bottom: 30px;
-  background: linear-gradient(90deg, #00b4ff, #1a73e8);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
-}
-
-.sponsors-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-
-.sponsors-grid a {
-  display: inline-block;
-  width: 150px;
-  filter: brightness(0.85);
-  transition: filter 0.3s ease;
-}
-
-.sponsors-grid a:hover {
-  filter: brightness(1);
-}
-
-.sponsors-grid img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-/* FOOTER */
-.footer {
-    margin-top: 50px;
-    padding: 25px 20px;
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(8px);
-    border-top: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 0 18px rgba(0,180,255,0.25);
-}
-
-.footer-content {
-    max-width: 1100px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    text-align: left;
-}
-
-.footer-section h3 {
-    margin-bottom: 8px;
-    font-size: 18px;
-    background: linear-gradient(90deg, #ffffff, #00b4ff);
-    background-clip: text;    
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.footer-section a {
-    display: block;
-    color: white;
-    opacity: 0.8;
-    text-decoration: none;
-    margin: 4px 0;
-    font-size: 14px;
-    transition: 0.25s ease;
-}
-
-.footer-section a:hover {
-    opacity: 1;
-    color: #00b4ff;
-}
-
-.social-links {
-    display: flex;
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.social-links img {
-    width: 26px;
-    height: 26px;
-    filter: drop-shadow(0 0 5px rgba(0,180,255,0.5));
-    transition: 0.25s ease;
-}
-
-.social-links img:hover {
-    transform: scale(1.12);
-    filter: drop-shadow(0 0 10px rgba(0,180,255,1));
-}
-
-.footer-bottom {
-    margin-top: 20px;
-    text-align: center;
-    opacity: 0.65;
-    font-size: 13px;
-}
-
-.footer-links,
-.footer-socials {
-    display: flex;
-    gap: 18px;
-}
-
-.footer-links a {
-    color: white;
-    opacity: 0.75;
-    text-decoration: none;
-    font-size: 14px;
-    transition: 0.25s ease;
-}
-
-.footer-links a:hover {
-    opacity: 1;
-    color: #00b4ff;
-}
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(120deg, #09352b, #0c2e5d, #144e9b, #460d67);
+        background-size: 400% 400%;
+        animation: gradientMove 12s ease infinite;
+        color: white;
+        text-align: center;
+        padding-top: 120px;
+        overflow-x: hidden;
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* LAYOUT */
+    .main-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+        max-width: 1300px;
+        margin: 40px auto;
+        padding: 0 20px;
+        align-items: start;
+    }
+
+    /* SECTIONS */
+    .news-section {
+        text-align: left;
+    }
+
+    .sports-section {
+        text-align: center;
+    }
+
+    /* SECTION TITLE */
+    .section-divider {
+        position: relative;
+        margin: 0 0 25px 0;
+        padding: 14px 20px;
+        border-radius: 14px;
+
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+
+        border: 1px solid rgba(255,255,255,0.2);
+
+        box-shadow: 
+            0 0 15px rgba(0,180,255,0.3),
+            inset 0 0 10px rgba(255,255,255,0.1);
+
+        overflow: hidden;
+    }
+
+    /* Glow-Linie Animation */
+    .section-divider::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(0,180,255,0.6),
+            transparent
+        );
+
+        animation: shine 4s infinite;
+    }
+
+    /* Text Styling */
+    .section-divider h2 {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: 1px;
+        text-align: center;
+        background: linear-gradient(90deg, #ffffff, #00b4ff);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent; 
+    }
+
+    .news-section {
+        position: relative;
+        padding-right: 40px;
+    }
+
+    .news-section::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            rgba(0,180,255,0.7),
+            transparent
+        );
+        box-shadow: 0 0 10px rgba(0,180,255,0.6);
+    }
+
+    /* Animation */
+    @keyframes shine {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+
+    /* NEWS */
+    .news-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .news-card {
+        background: rgba(255,255,255,0.12);
+        border-radius: 15px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .news-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .news-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .news-content {
+        padding: 15px;
+    }
+
+    .news-content h3 {
+        margin: 0 0 10px 0;
+    }
+
+    .news-content p {
+        margin: 0;
+    }
+
+    /* SPORTS */
+    .sports-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.12);
+        border-radius: 15px;
+        padding: 25px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card img {
+        width: 80px;
+        margin-bottom: 10px;
+    }
+
+    .sponsors-section {
+        max-width: 1100px;
+        margin: 60px auto 80px auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .sponsors-section h2 {
+        font-size: 28px;
+        color: white;
+        margin-bottom: 30px;
+        background: linear-gradient(90deg, #00b4ff, #1a73e8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+    }
+
+    .sponsors-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .sponsors-grid a {
+        display: inline-block;
+        width: 150px;
+        filter: brightness(0.85);
+        transition: filter 0.3s ease;
+    }
+
+    .sponsors-grid a:hover {
+        filter: brightness(1);
+    }
+
+    .sponsors-grid img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
 
 </style>
 
-<script>
-function toggleMenu() {
-    const menu = document.querySelector('.mobile-nav');
-    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-}
-</script>
-
-</head>
-
 <body>
 
-<header>
-    <img src="./static/Logo_v3.png" class="logo">
+    <header>
+        <img src="./static/Logo_v3.png" class="logo"> <!-- Logo links oben -->
 
-    <div class="title-box">
-        <h1>Turnerschaft Herzogenaurach 1861</h1>
-        <div class="subtitle">» Meine Stadt – Mein Verein «</div>
-    </div>
-
-    <nav>
-        <a href="/fussball">Fußball</a>
-        <a href="/handball">Handball</a>
-        <a href="/tennis">Tennis</a>
-    </nav>
-
-    <!--Profilbild -->
-    <div>
-        <img src="./static/pb.png" class="profile-pic" onclick="window.location.href='/profil'">
-        <p class="profil-name">{{username}}</p>
-    </div>
-  
-
-    <div class="burger" onclick="toggleMenu()">
-        <div></div><div></div><div></div>
-    </div>
-
-    <div class="mobile-nav">
-        <a href="/fussball">Fußball</a>
-        <a href="/handball">Handball</a>
-        <a href="/tennis">Tennis</a>
-    </div>
-</header>
-
-<div class="main-layout">
-
-
-<!-- NEWS LINKS -->
-<div class="news-section">
-    <div class="section-divider"><h2>Neuigkeiten</h2></div>
-
-    <div class="news-grid">
-        <div class="news-card" onclick="window.location.href='/news_fussball';">
-            <img src="./static/fussball_news.png">
-            <div class="news-content">
-                <h3>Überragender Sieg im letzten Heimspiel!</h3>
-                <p>Unsere Fußballmannschaft dominiert das Spielfeld...</p>
-            </div>
+        <div class="title-box"> <!-- Schriftzug mitte-links -->
+            <h1>Turnerschaft Herzogenaurach 1861</h1>
+            <div class="subtitle">» Meine Stadt – Mein Verein «</div>
         </div>
 
-        <div class="news-card" onclick="window.location.href='/news_handball';">
-            <img src="./static/handball_news.png">
-            <div class="news-content">
-                <h3>In letzter Sekunde zwei Punkte geholt!</h3>
-                <p>Christian Keisl wird zum Retter in Not...</p>
-            </div>
-        </div>
-
-         <div class="news-card" onclick="window.location.href='/news_tennis';">
-            <img src="./static/tennis_news.png">
-            <div class="news-content">
-                <h3>Frank Joern steht nach dem Sieg gegen Zverev im Finale</h3>
-                <p>Der Weltranglisten-94 ist nun im Endspiel...</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ABTEILUNGEN RECHTS -->
-<div class="sports-section">
-    <div class="section-divider"><h2>Abteilungen</h2></div>
-
-    <div class="sports-grid">
-        <div class="card" onclick="window.location.href='/fussball';">
-            <img src="./static/fussball.png">
-            <h3>Fußball</h3>
-        </div>
-
-        <div class="card" onclick="window.location.href='/handball';">
-            <img src="./static/handball.png">
-            <h3>Handball</h3>
-        </div>
-
-        <div class="card" onclick="window.location.href='/tennis';">
-            <img src="./static/tennis.png">
-            <h3>Tennis</h3>
-        </div>
-    </div>
-
-    <section class="sponsors-section">
-  <h2>Unsere Sponsoren</h2>
-  <div class="sponsors-grid">
-    <a href="https://sponsor1.de" target="_blank" rel="noopener">
-      <img src="./static/Werbung_Lebensmittel.png" alt="Sponsor 1 Logo" />
-    </a>
-    <a href="https://sponsor2.de" target="_blank" rel="noopener">
-      <img src="./static/Werbung.png" alt="Sponsor 2 Logo" />
-    </a>
-    <a href="https://sponsor3.de" target="_blank" rel="noopener">
-      <img src="./static/Werbung_casino.png" alt="Sponsor 3 Logo" />
-    </a>
-    <!-- Weitere Sponsoren hier -->
-  </div>
-</section>
-</div>
-
-
-
-</div>
-
-<footer class="footer">
-    <div class="footer-content">
-
-        <div class="footer-section">
-            <h3>Turnerschaft Herzogenaurach</h3>
-            <p>Seit 1861 – Meine Stadt - Mein Verein</p>
-        </div>
-
-        <div class="footer-section">
-            <h3>Navigation</h3>
-          
-             <div class="footer-links">
+        <nav> <!-- Abteilungen mitte-rechts -->
             <a href="/fussball">Fußball</a>
             <a href="/handball">Handball</a>
             <a href="/tennis">Tennis</a>
-        </div>
-           
-        </div>
+        </nav>
 
-        <div class="footer-section">
-            <h3>Folge uns</h3>
-            <div class="social-links">
-                <a href="https://www.instagram.com/sg_frankenpower?igsh=Nmp2eXZsaTYzaHR5 target="_blank">
-                    <img src="./static/instagram.png" alt="Instagram">
-                </a>
-                <a href="/joke" target="_blank">
-                    <img src="./static/facebook.png" alt="Facebook">
-                </a>
-                <a href="https://whatsapp.com/channel/0029Vb3JIr472WU0vyyCq11F" target="_blank">
-                    <img src="./static/youtube.png" alt="WhatsApp">
-                </a>
-                <a href="https://www.tiktok.com/@sg.frankenpower?_r=1&_t=ZG-94R1UEez4Xw" target="_blank">
-                    <img src="./static/tiktok.png" alt="TikTok">
-                </a>
+        <div class="profile-container"> <!-- Profilbild + Username rechts oben -->
+            <img src="./static/pb.png" class="profile-pic" onclick="toggleProfileMenu()">
+            <p class="profil-name">{{ username }}</p>
+            
+            <div class="profile-menu" id="profileMenu">
+                <a href="/profil">Profil anschauen</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+
+
+        <!-- NEWS LINKS -->
+        <div class="news-section">
+            <div class="section-divider"><h2>Neuigkeiten</h2></div>
+
+            <div class="news-grid">
+
+                <!-- News Fussball -->
+                <div class="news-card" onclick="window.location.href='/news_fussball';">
+                    <img src="./static/fussball_news.png">
+                    <div class="news-content">
+                        <h3>Überragender Sieg im letzten Heimspiel!</h3>
+                        <p>Unsere Fußballmannschaft dominiert das Spielfeld...</p>
+                    </div>
+                </div>
+
+                <!-- News Handball -->
+                <div class="news-card" onclick="window.location.href='/news_handball';">
+                    <img src="./static/handball_news.png">
+                    <div class="news-content">
+                        <h3>In letzter Sekunde zwei Punkte geholt!</h3>
+                        <p>Christian Keisl wird zum Retter in Not...
+                    </div>
+                </div>
+
+                <!-- News Tennis -->
+                <div class="news-card" onclick="window.location.href='/news_tennis';">
+                    <img src="./static/tennis_news.png">
+                    <div class="news-content">
+                        <h3>Frank Joern steht nach dem Sieg gegen Zverev im Finale</h3>
+                        <p>Der Weltranglisten-94 ist nun im Endspiel...</p>
+                    </div>
+                </div>
+
             </div>
         </div>
 
+        <!-- ABTEILUNGEN RECHTS -->
+        <div class="sports-section">
+            <div class="section-divider"><h2>Abteilungen</h2></div>
+
+            <div class="sports-grid">
+                <!-- Abteilung Fussball -->
+                <div class="card" onclick="window.location.href='/fussball';">
+                    <img src="./static/fussball.png">
+                    <h3>Fußball</h3>
+                </div>
+                <!-- Abteilung Handball -->
+                <div class="card" onclick="window.location.href='/handball';">
+                    <img src="./static/handball.png">
+                    <h3>Handball</h3>
+                </div>
+                <!-- Abteilung Tennis -->
+                <div class="card" onclick="window.location.href='/tennis';">
+                    <img src="./static/tennis.png">
+                    <h3>Tennis</h3>
+                </div>
+            </div>
+
+            <section class="sponsors-section">
+                <h2>Unsere Sponsoren</h2>
+                <div class="sponsors-grid">
+
+                    <a href="https://sponsor1.de" target="_blank" rel="noopener">
+                        <img src="./static/Werbung_Lebensmittel.png" alt="Sponsor 1 Logo" />
+                    </a>
+
+                    <a href="https://sponsor2.de" target="_blank" rel="noopener">
+                        <img src="./static/Werbung.png" alt="Sponsor 2 Logo" />
+                    </a>
+
+                    <a href="https://sponsor3.de" target="_blank" rel="noopener">
+                        <img src="./static/Werbung_casino.png" alt="Sponsor 3 Logo" />
+                    </a>
+
+                </div>
+            </section>
+        </div>
+
+
+
     </div>
-    <hr style="color: #1650a1">
 
-    <div class="footer-bottom">
-        © 2026 Turnerschaft Herzogenaurach 1861 e.V.
-    </div>
-</footer>
+    <footer class="footer">
+        <div class="footer-content">
 
+            <div class="footer-section">
+                <h3>Turnerschaft Herzogenaurach</h3>
+                <p>Seit 1861 – Meine Stadt - Mein Verein</p>
+            </div>
 
+            <div class="footer-section">
+                <h3>Navigation</h3>
+            
+                <div class="footer-links">
+                    <a href="/fussball">Fußball</a>
+                    <a href="/handball">Handball</a>
+                    <a href="/tennis">Tennis</a>
+                </div>
+            
+            </div>
 
+            <div class="footer-section">
+                <h3>Folge uns</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/sg_frankenpower?igsh=Nmp2eXZsaTYzaHR5 target="_blank">
+                        <img src="./static/instagram.png" alt="Instagram">
+                    </a>
+
+                    <a href="/joke" target="_blank">
+                        <img src="./static/facebook.png" alt="Facebook">
+                    </a>
+
+                    <a href="https://whatsapp.com/channel/0029Vb3JIr472WU0vyyCq11F" target="_blank">
+                        <img src="./static/youtube.png" alt="WhatsApp">
+                    </a>
+
+                    <a href="https://www.tiktok.com/@sg.frankenpower?_r=1&_t=ZG-94R1UEez4Xw" target="_blank">
+                        <img src="./static/tiktok.png" alt="TikTok">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <hr style="color: #1650a1">
+
+        <div class="footer-bottom">
+            © 2026 Turnerschaft Herzogenaurach 1861 e.V.
+        </div>
+
+    </footer>
 </body>
+
+<script>
+    function toggleProfileMenu() {
+        const menu = document.getElementById('profileMenu');
+        menu.classList.toggle('active');
+    }
+
+    // Menü schließen, wenn man außen klickt
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('profileMenu');
+        const profilePic = document.querySelector('.profile-pic');
+        
+        if (!event.target.closest('.profile-container')) {
+            menu.classList.remove('active');
+        }
+    });
+</script>
+
 </html>

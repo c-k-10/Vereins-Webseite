@@ -4,7 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/static/Logo_v3.png" type="image/png">
+<link rel="stylesheet" href="../static/header.css">
+<link rel="stylesheet" href="../static/footer.css">
 <title>Tabelle – Turnerschaft Herzogenaurach</title>
+
+<script>
+function toggleProfileMenu() {
+    const menu = document.getElementById('profileMenu');
+    menu.classList.toggle('active');
+}
+
+// Menü schließen, wenn man außen klickt
+document.addEventListener('click', function(event) {
+    const menu = document.getElementById('profileMenu');
+    const profilePic = document.querySelector('.profile-pic');
+    
+    if (!event.target.closest('.profile-container')) {
+        menu.classList.remove('active');
+    }
+});
+</script>
 
 <style>
 
@@ -29,84 +48,7 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* HEADER */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 50;
-    background: rgba(0, 40, 80, 0.55);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.25);
-    box-shadow: 0 0 25px rgba(0,180,255,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 40px;
-}
 
-.logo {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 0 25px rgba(0,180,255,0.7);
-    animation: pulse 3s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
-    50% { box-shadow: 0 0 35px rgba(0,180,255,1); }
-    100% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
-}
-
-.title-box {
-    margin-left: 40px;
-    text-align: left;
-}
-
-.title-box h1 {
-    margin: 0;
-    font-size: 28px;
-}
-
-.subtitle {
-    font-size: 14px;
-    opacity: 0.85;
-}
-
-/* NAV */
-nav {
-    display: flex;
-    gap: 60px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    position: relative;
-}
-
-nav a::after {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: #00b4ff;
-    transition: 0.3s;
-}
-
-nav a:hover::after,
-nav a.active::after {
-    width: 100%;
-}
-
-nav a.active {
-    color: #00b4ff;
-}
 
 /* CONTENT */
 .content {
@@ -160,74 +102,11 @@ tr:hover {
 }
 
 /* SPIEL-ITEM */
-.spiel-item {
-    padding: 15px;
-    border-radius: 15px;
-    background: rgba(255,255,255,0.08);
-    margin-bottom: 25px;
-    box-shadow: 0 0 12px rgba(0,180,255,0.25);
-}
-
-.spiel-header {
-    font-size: 17px;
-    margin-bottom: 10px;
-}
-
-/* KOMMENTARE ALS BUBBLES */
-.kommentar {
-    background: rgba(255,255,255,0.12);
-    padding: 8px 12px;
-    border-radius: 12px;
-    margin: 6px 0;
-    display: inline-block;
-    backdrop-filter: blur(6px);
-}
-
-.kommentar b {
-    color: #00b4ff;
-}
-
-/* FORM */
-.kommentar-form {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-    background: rgba(255,255,255,0.08);
-    padding: 8px;
-    border-radius: 12px;
-}
-
-.kommentar-form input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    background: rgba(255,255,255,0.15);
-    color: white;
-}
-
-.kommentar-form button {
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: none;
-    background: #00b4ff;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0,180,255,0.7);
-}
-
-.kommentar-form button:hover {
-    box-shadow: 0 0 15px rgba(0,180,255,1);
-}
-
-/* HIGHLIGHT MATCH CARDS */
 .highlight-card {
     background: linear-gradient(135deg, rgba(0,180,255,0.25), rgba(255,255,255,0.12));
     padding: 22px;
     border-radius: 18px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     box-shadow: 0 0 22px rgba(0,180,255,0.35);
     transition: 0.25s ease;
 }
@@ -256,6 +135,108 @@ tr:hover {
     font-size: 14px;
 }
 
+/* ⭐ REACTIONS LEFT + COUNTER + ANIMATION ⭐ */
+.reaction-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+    justify-content: flex-start;
+}
+
+.reaction-btn {
+    width: 46px;
+    height: 46px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 10px rgba(0,180,255,0.25);
+}
+
+.reaction-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 15px rgba(0,180,255,0.6);
+}
+
+.reaction-count {
+    font-size: 12px;
+    margin-top: 2px;
+    opacity: 0.85;
+}
+
+/* Klick-Animation */
+.reaction-btn.clicked {
+    animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.35); }
+    100% { transform: scale(1); }
+}
+
+/* ⭐ COMMENT SECTION ⭐ */
+.comment-section {
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+
+.comment-list {
+    margin-bottom: 10px;
+}
+
+.comment-bubble {
+    background: rgba(255,255,255,0.12);
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin: 6px 0;
+    display: block;          /* <-- Kommentare untereinander */
+    width: fit-content;      /* Bubble bleibt kompakt */
+    backdrop-filter: blur(6px);
+    font-size: 14px;
+}
+
+.comment-form {
+    display: flex;
+    gap: 10px;
+    background: rgba(255,255,255,0.08);
+    padding: 8px;
+    border-radius: 12px;
+}
+
+.comment-form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+.comment-form button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #00b4ff;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,180,255,0.7);
+}
+
+.comment-form button:hover {
+    box-shadow: 0 0 15px rgba(0,180,255,1);
+}
+
+/* SPONSOREN */
 .sponsors-section {
   max-width: 80%;
   margin: 60px auto 80px auto;
@@ -299,23 +280,13 @@ tr:hover {
 }
 
 
-/* FOOTER */
-footer {
-    margin-top: 60px;
-    padding: 20px;
-    background: rgba(255,255,255,0.1);
-}
-
 </style>
 </head>
 
 <body>
 
 <header>
-    <a href="{{ url_for('index') }}">
     <img src="./static/Logo_v3.png" class="logo">
-</a>
-
 
     <div class="title-box">
         <h1>Turnerschaft Herzogenaurach 1861</h1>
@@ -323,11 +294,33 @@ footer {
     </div>
 
     <nav>
-        <a href="/fussball" class="active">Fußball</a>
+        <a href="/fussball">Fußball</a>
         <a href="/handball">Handball</a>
         <a href="/tennis">Tennis</a>
     </nav>
+
+    <!--Profilbild -->
+       <div class="profile-container">
+        <img src="./static/pb.png" class="profile-pic" onclick="toggleProfileMenu()">
+        <p class="profil-name">{{ username }}</p>
+        
+        <div class="profile-menu" id="profileMenu">
+            <a href="/profil">Profil anschauen</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="burger" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+
+    <div class="mobile-nav">
+        <a href="/fussball">Fußball</a>
+        <a href="/handball">Handball</a>
+        <a href="/tennis">Tennis</a>
+    </div>
 </header>
+
 
 <div class="content">
 
@@ -366,8 +359,8 @@ footer {
     <div class="info-box">
         <h3>Letzten 5 Spiele 🏆</h3>
 
- {% for spiel in letzte_spiele %}
-<div class="highlight-card">
+        {% for spiel in letzte_spiele %}
+<div class="highlight-card" data-id="{{ spiel['id'] }}">
     <div class="teams-row">
         <span>{{ spiel['heimverein'] }}</span>
         <span class="score">{{ spiel['heim-tore'] }} : {{ spiel['gast-tore'] }}</span>
@@ -377,6 +370,37 @@ footer {
         {{ spiel['datum'] }} • {{ spiel['uhrzeit'] }}
     </div>
 </div>
+
+<div class="reaction-row">
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>👍</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('👍', 0) }}</div>
+    </div>
+
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>❤️</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('❤️', 0) }}</div>
+    </div>
+
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>🔥</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('🔥', 0) }}</div>
+    </div>
+
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>😮</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('😮', 0) }}</div>
+    </div>
+</div>
+   <!-- ⭐ Kommentarbereich ⭐ -->
+        <div class="comment-section">
+            <div class="comment-list"></div>
+
+            <div class="comment-form">
+                <input type="text" placeholder="Kommentar schreiben..." class="comment-input">
+                <button onclick="addComment(this)">Senden</button>
+            </div>
+        </div>
 {% endfor %}
     </div>
 
@@ -384,8 +408,8 @@ footer {
     <div class="info-box">
         <h3>Nächsten 5 Spiele 📅</h3>
 
-   {% for spiel in naechste_spiele %}
-<div class="highlight-card">
+        {% for spiel in naechste_spiele %}
+<div class="highlight-card" data-id="{{ spiel['id'] }}">
     <div class="teams-row">
         <span>{{ spiel['heimverein'] }}</span>
         <span class="score">vs</span>
@@ -395,16 +419,48 @@ footer {
         {{ spiel['datum'] }} • {{ spiel['uhrzeit'] }}
     </div>
 </div>
-{% endfor %}
 
+<div class="reaction-row">
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>👍</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('👍', 0) }}</div>
+    </div>
+
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>❤️</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('❤️', 0) }}</div>
+    </div>
+
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>🔥</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('🔥', 0) }}</div>
+    </div>
+
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>😮</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('😮', 0) }}</div>
+    </div>
+</div>
+   <!-- ⭐ Kommentarbereich ⭐ -->
+        <div class="comment-section">
+            <div class="comment-list"></div>
+
+            <div class="comment-form">
+                <input type="text" placeholder="Kommentar schreiben..." class="comment-input">
+                <button onclick="addComment(this)">Senden</button>
+            </div>
+        </div>
+{% endfor %}
+     
+
+     
     </div>
 
 </div>
 
-
 </div>
 
-    <section class="sponsors-section">
+<section class="sponsors-section">
   <h2>Unsere Sponsoren</h2>
   <div class="sponsors-grid">
     <a href="https://sponsor1.de" target="_blank" rel="noopener">
@@ -416,14 +472,109 @@ footer {
     <a href="https://sponsor3.de" target="_blank" rel="noopener">
       <img src="./static/Werbung_casino.png" alt="Sponsor 3 Logo" />
     </a>
-    <!-- Weitere Sponsoren hier -->
   </div>
 </section>
 
-<footer>
-    <p>Turnerschaft Herzogenaurach 1861 e.V.</p>
-    <p>© 2026</p>
+<footer class="footer">
+    <div class="footer-content">
+
+        <div class="footer-section">
+            <h3>Turnerschaft Herzogenaurach</h3>
+            <p>Seit 1861 – Meine Stadt - Mein Verein</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Navigation</h3>
+          
+             <div class="footer-links">
+            <a href="/fussball">Fußball</a>
+            <a href="/handball">Handball</a>
+            <a href="/tennis">Tennis</a>
+        </div>
+           
+        </div>
+
+        <div class="footer-section">
+            <h3>Folge uns</h3>
+            <div class="social-links">
+                <a href="https://www.instagram.com/sg_frankenpower?igsh=Nmp2eXZsaTYzaHR5 target="_blank">
+                    <img src="./static/instagram.png" alt="Instagram">
+                </a>
+                <a href="/joke" target="_blank">
+                    <img src="./static/facebook.png" alt="Facebook">
+                </a>
+                <a href="https://whatsapp.com/channel/0029Vb3JIr472WU0vyyCq11F" target="_blank">
+                    <img src="./static/youtube.png" alt="WhatsApp">
+                </a>
+                <a href="https://www.tiktok.com/@sg.frankenpower?_r=1&_t=ZG-94R1UEez4Xw" target="_blank">
+                    <img src="./static/tiktok.png" alt="TikTok">
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <hr style="color: #1650a1">
+
+    <div class="footer-bottom">
+        © 2026 Turnerschaft Herzogenaurach 1861 e.V.
+    </div>
 </footer>
 
+<!-- ⭐ JAVASCRIPT: Reaction Counter + Animation + Comments ⭐ -->
+<script>
+function addReaction(el) {
+
+    const span = el.querySelector("span");
+    if (!span) {
+        console.error("Kein Emoji gefunden");
+        return;
+    }
+
+    const reaction = span.innerText;
+
+    // Suche die Spielkarte, die VOR der Reaction-Row kommt
+    const card = el.closest(".reaction-row").previousElementSibling;
+    if (!card || !card.classList.contains("highlight-card")) {
+        console.error("Keine Spielkarte gefunden");
+        return;
+    }
+
+    const id_spiel = card.getAttribute("data-id");
+    console.log("Card HTML:", card.outerHTML);  // DEBUG
+    console.log("ID Spiel:", id_spiel);  // DEBUG
+    
+    if (!id_spiel) {
+        console.error("Keine Spiel-ID gefunden");
+        return;
+    }
+
+    fetch("/add_reaction", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            id_spiel: id_spiel,
+            reaktion: reaction,
+            user: 0
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        const row = el.parentElement;
+
+        row.querySelectorAll(".reaction-btn").forEach(btn => {
+            const emoji = btn.querySelector("span").innerText;
+            const countEl = btn.querySelector(".reaction-count");
+            countEl.innerText = data[emoji] || 0;
+        });
+
+        // Animation
+        el.classList.remove("clicked");
+        void el.offsetWidth;
+        el.classList.add("clicked");
+    })
+    .catch(err => console.error("Fehler:", err));
+}
+</script>
 </body>
 </html>
