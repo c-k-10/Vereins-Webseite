@@ -4,15 +4,15 @@ from routes.functions import check_login, get_fussball_table_data, get_handball_
 import os
 
 DATABASE = os.path.join(os.path.dirname(__file__), "projekt-verein.db")
+app = Flask(__name__, template_folder="templates")
+app.secret_key = 'dein_geheimer_schluessel'
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
 
-app = Flask(__name__, template_folder="templates")
-app.secret_key = 'dein_geheimer_schluessel'
-
+#Route für den Login
 @app.route("/login2", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -22,36 +22,38 @@ def login():
     password = request.form.get("password")
 
     if check_login(username, password):
-        session['username'] = username  # Username in Session speichern
-        return redirect("/index")  # Nach Login zur Index-Seite leiten
+        session['username'] = username  
+        return redirect("/index")  
     else:
         return render_template("login-2.html", error="Anmeldung fehlgeschlagen")
     
-
+#Route für den Logout
 @app.route("/logout")
 def logout():
     session.pop('username', None)
     return redirect("/login2")
     
+#Route für die Registrierung eines neuen Benutzers
 @app.route("/new-user", methods=["GET", "POST"])
 def new_user():
     if request.method == "GET":
         return render_template("registrierung.html")
     
-
+#Route für idk grad xD
 @app.route("/register", methods=["GET", "POST"])
 def register_route():
     if request.method == "POST":
-        return register_user()   # WICHTIG: Immer return!
-    return render_template("registrierung.html")  # GET-Aufruf
+        return register_user()   
+    return render_template("registrierung.html")  
 
-
+#Route für die Passwortzurücksetzung
 @app.route("/pwreset", methods=["GET", "POST"])
 def pwreset_route():
     if request.method == "POST":
         return reset_password()
     return render_template("passwort_vergessen.html")
 
+#Route für das Hinzufügen oder Entfernen von Reaktionen
 @app.route("/add_reaction", methods=["POST"])
 def add_reaction():
     print("Route erreicht")
@@ -98,10 +100,12 @@ def add_reaction():
         print(f"Fehler: {e}")
         return jsonify({"error": str(e)}), 500
     
+#Route für die erste seite beim Aufruf vom Localhost (Der Login wird angezeigt)
 @app.route("/")
 def home():
     return render_template("login-2.html")
 
+#Route für die Startseite
 @app.route("/index")
 def index():
     username = session.get('username')  # Username aus Session holen
