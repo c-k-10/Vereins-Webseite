@@ -171,6 +171,23 @@ def fussball():
                 reactions[row['id_spiel']] = {}
             reactions[row['id_spiel']][row['reaktion']] = row['count']
 
+# ⭐ KOMMENTARE LADEN
+    comments = {}
+    if all_spiele_ids:
+        placeholders = ','.join('?' for _ in all_spiele_ids)
+        rows = conn.execute(f"""
+            SELECT user_name, Kommentar, id_spiel
+            FROM kommentare
+            WHERE id_spiel IN ({placeholders})
+            ORDER BY id DESC
+        """, all_spiele_ids).fetchall()
+
+        for row in rows:
+            comments.setdefault(row["id_spiel"], []).append({
+                "user": row["user_name"],
+                "text": row["Kommentar"]
+            })
+
     conn.close()
 
     return render_template(
@@ -179,6 +196,7 @@ def fussball():
         letzte_spiele=letzte_spiele,
         naechste_spiele=naechste_spiele,
         reactions=reactions,
+        comments=comments,
         username=username
     )
 
@@ -234,6 +252,26 @@ def registrieren():
 @app.route("/joke")
 def joke():
     return render_template("joke.html")
+
+@app.post("/add_comment")
+def add_comment():
+    data = request.get_json()
+    spiel_id = data["spiel_id"]
+    text = data["text"]
+
+    # Username aus Session holen
+    username = session.get("username", "Unbekannt")
+
+    conn = get_db_connection()
+    conn.execute(
+        "INSERT INTO kommentare (user_name, Kommentar, id_spiel) VALUES (?, ?, ?)",
+        (username, text, spiel_id)
+    )
+    conn.commit()
+    conn.close()
+
+    return jsonify({"success": True, "user": username})
+
 
 
 

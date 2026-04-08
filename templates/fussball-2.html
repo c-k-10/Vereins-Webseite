@@ -31,7 +31,14 @@ document.addEventListener('click', function(event) {
     box-sizing: border-box;
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     margin: 0;
     font-family: 'Inter', sans-serif;
     background: linear-gradient(120deg, #09352b, #0c2e5d, #144e9b, #460d67);
@@ -42,12 +49,24 @@ body {
     padding-top: 140px;
 }
 
+.page-body {
+    flex: 1;
+}
+
+.footer {
+    width: 100%;
+}
+
 @keyframes gradientMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
+nav a.active {
+    color: #00b4ff;
+    text-decoration: underline;
+}
 
 
 /* CONTENT */
@@ -236,6 +255,17 @@ tr:hover {
     box-shadow: 0 0 15px rgba(0,180,255,1);
 }
 
+.comment{
+    background: rgba(255,255,255,0.12);
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin: 6px 0;
+    display: block;         
+    width: fit-content;     
+    backdrop-filter: blur(6px);
+    font-size: 14px;
+}
+
 /* SPONSOREN */
 .sponsors-section {
   max-width: 80%;
@@ -294,7 +324,7 @@ tr:hover {
     </div>
 
     <nav>
-        <a href="/fussball">Fußball</a>
+        <a href="/fussball" class="active">Fußball</a>
         <a href="/handball">Handball</a>
         <a href="/tennis">Tennis</a>
     </nav>
@@ -309,18 +339,10 @@ tr:hover {
             <a href="/logout">Logout</a>
         </div>
     </div>
-
-    <div class="burger" onclick="toggleMenu()">
-        <div></div><div></div><div></div>
-    </div>
-
-    <div class="mobile-nav">
-        <a href="/fussball">Fußball</a>
-        <a href="/handball">Handball</a>
-        <a href="/tennis">Tennis</a>
-    </div>
+    
 </header>
 
+<main class="page-body">
 
 <div class="content">
 
@@ -394,7 +416,13 @@ tr:hover {
 </div>
    <!-- ⭐ Kommentarbereich ⭐ -->
         <div class="comment-section">
-            <div class="comment-list"></div>
+            <div class="comment-list">
+                {% for c in comments.get(spiel['id'], []) %}
+                    <div class="comment">
+                        <strong>{{ c.user }}</strong>: {{ c.text }}
+                    </div>
+                {% endfor %}
+            </div>
 
             <div class="comment-form">
                 <input type="text" placeholder="Kommentar schreiben..." class="comment-input">
@@ -442,23 +470,28 @@ tr:hover {
     </div>
 </div>
    <!-- ⭐ Kommentarbereich ⭐ -->
-        <div class="comment-section">
-            <div class="comment-list"></div>
+<div class="comment-section">
 
-            <div class="comment-form">
-                <input type="text" placeholder="Kommentar schreiben..." class="comment-input">
-                <button onclick="addComment(this)">Senden</button>
+    <div class="comment-list">
+        {% for c in comments.get(spiel['id'], []) %}
+            <div class="comment">
+                <strong>{{ c.user }}</strong>: {{ c.text }}
             </div>
-        </div>
-{% endfor %}
-     
-
-     
+        {% endfor %}
     </div>
 
+    <div class="comment-form">
+        <input type="text" placeholder="Kommentar schreiben..." class="comment-input">
+        <button onclick="addComment(this)">Senden</button>
+    </div>
+
+</div>  <!-- comment-section sauber geschlossen -->
+{% endfor %} <!-- Schleife sauber geschlossen -->
 </div>
 
 </div>
+
+
 
 <section class="sponsors-section">
   <h2>Unsere Sponsoren</h2>
@@ -474,6 +507,7 @@ tr:hover {
     </a>
   </div>
 </section>
+</main>
 
 <footer class="footer">
     <div class="footer-content">
@@ -574,6 +608,46 @@ function addReaction(el) {
         el.classList.add("clicked");
     })
     .catch(err => console.error("Fehler:", err));
+}
+
+//kommentar hinzufügen
+function addComment(button) {
+    const commentSection = button.closest(".comment-section");
+    const input = commentSection.querySelector(".comment-input");
+    const text = input.value.trim();
+    if (!text) return;
+
+    let card = commentSection.previousElementSibling;
+    while (card && !card.classList.contains("highlight-card")) {
+        card = card.previousElementSibling;
+    }
+    if (!card) {
+        console.error("Keine Spielkarte gefunden");
+        return;
+    }
+
+    const spielId = card.dataset.id;
+    if (!spielId) {
+        console.error("Keine Spiel-ID gefunden");
+        return;
+    }
+
+    fetch("/add_comment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ spiel_id: spielId, text: text })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            const list = commentSection.querySelector(".comment-list");
+            const div = document.createElement("div");
+            div.classList.add("comment");
+            div.innerHTML = `<strong>${data.user}</strong>: ${text}`;
+            list.prepend(div);
+            input.value = "";
+        }
+    });
 }
 </script>
 </body>
