@@ -266,6 +266,29 @@ tr:hover {
     font-size: 14px;
 }
 
+.hidden-comment {
+    display: none;
+}
+
+.show-more-comments {
+    display: inline-block;
+    margin: 8px 0 0 0;
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.show-more-comments:hover {
+    background: rgba(255,255,255,0.14);
+    transform: translateY(-1px);
+}
+
 /* SPONSOREN */
 .sponsors-section {
   max-width: 80%;
@@ -417,11 +440,20 @@ tr:hover {
    <!-- ⭐ Kommentarbereich ⭐ -->
         <div class="comment-section">
             <div class="comment-list">
-                {% for c in comments.get(spiel['id'], []) %}
+                {% set spiel_comments = comments.get(spiel['id'], []) %}
+                {% for c in spiel_comments[:3] %}
                     <div class="comment">
                         <strong>{{ c.user }}</strong>: {{ c.text }}
                     </div>
                 {% endfor %}
+                {% if spiel_comments|length > 3 %}
+                    {% for c in spiel_comments[3:] %}
+                        <div class="comment hidden-comment">
+                            <strong>{{ c.user }}</strong>: {{ c.text }}
+                        </div>
+                    {% endfor %}
+                    <button type="button" class="show-more-comments">Mehr anzeigen</button>
+                {% endif %}
             </div>
 
             <div class="comment-form">
@@ -473,11 +505,20 @@ tr:hover {
 <div class="comment-section">
 
     <div class="comment-list">
-        {% for c in comments.get(spiel['id'], []) %}
+        {% set spiel_comments = comments.get(spiel['id'], []) %}
+        {% for c in spiel_comments[:3] %}
             <div class="comment">
                 <strong>{{ c.user }}</strong>: {{ c.text }}
             </div>
         {% endfor %}
+        {% if spiel_comments|length > 3 %}
+            {% for c in spiel_comments[3:] %}
+                <div class="comment hidden-comment">
+                    <strong>{{ c.user }}</strong>: {{ c.text }}
+                </div>
+            {% endfor %}
+            <button type="button" class="show-more-comments">Mehr anzeigen</button>
+        {% endif %}
     </div>
 
     <div class="comment-form">
@@ -609,6 +650,25 @@ function addReaction(el) {
     })
     .catch(err => console.error("Fehler:", err));
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".show-more-comments").forEach(button => {
+        button.addEventListener("click", function() {
+            const section = this.closest(".comment-section");
+            if (!section) return;
+
+            const hiddenComments = section.querySelectorAll(".comment.hidden-comment");
+            const expanded = this.dataset.expanded === "true";
+
+            hiddenComments.forEach(el => {
+                el.style.display = expanded ? "none" : "block";
+            });
+
+            this.textContent = expanded ? "Mehr anzeigen" : "Weniger anzeigen";
+            this.dataset.expanded = (!expanded).toString();
+        });
+    });
+});
 
 //kommentar hinzufügen
 function addComment(button) {
