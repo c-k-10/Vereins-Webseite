@@ -12,6 +12,11 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+#Route für die erste seite beim Aufruf vom Localhost (Der Login wird angezeigt)
+@app.route("/")
+def home():
+    return render_template("login-2.html")
+
 #Route für den Login
 @app.route("/login2", methods=["GET", "POST"])
 def login():
@@ -53,9 +58,14 @@ def pwreset_route():
         return reset_password()
     return render_template("passwort_vergessen.html")
 
-#Route für das Hinzufügen oder Entfernen von Reaktionen
-@app.route("/add_reaction", methods=["POST"])
-def add_reaction():
+
+
+
+#=============================== REAKTIONEN ===============================
+
+#Route für das Hinzufügen oder Entfernen von Reaktionen (Fussball)
+@app.route("/fussball_add_reaction", methods=["POST"])
+def fussball_add_reaction():
     print("Route erreicht")
     try:
         data = request.json
@@ -71,22 +81,22 @@ def add_reaction():
         c = conn.cursor()
 
         # Prüfen, ob User schon diese Reaktion für dieses Spiel hat
-        c.execute("SELECT id FROM reaktionen WHERE id_spiel = ? AND user = ? AND reaktion = ?", (id_spiel, username, reaktion))
+        c.execute("SELECT id FROM fussball_reaktionen WHERE id_spiel = ? AND user = ? AND reaktion = ?", (id_spiel, username, reaktion))
         existing = c.fetchone()
 
         if existing:
             # Entfernen (Toggle)
-            c.execute("DELETE FROM reaktionen WHERE id_spiel = ? AND user = ? AND reaktion = ?", (id_spiel, username, reaktion))
+            c.execute("DELETE FROM fussball_reaktionen WHERE id_spiel = ? AND user = ? AND reaktion = ?", (id_spiel, username, reaktion))
         else:
             # Neue Reaktion hinzufügen
-            c.execute("INSERT INTO reaktionen (id_spiel, reaktion, user) VALUES (?, ?, ?)", (id_spiel, reaktion, username))
+            c.execute("INSERT INTO fussball_reaktionen (id_spiel, reaktion, user) VALUES (?, ?, ?)", (id_spiel, reaktion, username))
 
         conn.commit()
 
         # Counts für alle Reaktionen dieses Spiels neu berechnen
         c.execute("""
             SELECT reaktion, COUNT(*) 
-            FROM reaktionen 
+            FROM fussball_reaktionen 
             WHERE id_spiel = ?
             GROUP BY reaktion
         """, (id_spiel,))
@@ -100,10 +110,107 @@ def add_reaction():
         print(f"Fehler: {e}")
         return jsonify({"error": str(e)}), 500
     
-#Route für die erste seite beim Aufruf vom Localhost (Der Login wird angezeigt)
-@app.route("/")
-def home():
-    return render_template("login-2.html")
+
+#Route für das Hinzufügen oder Entfernen von Reaktionen (Handball)
+@app.route("/handball_add_reaction", methods=["POST"])
+def handball_add_reaction():
+    print("Route erreicht")
+    try:
+        data = request.json
+        print(f"Data: {data}")
+        id_spiel = data["id_spiel"]
+        reaktion = data["reaktion"]
+        username = session.get('username')  # Username aus Session holen
+
+        if not username:
+            return jsonify({"error": "Nicht eingeloggt"}), 401  # Fehler, wenn nicht eingeloggt
+
+        conn = get_db_connection()
+        c = conn.cursor()
+
+        # Prüfen, ob User schon diese Reaktion für dieses Spiel hat
+        c.execute("SELECT id FROM handball_reaktionen WHERE id_spiel = ? AND user = ? AND reaktion = ?", (id_spiel, username, reaktion))
+        existing = c.fetchone()
+
+        if existing:
+            # Entfernen (Toggle)
+            c.execute("DELETE FROM handball_reaktionen WHERE id_spiel = ? AND user = ? AND reaktion = ?", (id_spiel, username, reaktion))
+        else:
+            # Neue Reaktion hinzufügen
+            c.execute("INSERT INTO handball_reaktionen (id_spiel, reaktion, user) VALUES (?, ?, ?)", (id_spiel, reaktion, username))
+
+        conn.commit()
+
+        # Counts für alle Reaktionen dieses Spiels neu berechnen
+        c.execute("""
+            SELECT reaktion, COUNT(*) 
+            FROM handball_reaktionen 
+            WHERE id_spiel = ?
+            GROUP BY reaktion
+        """, (id_spiel,))
+
+        result = {row[0]: row[1] for row in c.fetchall()}
+        print(f"Result: {result}")
+
+        conn.close()
+        return jsonify(result)
+    except Exception as e:
+        print(f"Fehler: {e}")
+        return jsonify({"error": str(e)}), 500
+    
+
+#Route für das Hinzufügen oder Entfernen von Reaktionen (Tennis)
+@app.route("/tennis_add_reaction", methods=["POST"])
+def tennis_add_reaction():
+    print("Route erreicht")
+    try:
+        data = request.json
+        print(f"Data: {data}")
+        id_spiel = data["id_spiel"]
+        reaktion = data["reaktion"]
+        username = session.get('username')  # Username aus Session holen
+
+        if not username:
+            return jsonify({"error": "Nicht eingeloggt"}), 401  # Fehler, wenn nicht eingeloggt
+
+        conn = get_db_connection()
+        c = conn.cursor()
+
+        # Prüfen, ob User schon diese Reaktion für dieses Spiel hat
+        c.execute("SELECT id FROM tennis_reaktionen WHERE id_spiel = ? AND user = ? AND reaktion = ?", (id_spiel, username, reaktion))
+        existing = c.fetchone()
+
+        if existing:
+            # Entfernen (Toggle)
+            c.execute("DELETE FROM tennis_reaktionen WHERE id_spiel = ? AND user = ? AND reaktion = ?", (id_spiel, username, reaktion))
+        else:
+            # Neue Reaktion hinzufügen
+            c.execute("INSERT INTO tennis_reaktionen (id_spiel, reaktion, user) VALUES (?, ?, ?)", (id_spiel, reaktion, username))
+
+        conn.commit()
+
+        # Counts für alle Reaktionen dieses Spiels neu berechnen
+        c.execute("""
+            SELECT reaktion, COUNT(*) 
+            FROM tennis_reaktionen 
+            WHERE id_spiel = ?
+            GROUP BY reaktion
+        """, (id_spiel,))
+
+        result = {row[0]: row[1] for row in c.fetchall()}
+        print(f"Result: {result}")
+
+        conn.close()
+        return jsonify(result)
+    except Exception as e:
+        print(f"Fehler: {e}")
+        return jsonify({"error": str(e)}), 500
+
+#==========================================================================
+
+
+
+
 
 #Route für die Startseite
 @app.route("/index")
@@ -203,6 +310,7 @@ def fussball():
 
 @app.route("/handball")
 def handball():
+    username = session.get('username')  # Username aus Session holen
     # Tabelle laden (so wie bei dir)
     data = get_handball_table_data()
 
@@ -227,19 +335,122 @@ def handball():
         LIMIT 5;
     """).fetchall()
 
+    # Reaction-Counts für alle Spiele laden
+    all_spiele_ids = [spiel['id'] for spiel in letzte_spiele] + [spiel['id'] for spiel in naechste_spiele]
+    reactions = {}
+    if all_spiele_ids:
+        placeholders = ','.join('?' for _ in all_spiele_ids)
+        rows = conn.execute(f"""
+            SELECT id_spiel, reaktion, COUNT(*) as count
+            FROM handball_reaktionen
+            WHERE id_spiel IN ({placeholders})
+            GROUP BY id_spiel, reaktion
+        """, all_spiele_ids).fetchall()
+        for row in rows:
+            if row['id_spiel'] not in reactions:
+                reactions[row['id_spiel']] = {}
+            reactions[row['id_spiel']][row['reaktion']] = row['count']
+
+# ⭐ KOMMENTARE LADEN
+    comments = {}
+    if all_spiele_ids:
+        placeholders = ','.join('?' for _ in all_spiele_ids)
+        rows = conn.execute(f"""
+            SELECT user_name, Kommentar, id_spiel
+            FROM handball_kommentare
+            WHERE id_spiel IN ({placeholders})
+            ORDER BY id DESC
+        """, all_spiele_ids).fetchall()
+
+        for row in rows:
+            comments.setdefault(row["id_spiel"], []).append({
+                "user": row["user_name"],
+                "text": row["Kommentar"]
+            })
+
     conn.close()
 
     return render_template(
         "handball-2.html",
         data=data,
         letzte_spiele=letzte_spiele,
-        naechste_spiele=naechste_spiele
+        naechste_spiele=naechste_spiele,
+        reactions=reactions,
+        comments=comments,
+        username=username
     )
 
 @app.route("/tennis")
 def tennis():
+    username = session.get('username')  # Username aus Session holen
+    # Tabelle laden (so wie bei dir)
     data = get_tennis_table_data()
-    return render_template("tennis-2.html", data=data)
+
+    # Verbindung öffnen
+    conn = get_db_connection()
+
+    # LETZTE SPIELE (Datum <= heute)
+    letzte_spiele = conn.execute("""
+        SELECT id, heimverein, gastverein, datum, uhrzeit, "heim-tore", "gast-tore"
+        FROM tennis_spiele
+        WHERE datum <= DATE('now')
+        ORDER BY datum DESC
+        LIMIT 5;
+    """).fetchall()
+
+    # NÄCHSTE SPIELE (Datum > heute)
+    naechste_spiele = conn.execute("""
+        SELECT id, heimverein, gastverein, datum, uhrzeit
+        FROM tennis_spiele
+        WHERE datum > DATE('now')
+        ORDER BY datum ASC
+        LIMIT 5;
+    """).fetchall()
+
+    # Reaction-Counts für alle Spiele laden
+    all_spiele_ids = [spiel['id'] for spiel in letzte_spiele] + [spiel['id'] for spiel in naechste_spiele]
+    reactions = {}
+    if all_spiele_ids:
+        placeholders = ','.join('?' for _ in all_spiele_ids)
+        rows = conn.execute(f"""
+            SELECT id_spiel, reaktion, COUNT(*) as count
+            FROM tennis_reaktionen
+            WHERE id_spiel IN ({placeholders})
+            GROUP BY id_spiel, reaktion
+        """, all_spiele_ids).fetchall()
+        for row in rows:
+            if row['id_spiel'] not in reactions:
+                reactions[row['id_spiel']] = {}
+            reactions[row['id_spiel']][row['reaktion']] = row['count']
+
+# ⭐ KOMMENTARE LADEN
+    comments = {}
+    if all_spiele_ids:
+        placeholders = ','.join('?' for _ in all_spiele_ids)
+        rows = conn.execute(f"""
+            SELECT user_name, Kommentar, id_spiel
+            FROM tennis_kommentare
+            WHERE id_spiel IN ({placeholders})
+            ORDER BY id DESC
+        """, all_spiele_ids).fetchall()
+
+        for row in rows:
+            comments.setdefault(row["id_spiel"], []).append({
+                "user": row["user_name"],
+                "text": row["Kommentar"]
+            })
+
+    conn.close()
+
+    return render_template(
+        "tennis-2.html",
+        data=data,
+        letzte_spiele=letzte_spiele,
+        naechste_spiele=naechste_spiele,
+        reactions=reactions,
+        comments=comments,
+        username=username
+    )
 
 @app.route("/pw_vergessen")
 def pw_vergessen():
@@ -253,8 +464,13 @@ def registrieren():
 def joke():
     return render_template("joke.html")
 
-@app.post("/add_comment")
-def add_comment():
+
+
+
+
+#Routen für das Hinzufügen von Kommentaren (je Sportart)
+@app.post("/fussball_add_comment")
+def fussball_add_comment():
     data = request.get_json()
     spiel_id = data["spiel_id"]
     text = data["text"]
@@ -264,7 +480,45 @@ def add_comment():
 
     conn = get_db_connection()
     conn.execute(
-        "INSERT INTO kommentare (user_name, Kommentar, id_spiel) VALUES (?, ?, ?)",
+        "INSERT INTO fussball_kommentare (user_name, Kommentar, id_spiel) VALUES (?, ?, ?)",
+        (username, text, spiel_id)
+    )
+    conn.commit()
+    conn.close()
+
+    return jsonify({"success": True, "user": username})
+
+@app.post("/handball_add_comment")
+def handball_add_comment():
+    data = request.get_json()
+    spiel_id = data["spiel_id"]
+    text = data["text"]
+
+    # Username aus Session holen
+    username = session.get("username", "Unbekannt")
+
+    conn = get_db_connection()
+    conn.execute(
+        "INSERT INTO handball_kommentare (user_name, Kommentar, id_spiel) VALUES (?, ?, ?)",
+        (username, text, spiel_id)
+    )
+    conn.commit()
+    conn.close()
+
+    return jsonify({"success": True, "user": username})
+
+@app.post("/tennis_add_comment")
+def tennis_add_comment():
+    data = request.get_json()
+    spiel_id = data["spiel_id"]
+    text = data["text"]
+
+    # Username aus Session holen
+    username = session.get("username", "Unbekannt")
+
+    conn = get_db_connection()
+    conn.execute(
+        "INSERT INTO tennis_kommentare (user_name, Kommentar, id_spiel) VALUES (?, ?, ?)",
         (username, text, spiel_id)
     )
     conn.commit()

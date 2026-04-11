@@ -1,121 +1,931 @@
 <!DOCTYPE html>
+<!-- HTML5 Dokumenttyp für modernе Browser -->
 <html lang="de">
+<!-- Deutscher Sprachkontext für SEO und Barrierefreiheit -->
 <head>
+<!-- Zeichencodierung: UTF-8 für internationale Zeichen -->
 <meta charset="UTF-8">
+<!-- Viewport-Einstellung für responsives Design auf Mobilgeräten -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Favicon: Logo in Browser-Tab anzeigen -->
 <link rel="icon" href="/static/Logo_v3.png" type="image/png">
+<!-- Externe CSS-Dateien für Header und Footer -->
+<link rel="stylesheet" href="../static/header.css">
+<link rel="stylesheet" href="../static/footer.css">
+<!-- Seiten-Titel in Browser-Tab -->
 <title>Tabelle – Turnerschaft Herzogenaurach</title>
 
+<!-- ⭐ JAVASCRIPT: Profil-Dropdown-Menü ⭐ -->
+<script>
+// Menü anzeigen/verstecken via Toggle-Klasse
+function toggleProfileMenu() {
+    const menu = document.getElementById('profileMenu');
+    menu.classList.toggle('active'); // Wechselt Klasse für Show/Hide
+}
+
+// Menü schließen, wenn man außerhalb des Profil-Bereichs klickt
+// Verhindert, dass Menü offen bleibt wenn man woanders klickt
+document.addEventListener('click', function(event) {
+    const menu = document.getElementById('profileMenu');
+    const profilePic = document.querySelector('.profile-pic');
+    
+    // .closest() prüft, ob das geklickte Element oder ein Parent die Klasse hat
+    if (!event.target.closest('.profile-container')) {
+        menu.classList.remove('active'); // Menü verstecken
+    }
+});
+</script>
+
 <style>
-    body {
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-        background: linear-gradient(120deg, #0a1a3d, #0f3b7a, #1a73e8, #00b4ff);
-        background-size: 400% 400%;
-        animation: gradientMove 12s ease infinite;
-        color: white;
-        text-align: center;
-        padding-bottom: 60px;
-    }
 
-    @keyframes gradientMove {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
+/* ⭐ GLOBALE STYLES ⭐ */
+/* box-sizing: border-box bedeutet, dass Padding & Border in Größe eingerechnet werden */
+* {
+    box-sizing: border-box;
+}
 
-    /* Logo */
-    .logo {
-        width: 180px;
-        margin-top: 40px;
-        filter: drop-shadow(0 0 12px rgba(0,0,0,0.4));
-    }
+/* HTML: Mindesthöhe für Footer-Positioning */
+html {
+    min-height: 100%;
+}
 
-    /* Headline */
-    .slogan {
-        margin-top: 10px;
-        font-size: 22px;
-        letter-spacing: 1px;
-        opacity: 0.9;
-    }
+/* BODY: Hauptcontainer mit animiertem Hintergrund-Gradient */
+body {
+    min-height: 100vh; /* 100% der Viewport-Höhe */
+    display: flex;
+    flex-direction: column; /* Inhalt vertikal stapeln */
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* Moderne, lesbare Schrift */
+    /* Farbverlauf: Dunkelgrün → Blau → Lila (von oben nach unten = 120°) */
+    background: linear-gradient(120deg, #09352b, #0c2e5d, #144e9b, #460d67);
+    background-size: 400% 400%; /* Größer als Container für Animationseffekt */
+    animation: gradientMove 12s ease infinite; /* Gradient fließt kontinuierlich */
+    color: white; /* Standard-Textfarbe: Weiß */
+    text-align: center; /* Text zentriert */
+    padding-top: 140px; /* Platz für festen Header */
+}
 
-    /* Tabelle Container */
-    .table-box {
-        margin: 40px auto;
-        width: 85%;
-        max-width: 900px;
-        background: rgba(255,255,255,0.12);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        padding: 25px;
-        border: 1px solid rgba(255,255,255,0.25);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    }
+/* LAYOUT FLEXBOX: Flex 1 bedeutet, dass der Inhalt den verfügbaren Platz ausfüllt */
+.page-body {
+    flex: 1; /* Wächst, um den Platz zwischen Header und Footer zu füllen */
+}
 
-    h2 {
-        margin-top: 0;
-        font-size: 28px;
-        text-shadow: 0 0 12px rgba(255,255,255,0.6);
-    }
+/* FOOTER: Volle Breite */
+.footer {
+    width: 100%; /* Spannt sich über volle Breite aus */
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        color: white;
-    }
+/* ⭐ ANIMATION: Gradient fließt von links nach rechts ⭐ */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }    /* Start: Links */
+    50% { background-position: 100% 50%; }  /* Mitte: Rechts */
+    100% { background-position: 0% 50%; }   /* Ende: Zurück nach Links */
+}
 
-    th, td {
-        padding: 12px;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
+/* ⭐ NAVIGATION: Aktive Seite hervorheben ⭐ */
+nav a.active {
+    color: #00b4ff; /* Leuchtend Blau */
+    text-decoration: underline; /* Unterstrichen */
+}
 
-    th {
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(10px);
-        font-size: 16px;
-    }
 
-    tr:hover {
-        background: rgba(255,255,255,0.1);
-    }
+/* ⭐ LAYOUT: Haupt-Container mit max. Breite ⭐ */
+/* CONTENT */.content {
+    width: 85%; /* Fast volle Breite mit Rändern */
+    max-width: 1100px; /* Maximale Breite auf großen Bildschirmen */
+    margin: 40px auto; /* Zentriert mit vertikalem Abstand */
+}
+
+/* ⭐ TABELLE: Liga-Tabelle mit Glasmorphismus ⭐ */
+/* TABLE */
+.table-box {
+    width: 100%;
+    margin-bottom: 40px;
+    background: rgba(255,255,255,0.12); /* Semi-transparent Weiß */
+    backdrop-filter: blur(15px); /* Blur-Effekt hinter Elementen (Frosted Glass) */
+    border-radius: 20px; /* Abgerundete Ecken */
+    padding: 25px; /* Innerer Abstand */
+}
+
+/* TABELLEN-STRUKTUR */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Keine doppelten Rahmen */
+    margin-top: 20px;
+}
+
+/* Tabellen-Kopf & Zellen */
+th, td {
+    padding: 12px; /* Innerer Abstand */
+    border-bottom: 1px solid rgba(255,255,255,0.2); /* Subtile Linien */
+}
+
+/* TABELLEN-KOPF: Leicht hervorgehoben */
+th {
+    background: rgba(255,255,255,0.15); /* Etwas dunkler als Zellen */
+}
+
+/* ZEILEN-EFFEKT: Hover-Animation */
+tr:hover {
+    background: rgba(255,255,255,0.1); /* Highlights bei Mouseover */
+}
+
+/* ⭐ INFO-BOXEN: Container für Spiele ⭐ */
+/* INFO BOXEN */
+.info-row {
+    display: flex; /* Nebeneinander */
+    gap: 30px; /* Abstand zwischen Spalten */
+}
+
+/* Einzelne Info-Box (Letzte/Nächste Spiele) */
+.info-box {
+    flex: 1; /* Nimmt gleich viel Platz wie die andere Box */
+    background: rgba(255,255,255,0.12); /* Glasmorphismus */
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: left; /* Text linksausgerichtet im Gegensatz zu Seite */
+}
+
+/* ⭐ SPIEL-KARTE: Einzelnes Spiel mit Highlight ⭐ */
+/* SPIEL-ITEM */
+.highlight-card {
+    /* Gradient von Blau nach transparent Weiß */
+    background: linear-gradient(135deg, rgba(0,180,255,0.25), rgba(255,255,255,0.12));
+    padding: 22px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 22px rgba(0,180,255,0.35); /* Blaues Glow */
+    transition: 0.25s ease; /* Animationsdauer für Hover */
+}
+
+/* HOVER-EFFEKT: Karte hebt sich ab */
+.highlight-card:hover {
+    transform: translateY(-4px); /* Leicht nach oben bewegen */
+    box-shadow: 0 0 30px rgba(0,180,255,0.55); /* Glow intensiver */
+}
+
+/* TEAMS-ZEILE: Heim vs. Gast */
+.highlight-card .teams-row {
+    display: flex; /* Nebeneinander */
+    justify-content: space-between; /* Heim links, Gast rechts, Score in der Mitte */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* TORE-ZAHL: Zentrales Spielergebnis */
+.highlight-card .score {
+    color: #00b4ff; /* Leuchtend Blau */
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* DETAILS: Datum & Uhrzeit unter den Teams */
+.highlight-card .details {
+    margin-top: 10px;
+    opacity: 0.85; /* Etwas matter für Abstand */
+    font-size: 14px;
+}
+
+/* ⭐ EMOJI-REACTIONS: Like, Herz, Feuer, überrascht ⭐ */
+.reaction-row {
+    display: flex; /* Nebeneinander */
+    gap: 12px; /* Abstand zwischen Buttons */
+    margin-top: 12px;
+    margin-bottom: 10px;
+    justify-content: flex-start; /* Links ausgerichtet */
+}
+
+/* REACT-BUTTON: Zirkulär mit Emoji */
+.reaction-btn {
+    width: 46px;
+    height: 46px;
+    background: rgba(255,255,255,0.15); /* Semi-transparent */
+    border-radius: 50%; /* Kreis */
+    display: flex;
+    flex-direction: column; /* Emoji über Zahl */
+    align-items: center; /* Zentriert */
+    justify-content: center;
+    font-size: 22px; /* Emoji-Größe */
+    cursor: pointer;
+    transition: 0.25s ease; /* Smooth Animation */
+    backdrop-filter: blur(6px); /* Frosted Glass */
+    box-shadow: 0 0 10px rgba(0,180,255,0.25); /* Subtiles Glow */
+}
+
+/* HOVER: Button wächst & glowt stärker */
+.reaction-btn:hover {
+    transform: scale(1.15); /* 15% größer */
+    box-shadow: 0 0 15px rgba(0,180,255,0.6); /* Intensiveres Glow */
+}
+
+/* COUNTER: Anzahl der Reaktionen (unter Emoji) */
+.reaction-count {
+    font-size: 12px; /* Klein */
+    margin-top: 2px;
+    opacity: 0.85; /* Etwas matter */
+}
+
+/* ⭐ POP-ANIMATION: Wenn auf Button geklickt wird ⭐ */
+/* Klick-Animation */
+.reaction-btn.clicked {
+    animation: pop 0.25s ease; /* Kurze Pop-Animation */
+}
+
+/* Pop-Effekt: Button bläht sich auf und kontrahiert wieder */
+@keyframes pop {
+    0% { transform: scale(1); }      /* Start: Normal */
+    50% { transform: scale(1.35); }  /* Mitte: 35% größer */
+    100% { transform: scale(1); }    /* Ende: Zurück normal */
+}
+
+/* ⭐ KOMMENTAR-BEREICH: Kommentare anzeigen & schreiben ⭐ */
+/* COMMENT SECTION */
+.comment-section {
+    margin-top: 5px; /* Abstand nach Reactions */
+    margin-bottom: 25px; /* Abstand nach Kommentarbereich */
+}
+
+/* Liste aller Kommentare */
+.comment-list {
+    margin-bottom: 10px; /* Abstand vor Eingabe-Form */
+}
+
+/* (Alt) COMMENT-BUBBLE: Alte Klasse, wird nicht mehr verwendet */
+.comment-bubble {
+    background: rgba(255,255,255,0.12);
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin: 6px 0;
+    display: block;          /* Kommentare untereinander */
+    width: fit-content;      /* Bubble bleibt kompakt */
+    backdrop-filter: blur(6px);
+    font-size: 14px;
+}
+
+/* KOMMENTAR-FORM: Input + Senden-Button */
+.comment-form {
+    display: flex; /* Nebeneinander */
+    gap: 10px; /* Abstand zwischen Input und Button */
+    background: rgba(255,255,255,0.08);
+    padding: 8px;
+    border-radius: 12px;
+}
+
+/* INPUT-FELD: Kommentar schreiben */
+.comment-form input {
+    flex: 1; /* Nimmt verfügbaren Platz */
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    outline: none; /* Kein Browser-Rahmen beim Focus */
+    background: rgba(255,255,255,0.15);
+    color: white; /* Text Weiß */
+}
+
+/* SENDEN-BUTTON: Kommentar abschicken */
+.comment-form button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #00b4ff; /* Leuchtend Blau */
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,180,255,0.7); /* Blaues Glow */
+}
+
+/* Button Hover: Glow intensiver */
+.comment-form button:hover {
+    box-shadow: 0 0 15px rgba(0,180,255,1); /* Helleres Glow */
+}
+
+/* ⭐ KOMMENTAR-BUBBLE: Einzelner Kommentar ⭐ */
+.comment{
+    background: rgba(255,255,255,0.12); /* Semi-transparent */
+    padding: 8px 12px; /* Innerer Abstand */
+    border-radius: 12px; /* Abgerundete Ecken */
+    margin: 6px 0; /* Abstand zwischen Kommentaren */
+    display: block; /* Untereinander */
+    width: fit-content; /* Anpassung an Inhalt */
+    backdrop-filter: blur(6px); /* Frosted Glass */
+    font-size: 14px;
+}
+
+/* ⭐ VERSTECKTE KOMMENTARE: Collapse Funktion ⭐ */
+/* Versteckte Kommentare (ab Kommentar 4+) */
+.hidden-comment {
+    display: none; /* Standardmäßig versteckt */
+}
+
+/* ⭐ MEHR-ANZEIGEN-BUTTON: Collapse/Expand ⭐ */
+/* Mehr anzeigen Button */
+.show-more-comments {
+    display: inline-block;
+    margin: 8px 0 0 0; /* Abstand über Button */
+    padding: 6px 12px; /* Kompaktere Größe */
+    border: 1px solid rgba(255,255,255,0.25); /* Subtiler Rahmen */
+    border-radius: 999px; /* Pill-Form (komplett abgerundet) */
+    background: rgba(255,255,255,0.08); /* Sehr transparent */
+    color: rgba(255,255,255,0.85); /* Etwas matter */
+    cursor: pointer;
+    font-size: 12px; /* Klein & unauffällig */
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+/* Button Hover: Leichte Hervorhebung & Bewegung */
+.show-more-comments:hover {
+    background: rgba(255,255,255,0.14); /* Etwas heller */
+    transform: translateY(-1px); /* Ganz leicht nach oben */
+}
+
+/* ⭐ SPONSOREN-BEREICH: Bottom Section mit Logo-Grid ⭐ */
+/* SPONSOREN */
+.sponsors-section {
+  max-width: 80%; /* Nicht volle Breite */
+  margin: 60px auto 80px auto; /* Zentriert mit vertikalem Abstand */
+  padding: 0 20px; /* Horizontale Polsterung */
+  text-align: center;
+}
+
+/* SPONSORS ÜBERSCHRIFT: Blaues Gradient */
+.sponsors-section h2 {
+  font-size: 28px;
+  color: white;
+  margin-bottom: 30px;
+  /* Text mit Gradient färben */
+  background: linear-gradient(90deg, #00b4ff, #1a73e8); /* Blau zu Dunkelblau */
+  -webkit-background-clip: text; /* Für Safari */
+  background-clip: text; /* Für Chrome/Firefox */
+  -webkit-text-fill-color: transparent; /* Text transparent, nur Gradient sichtbar */
+  font-weight: 700;
+}
+
+/* SPONSORS-GRID: Flex Layout für Logos */
+.sponsors-grid {
+  display: flex;
+  flex-wrap: wrap; /* Umbruch auf kleineren Bildschirmen */
+  justify-content: center; /* Zentriert */
+  gap: 40px; /* Abstand zwischen Logos */
+}
+
+/* SPONSORS-LINK: Einzelnes Sponsor-Logo */
+.sponsors-grid a {
+  display: inline-block;
+  width: 250px;
+  filter: brightness(0.80); /* Etwas dunkler standardmäßig */
+  transition: filter 0.3s ease; /* Smooth Hover */
+}
+
+/* Hover: Logo heller bei Mouseover */
+.sponsors-grid a:hover {
+  filter: brightness(1); /* Volle Helligkeit */
+}
+
+/* SPONSOR-BILD: Responsive */
+.sponsors-grid img {
+  max-width: 100%; /* Keine Überschreitung */
+  height: auto; /* Aspect Ratio beibehalten */
+  object-fit: contain; /* Passt in Container ohne zu verzerren */
+}
+
 
 </style>
 </head>
 
+<!-- ⭐ HTML BODY: Hauptinhalt der Seite ⭐ -->
 <body>
 
-    <img src="{{ url_for('static', filename='Logo_v3.png') }}" class="logo" alt="TSH Logo">
+<!-- HEADER: Navigation & Branding (CSS in header.css) -->
+<header>
+    <!-- LOGO: Vereins-Logo in linker oberer Ecke -->
+    <img src="./static/Logo_v3.png" class="logo">
 
-    <div class="slogan">» Meine Stadt « &nbsp;&nbsp; » Mein Verein «</div>
-
-    <div class="table-box">
-        <h2>Tabelle <br>Wimbledon</h2>
-<table>
-    <tr>
-        <th>Rang</th>
-        <th>Verein</th>
-        <th>Spiele</th>
-        <th>Gewonnen</th>
-        <th>Unentschieden</th>
-        <th>Verloren</th>
-        <th>Punkte</th>
-    </tr>
-
-    {% for row in data %}
-    <tr>
-        <td>{{ loop.index }}</td>
-        <td>{{ row['verein'] }}</td>
-        <td>{{ row['spiele'] }}</td>
-        <td>{{ row['gewonnen'] }}</td>
-        <td>{{ row['unentschieden'] }}</td>
-        <td>{{ row['verloren'] }}</td>
-        <td>{{ row['punkte'] }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
+    <!-- TITLE-BOX: Zentrale Überschrift -->
+    <div class="title-box">
+        <h1>Turnerschaft Herzogenaurach 1861</h1> <!-- Haupttitel -->
+        <div class="subtitle">» Meine Stadt – Mein Verein «</div> <!-- Untertitel/Motto -->
     </div>
 
+    <!-- NAVIGATION: Links zu Sportarten -->
+    <nav>
+        <a href="/fussball" >Fußball</a>    <!-- Aktuelle Seite (Fußball) -->
+        <a href="/handball">Handball</a>        <!-- Link zu Handball -->
+        <a href="/tennis" class="active">Tennis</a>  <!-- Link zu Tennis -->
+    </nav>
+
+    <!-- ⭐ PROFIL-DROPDOWN: Benutzer-Menü ⭐ -->
+    <!-- Profilbild mit Dropdown-Menü -->
+    <div class="profile-container">
+        <!-- Profilbild: Klickbar um Menü zu öffnen -->
+        <img src="./static/pb.png" class="profile-pic" onclick="toggleProfileMenu()">
+        <!-- Benutzername: Dynamisch vom Server ({{ username }}) -->
+        <p class="profil-name">{{ username }}</p>
+        
+        <!-- Dropdown-Menü: Profil & Logout (versteckt, toggle via JavaScript) -->
+        <div class="profile-menu" id="profileMenu">
+            <a href="/profil">Profil anschauen</a> <!-- Zu Profil-Seite -->
+            <a href="/logout">Logout</a>            <!-- Abmelden -->
+        </div>
+    </div>
+    
+</header>
+
+<!-- MAIN: Hauptinhalts-Container -->
+<main class="page-body">
+
+<!-- CONTENT WRAPPER: Layout-Container mit max. Breite -->
+<div class="content">
+
+    <!-- ⭐ LIGA-TABELLE: Bezirksmittelliga Standings ⭐ -->
+    <!-- TABELLE -->
+    <div class="table-box">
+        <h2>Tabelle Bezirksmittelliga</h2> <!-- Tabellen-Titel -->
+
+        <!-- TABLE: Liga-Ergebnisse -->
+        <table>
+            <!-- TABLE-HEADER: Spalten-Überschriften -->
+            <tr>
+                <th>Rang</th>              <!-- Position in Liga -->
+                <th>Verein</th>           <!-- Team-Name -->
+                <th>Spiele</th>          <!-- Gespielte Spiele -->
+                <th>Gewonnen</th>        <!-- Siege -->
+                <th>Unentschieden</th>   <!-- Remis -->
+                <th>Verloren</th>        <!-- Niederlagen -->
+                <th>Punkte</th>          <!-- Gesamtpunkte -->
+            </tr>
+
+            <!-- TABLE-BODY: Datenzeilen (via Jinja2 aus Backend) -->
+            {% for row in data %}
+            <tr>
+                <td>{{ loop.index }}</td>              <!-- Rang (automatisch 1, 2, 3...) -->
+                <td>{{ row['verein'] }}</td>           <!-- Team -->
+                <td>{{ row['spiele'] }}</td>           <!-- Spiele -->
+                <td>{{ row['gewonnen'] }}</td>         <!-- W -->
+                <td>{{ row['unentschieden'] }}</td>    <!-- D -->
+                <td>{{ row['verloren'] }}</td>         <!-- L -->
+                <td>{{ row['punkte'] }}</td>           <!-- Pts -->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+<!-- ⭐ SPIELBEREICH: Letzte & Nächste Spiele ⭐ -->
+<!-- INFO ROW: 2-spaltig Layout -->
+<div class="info-row">
+
+    <!-- ⭐ LETZTE 5 SPIELE: Vergangene Ergebnisse ⭐ -->
+    <!-- LETZTE SPIELE -->
+    <div class="info-box">
+        <h3>Letzten 5 Spiele 🏆</h3> <!-- Box-Titel mit Trophy Emoji -->
+
+        <!-- SPIELE-LOOP: Jinja2 Schleife über letzte 5 Spiele -->
+        {% for spiel in letzte_spiele %}
+<!-- SPIEL-CARD: Einzelnes Spiel mit Highlight-Design -->
+<div class="highlight-card" data-id="{{ spiel['id'] }}"> <!-- data-id: Eindeutige Spiel-ID für JS -->
+    <!-- TEAMS-ZEILE: Heim vs. Gast mit Toren -->
+    <div class="teams-row">
+        <span>{{ spiel['heimverein'] }}</span>                     <!-- Heim-Team -->
+        <span class="score">{{ spiel['heim-tore'] }} : {{ spiel['gast-tore'] }}</span> <!-- Ergebnis (formatiert mit Doppelpunkt) -->
+        <span>{{ spiel['gastverein'] }}</span>                     <!-- Auswärts-Team -->
+    </div>
+    <!-- DETAILS: Datum und Uhrzeit -->
+    <div class="details">
+        {{ spiel['datum'] }} • {{ spiel['uhrzeit'] }} <!-- Formatiert als "01.01.2026 • 20:30" -->
+    </div>
+</div>
+
+<div class="reaction-row">
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>👍</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('👍', 0) }}</div>
+    </div>
+
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>❤️</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('❤️', 0) }}</div>
+    </div>
+
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>🔥</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('🔥', 0) }}</div>
+    </div>
+
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>😮</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('😮', 0) }}</div>
+    </div>
+</div>
+<!-- ⭐ KOMMENTARBEREICH: Anzeige & Eingabe ⭐ -->
+   <!-- Kommentarbereich für Spiel -->
+        <div class="comment-section">
+            <!-- KOMMENTAR-LISTE: Alle Kommentare zu diesem Spiel -->
+            <div class="comment-list">
+                <!-- Jinja2: Kommentare für dieses Spiel laden (oder [] wenn leer) -->
+                {% set spiel_comments = comments.get(spiel['id'], []) %}
+                
+                <!-- ERSTE 3 KOMMENTARE: Immer sichtbar -->
+                {% for c in spiel_comments[:3] %}
+                    <div class="comment">
+                        <!-- Username (bold) + Kommentar-Text -->
+                        <strong>{{ c.user }}</strong>: {{ c.text }}
+                    </div>
+                {% endfor %}
+                
+                <!-- ZUSÄTZLICHE KOMMENTARE: Versteckt mit "Mehr anzeigen"-Button -->
+                {% if spiel_comments|length > 3 %}
+                    <!-- Kommentare 4+: Mit Klasse hidden-comment versteckt -->
+                    {% for c in spiel_comments[3:] %}
+                        <div class="comment hidden-comment">
+                            <strong>{{ c.user }}</strong>: {{ c.text }}
+                        </div>
+                    {% endfor %}
+                    <!-- "MEHR ANZEIGEN"-BUTTON: Toggle versteckte Kommentare via JavaScript -->
+                    <button type="button" class="show-more-comments">Mehr anzeigen</button>
+                {% endif %}
+            </div>
+
+            <!-- ⭐ KOMMENTAR-EINGABE: Form um Kommentar zu schreiben ⭐ -->
+            <!-- Kommentar-Form: Input + Button -->
+            <div class="comment-form">
+                <!-- INPUT-FELD: Text eingeben -->
+                <input type="text" placeholder="Kommentar schreiben..." class="comment-input">
+                <!-- SENDEN-BUTTON: Kommentar via addComment() absenden -->
+                <button onclick="addComment(this)">Senden</button>
+            </div>
+        </div>
+<!-- Ende der Schleife (letzte_spiele) -->
+{% endfor %}
+    </div>
+
+    <!-- ⭐ NÄCHSTE 5 SPIELE: Zukünftige Spieltermine ⭐ -->
+    <!-- NÄCHSTE SPIELE -->
+    <div class="info-box">
+        <h3>Nächsten 5 Spiele 📅</h3> <!-- Box-Titel mit Kalender Emoji -->
+
+        <!-- SPIELE-LOOP: Jinja2 Schleife über nächste 5 Spiele -->
+        {% for spiel in naechste_spiele %}
+<!-- SPIEL-CARD: Einzelnes zukünftiges Spiel -->
+<div class="highlight-card" data-id="{{ spiel['id'] }}"> <!-- data-id: Eindeutige Spiel-ID -->
+    <!-- TEAMS-ZEILE: Heim vs. Gast (kein Ergebnis, da noch nicht gespielt) -->
+    <div class="teams-row">
+        <span>{{ spiel['heimverein'] }}</span>     <!-- Heim-Team -->
+        <span class="score">vs</span>             <!-- "vs" statt Ergebnis -->
+        <span>{{ spiel['gastverein'] }}</span>     <!-- Auswärts-Team -->
+    </div>
+    <!-- DETAILS: Termin & Uhrzeit des Spiels -->
+    <div class="details">
+        {{ spiel['datum'] }} • {{ spiel['uhrzeit'] }} <!-- z.B. "15.01.2026 • 19:30" -->
+    </div>
+</div>
+
+<!-- ⭐ REACTION-ROW: Emoji-Buttons & Counter ⭐ -->
+<div class="reaction-row">
+    <!-- LIKE-BUTTON: Daumen hoch -->
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>👍</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('👍', 0) }}</div>
+    </div>
+
+    <!-- LOVE-BUTTON: Herz -->
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>❤️</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('❤️', 0) }}</div>
+    </div>
+
+    <!-- FIRE-BUTTON: Feuer / Sehr gut -->
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>🔥</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('🔥', 0) }}</div>
+    </div>
+
+    <!-- SURPRISED-BUTTON: Überrascht -->
+    <div class="reaction-btn" onclick="addReaction(this)">
+        <span>😮</span>
+        <div class="reaction-count">{{ reactions.get(spiel['id'], {}).get('😮', 0) }}</div>
+    </div>
+</div>
+
+<!-- ⭐ KOMMENTARBEREICH: Anzeige & Eingabe ⭐ -->
+<div class="comment-section">
+
+    <!-- KOMMENTAR-LISTE: Alle Kommentare zu diesem Spiel -->
+    <div class="comment-list">
+        <!-- Jinja2: Kommentare für dieses Spiel laden -->
+        {% set spiel_comments = comments.get(spiel['id'], []) %}
+        
+        <!-- ERSTE 3 KOMMENTARE: Immer sichtbar -->
+        {% for c in spiel_comments[:3] %}
+            <div class="comment">
+                <strong>{{ c.user }}</strong>: {{ c.text }}
+            </div>
+        {% endfor %}
+        
+        <!-- ZUSÄTZLICHE KOMMENTARE: Mit "Mehr anzeigen"-Button -->
+        {% if spiel_comments|length > 3 %}
+            <!-- Kommentare 4+: Versteckt -->
+            {% for c in spiel_comments[3:] %}
+                <div class="comment hidden-comment">
+                    <strong>{{ c.user }}</strong>: {{ c.text }}
+                </div>
+            {% endfor %}
+            <!-- "MEHR ANZEIGEN"-BUTTON: Toggle versteckte Kommentare -->
+            <button type="button" class="show-more-comments">Mehr anzeigen</button>
+        {% endif %}
+    </div>
+
+    <!-- ⭐ KOMMENTAR-EINGABE: Form um Kommentar zu schreiben ⭐ -->
+    <div class="comment-form">
+        <!-- INPUT-FELD: Text eingeben -->
+        <input type="text" placeholder="Kommentar schreiben..." class="comment-input">
+        <!-- SENDEN-BUTTON: Kommentar absenden -->
+        <button onclick="addComment(this)">Senden</button>
+    </div>
+
+</div>  <!-- comment-section: Ende -->
+{% endfor %} <!-- naechste_spiele Schleife: Ende -->
+</div>
+
+</div> <!-- Ende: info-row (Letzte + Nächste Spiele) -->
+
+</div> <!-- Ende: content (Main Layout Container) -->
+
+<!-- ⭐ SPONSOREN-SECTION: Partner / Werber ⭐ -->
+<section class="sponsors-section">
+  <!-- ÜBERSCHRIFT: "Unsere Sponsoren" -->
+  <h2>Unsere Sponsoren</h2>
+  
+  <!-- SPONSORS-GRID: Layout mit Sponsor-Logos -->
+  <div class="sponsors-grid">
+    <!-- SPONSOR 1: Link mit Logo (neue Tab) -->
+    <a href="https://sponsor1.de" target="_blank" rel="noopener">
+      <!-- Bild: Lebensmittel-Partner Logo -->
+      <img src="./static/Werbung_Lebensmittel.png" alt="Sponsor 1 Logo" />
+    </a>
+    
+    <!-- SPONSOR 2: Link mit Logo -->
+    <a href="https://sponsor2.de" target="_blank" rel="noopener">
+      <!-- Bild: Werbe-Partner Logo -->
+      <img src="./static/Werbung.png" alt="Sponsor 2 Logo" />
+    </a>
+    
+    <!-- SPONSOR 3: Link mit Logo -->
+    <a href="https://sponsor3.de" target="_blank" rel="noopener">
+      <!-- Bild: Casino-Partner Logo -->
+      <img src="./static/Werbung_casino.png" alt="Sponsor 3 Logo" />
+    </a>
+  </div>
+</section>
+</main> <!-- Ende: page-body (Hauptinhalt) -->
+
+<!-- ⭐ FOOTER: Unten der Seite mit Links & Kontakt ⭐ -->
+<!-- External CSS in footer.css -->
+<footer class="footer">
+    <div class="footer-content">
+
+        <!-- FOOTER-SECTION 1: Vereins-Info -->
+        <div class="footer-section">
+            <h3>Turnerschaft Herzogenaurach</h3>
+            <p>Seit 1861 – Meine Stadt - Mein Verein</p> <!-- Vereins-Gründung & Motto -->
+        </div>
+
+        <!-- FOOTER-SECTION 2: Navigation -->
+        <div class="footer-section">
+            <h3>Navigation</h3>
+          
+            <!-- Footer-Links zu verschiedenen Sportarten -->
+            <div class="footer-links">
+                <a href="/fussball">Fußball</a>    <!-- Zu Fußball-Seite -->
+                <a href="/handball">Handball</a>  <!-- Zu Handball-Seite -->
+                <a href="/tennis">Tennis</a>       <!-- Zu Tennis-Seite -->
+            </div>
+        </div>
+
+        <!-- FOOTER-SECTION 3: Soziale Medien -->
+        <div class="footer-section">
+            <h3>Folge uns</h3>
+            <div class="social-links">
+                <!-- INSTAGRAM-LINK: Zur Insta-Seite -->
+                <a href="https://www.instagram.com/sg_frankenpower?igsh=Nmp2eXZsaTYzaHR5" target="_blank">
+                    <img src="./static/instagram.png" alt="Instagram">
+                </a>
+                
+                <!-- FACEBOOK-LINK: Zur Fun-Seite (joke) -->
+                <a href="/joke" target="_blank">
+                    <img src="./static/facebook.png" alt="Facebook">
+                </a>
+                
+                <!-- WHATSAPP-LINK: Zum WhatsApp-Channel -->
+                <a href="https://whatsapp.com/channel/0029Vb3JIr472WU0vyyCq11F" target="_blank">
+                    <img src="./static/youtube.png" alt="WhatsApp">
+                </a>
+                
+                <!-- TIKTOK-LINK: Zum TikTok-Profil -->
+                <a href="https://www.tiktok.com/@sg.frankenpower?_r=1&_t=ZG-94R1UEez4Xw" target="_blank">
+                    <img src="./static/tiktok.png" alt="TikTok">
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <!-- SEPARATOR: Horizontale Linie -->
+    <hr style="color: #1650a1">
+
+    <!-- COPYRIGHT: Urheberrechts-Info -->
+    <div class="footer-bottom">
+        © 2026 Turnerschaft Herzogenaurach 1861 e.V. <!-- Vereins-Name & Jahr -->
+    </div>
+</footer>
+
+<!-- ⭐ JAVASCRIPT: Reaction Counter + Animation + Comments ⭐ -->
+<script>
+// ⭐ FUNKTION: addReaction() - Emoji-Reaktion verarbeiten & zählen -->
+// Parameter: el = Das angeklickte Emoji-Button Element
+function addReaction(el) {
+
+    // SCHRITT 1: Emoji aus Button extrahieren
+    const span = el.querySelector("span"); // Das <span> mit Emoji
+    if (!span) {
+        console.error("Kein Emoji gefunden");
+        return; // Abbruch, falls kein Emoji
+    }
+
+    // SCHRITT 2: Reaction-Text speichern (z.B. "👍")
+    const reaction = span.innerText;
+
+    // SCHRITT 3: Dazugehörige Spielkarte finden
+    // .closest() lädt zum nächsten Parent-Element mit Klasse
+    // previousElementSibling = Element VOR .reaction-row = .highlight-card
+    const card = el.closest(".reaction-row").previousElementSibling;
+    if (!card || !card.classList.contains("highlight-card")) {
+        console.error("Keine Spielkarte gefunden");
+        return; // Abbruch, falls Karte nicht gefunden
+    }
+
+    // SCHRITT 4: Spiel-ID aus Karte auslesen (data-id Attribut)
+    const id_spiel = card.getAttribute("data-id");
+    console.log("Card HTML:", card.outerHTML);  // DEBUG-Info
+    console.log("ID Spiel:", id_spiel);  // DEBUG-Info
+    
+    // Validierung: ID muss vorhanden sein
+    if (!id_spiel) {
+        console.error("Keine Spiel-ID gefunden");
+        return; // Abbruch, falls ID Missing
+    }
+
+    // SCHRITT 5: POST-Request an Backend senden (/add_reaction Endpoint)
+    // Sendet: Spiel-ID, Reactions-Typ, User
+    fetch("/tennis_add_reaction", {
+        method: "POST", // POST: Daten erstellen/ändern
+        headers: { "Content-Type": "application/json" }, // JSON Format
+        body: JSON.stringify({
+            id_spiel: id_spiel,  // Welches Spiel
+            reaktion: reaction,  // Welche Reaktion (👍, ❤️, 🔥, 😮)
+            user: 0              // User-ID (hardcoded als 0)
+        })
+    })
+    // SCHRITT 6: Response vom Server verarbeiten (JSON)
+    .then(res => res.json())
+    // SCHRITT 7: Neue Counter-Zahlen in UI aktualisieren
+    .then(data => {
+
+        // Alle Buttons in dieser reaction-row findn
+        const row = el.parentElement;
+
+        // Alle Reaction-Buttons durchloopen
+        row.querySelectorAll(".reaction-btn").forEach(btn => {
+            const emoji = btn.querySelector("span").innerText; // Emoji des Buttons
+            const countEl = btn.querySelector(".reaction-count"); // Counter-Element
+            countEl.innerText = data[emoji] || 0; // Neue Zahl aus Server (oder 0)
+        });
+
+        // SCHRITT 8: POP-ANIMATION abspielen
+        el.classList.remove("clicked"); // Vorherige Animation entfernen
+        void el.offsetWidth; // Trick: DOM Reflow erzwingen = Reset
+        el.classList.add("clicked"); // Neue Animation starten
+    })
+    // FEHLERBEHANDLUNG: Falls Server-Request fehlschlägt
+    .catch(err => console.error("Fehler:", err));
+}
+
+// ⭐ EVENT: DOMContentLoaded - Wenn HTML vollständig geladen ⭐
+// Alle JavaScript-Initialisierungen NACH dem HTML laden
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // SCHRITT 1: Alle "Mehr anzeigen"-Buttons finden & Loop-through
+    document.querySelectorAll(".show-more-comments").forEach(button => {
+        
+        // SCHRITT 2: Click-Event-Listener an jedem Button
+        button.addEventListener("click", function() {
+            
+            // SCHRITT 3: Dazugehörige comment-section finden
+            // .closest() = nächster Parent mit dieser Klasse
+            const section = this.closest(".comment-section");
+            if (!section) return; // Abbruch, falls nicht gefunden
+
+            // SCHRITT 4: Alle versteckten Kommentare finden (.hidden-comment)
+            const hiddenComments = section.querySelectorAll(".comment.hidden-comment");
+            
+            // SCHRITT 5: Aktuellen Zustand prüfen (expanded = true/false)
+            // .dataset.expanded = custom HTML5 data attribute
+            const expanded = this.dataset.expanded === "true";
+
+            // SCHRITT 6: Alle versteckten Kommentare togglen (show/hide)
+            hiddenComments.forEach(el => {
+                // Wenn expanded=true: Verstecken (none)
+                // Wenn expanded=false: Anzeigen (block)
+                el.style.display = expanded ? "none" : "block";
+            });
+
+            // SCHRITT 7: Button-Text wechseln
+            // Wenn erweitert: "Weniger anzeigen" -> "Mehr anzeigen"
+            // Wenn kollabiert: "Mehr anzeigen" -> "Weniger anzeigen"
+            this.textContent = expanded ? "Mehr anzeigen" : "Weniger anzeigen";
+            
+            // SCHRITT 8: Zustand speichern für nächsten Klick
+            // !expanded = opposite (true wird false, false wird true)
+            this.dataset.expanded = (!expanded).toString();
+        });
+    });
+});
+
+// ⭐ FUNKTION: addComment() - Kommentar hinzufügen & in Liste einfügen ⭐
+// Parameter: button = Der angeklickte "Senden"-Button
+function addComment(button) {
+    
+    // SCHRITT 1: comment-section finden (das Parent-Element des Buttons)
+    const commentSection = button.closest(".comment-section");
+    
+    // SCHRITT 2: Input-Feld aus comment-section auslesen
+    const input = commentSection.querySelector(".comment-input");
+    
+    // SCHRITT 3: Text aus Input holen & trimmen (Leerzeichen entfernen)
+    const text = input.value.trim();
+    
+    // SCHRITT 4: Validierung - aborting wenn Text leer
+    if (!text) return; // Nichts tun bei leerem Kommentar
+
+    // SCHRITT 5: Spielkarte finden (navigiere nach oben von comment-section)
+    // while() Loop traversiert alle previousElementSibling, bis highlight-card gefunden
+    let card = commentSection.previousElementSibling;
+    while (card && !card.classList.contains("highlight-card")) {
+        card = card.previousElementSibling; // Zu vorherigem Element gehen
+    }
+    
+    // Validierung: Karte muss gefunden sein
+    if (!card) {
+        console.error("Keine Spielkarte gefunden");
+        return; // Abbruch
+    }
+
+    // SCHRITT 6: Spiel-ID aus Karte extrahieren (data-id Attribut)
+    const spielId = card.dataset.id;
+    
+    // Validierung: ID muss existieren
+    if (!spielId) {
+        console.error("Keine Spiel-ID gefunden");
+        return; // Abbruch
+    }
+
+    // SCHRITT 7: POST-Request an Backend (/add_comment Endpoint)
+    // Sendet: Spiel-ID, Kommentar-Text
+    fetch("/tennis_add_comment", {
+        method: "POST", // POST: Neue Daten erstellen
+        headers: { "Content-Type": "application/json" }, // JSON Format
+        body: JSON.stringify({ 
+            spiel_id: spielId, // Welches Spiel
+            text: text         // Was ist der Kommentar
+        })
+    })
+    // SCHRITT 8: Response vom Server verarbeiten (JSON)
+    .then(res => res.json())
+    // SCHRITT 9: Succes-Check & UI aktualisieren
+    .then(data => {
+        if (data.success) {
+            // Kommentar erfolgreich gespeichert
+            
+            // Comment-List finden
+            const list = commentSection.querySelector(".comment-list");
+            
+            // Neuen <div> für Kommentar erstellen
+            const div = document.createElement("div");
+            div.classList.add("comment"); // Styling-Klasse hinzufügen
+            
+            // HTML setzen: Username (bold) + Text
+            div.innerHTML = `<strong>${data.user}</strong>: ${text}`;
+            
+            // Neuen Kommentar OBEN in Liste einfügen (prepend = nach vorne)
+            // So sieht Nutzer seinen Kommentar sofort
+            list.prepend(div);
+            
+            // Input-Feld leeren für nächsten Kommentar
+            input.value = "";
+        }
+    });
+}
+// ⭐ Ende JavaScript ⭐
+</script>
+<!-- Ende: HTML Dokument -->
 </body>
 </html>
