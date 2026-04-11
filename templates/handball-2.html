@@ -398,7 +398,7 @@ tr:hover {
 <!-- HEADER: Navigation & Branding (CSS in header.css) -->
 <header>
     <!-- LOGO: Vereins-Logo in linker oberer Ecke -->
-    <img src="./static/Logo_v3.png" class="logo">
+     <img src="./static/Logo_v3.png" class="logo" onclick="window.location.href='/index'"> <!-- Klickbar: Zur Startseite -->
 
     <!-- TITLE-BOX: Zentrale Überschrift -->
     <div class="title-box">
@@ -417,7 +417,7 @@ tr:hover {
     <!-- Profilbild mit Dropdown-Menü -->
     <div class="profile-container">
         <!-- Profilbild: Klickbar um Menü zu öffnen -->
-        <img src="./static/pb.png" class="profile-pic" onclick="toggleProfileMenu()">
+        <img src="./static/{{ profile_picture }}" class="profile-pic" onclick="toggleProfileMenu()">
         <!-- Benutzername: Dynamisch vom Server ({{ username }}) -->
         <p class="profil-name">{{ username }}</p>
         

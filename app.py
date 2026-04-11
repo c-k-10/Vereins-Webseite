@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, redirect, request, render_template, session
 import sqlite3
-from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data, register_user, reset_password
+from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data, register_user, reset_password, get_user_profile, update_profile_picture
 import os
 
 DATABASE = os.path.join(os.path.dirname(__file__), "projekt-verein.db")
@@ -37,6 +37,68 @@ def login():
 def logout():
     session.pop('username', None)
     return redirect("/login2")
+
+# ⭐ NEUE ROUTES: Profilbild-Verwaltung ⭐
+
+#Route für Profil-Seite anzeigen
+@app.route("/profil")
+def profil():
+    username = session.get('username')
+    
+    if not username:
+        return redirect("/login2")
+    
+    # Verfügbare Profilbilder aus static/ laden
+    profile_pictures = [
+        'default_pb.png',
+        'frosch_pb.png',
+        'banane_pb.png',
+        'mc_pb.png'
+    ]
+    
+    # Aktuelles Benutzer-Profil laden
+    user = get_user_profile(username)
+    current_picture = user['profilbild'] if user else 'default_pb.png'
+    
+    return render_template("profil.html", 
+                         username=username, 
+                         profile_pictures=profile_pictures,
+                         current_picture=current_picture)
+
+# API-Route: Profilbild aktualisieren
+@app.route("/api/update-profile-picture", methods=["POST"])
+def update_profile_picture_api():
+    try:
+        username = session.get('username')
+        
+        if not username:
+            return jsonify({"success": False, "error": "Nicht eingeloggt"}), 401
+        
+        data = request.json
+        new_picture = data.get('picture')
+        
+        if not new_picture:
+            return jsonify({"success": False, "error": "Kein Bild ausgewählt"}), 400
+        
+        # Sicherheit: Nur erlaubte Bilder
+        allowed_pictures = [
+            'default_pb.png',
+            'frosch_pb.png',
+            'banane_pb.png',
+            'mc_pb.png'
+        ]
+        
+        if new_picture not in allowed_pictures:
+            return jsonify({"success": False, "error": "Ungültiges Bild"}), 400
+        
+        # Speichern in der Datenbank
+        update_profile_picture(username, new_picture)
+        
+        return jsonify({"success": True, "picture": new_picture})
+    
+    except Exception as e:
+        print(f"Fehler in update_profile_picture_api: {e}")
+        return jsonify({"success": False, "error": str(e)}), 500
     
 #Route für die Registrierung eines neuen Benutzers
 @app.route("/new-user", methods=["GET", "POST"])
@@ -216,7 +278,11 @@ def tennis_add_reaction():
 @app.route("/index")
 def index():
     username = session.get('username')  # Username aus Session holen
-    return render_template("index-2.html", username=username)
+    # Profilbild laden
+    user_profile = get_user_profile(username) if username else None
+    profile_picture = user_profile['profilbild'] if user_profile else 'default_pb.png'
+    
+    return render_template("index-2.html", username=username, profile_picture=profile_picture)
 
 @app.route("/news_tennis")
 def news_tennis():
@@ -296,6 +362,10 @@ def fussball():
             })
 
     conn.close()
+    
+    # Profilbild laden
+    user_profile = get_user_profile(username) if username else None
+    profile_picture = user_profile['profilbild'] if user_profile else 'default_pb.png'
 
     return render_template(
         "fussball-2.html",
@@ -304,7 +374,8 @@ def fussball():
         naechste_spiele=naechste_spiele,
         reactions=reactions,
         comments=comments,
-        username=username
+        username=username,
+        profile_picture=profile_picture
     )
 
 
@@ -369,6 +440,10 @@ def handball():
             })
 
     conn.close()
+    
+    # Profilbild laden
+    user_profile = get_user_profile(username) if username else None
+    profile_picture = user_profile['profilbild'] if user_profile else 'default_pb.png'
 
     return render_template(
         "handball-2.html",
@@ -377,7 +452,8 @@ def handball():
         naechste_spiele=naechste_spiele,
         reactions=reactions,
         comments=comments,
-        username=username
+        username=username,
+        profile_picture=profile_picture
     )
 
 @app.route("/tennis")
@@ -441,6 +517,10 @@ def tennis():
             })
 
     conn.close()
+    
+    # Profilbild laden
+    user_profile = get_user_profile(username) if username else None
+    profile_picture = user_profile['profilbild'] if user_profile else 'default_pb.png'
 
     return render_template(
         "tennis-2.html",
@@ -449,7 +529,8 @@ def tennis():
         naechste_spiele=naechste_spiele,
         reactions=reactions,
         comments=comments,
-        username=username
+        username=username,
+        profile_picture=profile_picture
     )
 
 @app.route("/pw_vergessen")

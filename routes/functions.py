@@ -6,6 +6,36 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__, template_folder=".")
 bcrypt = Bcrypt()
 
+# ⭐ MIGRATION: Profilbild-Spalte hinzufügen falls sie nicht existiert
+def init_db():
+    """Initialisiert die Datenbank und fügt Spalten hinzu wenn nötig"""
+    try:
+        conn = sqlite3.connect("projekt-verein.db")
+        cursor = conn.cursor()
+        
+        # Überprüfe ob profilbild Spalte existiert
+        cursor.execute("PRAGMA table_info(login)")
+        columns = [column[1] for column in cursor.fetchall()]
+        
+        if 'profilbild' not in columns:
+            print("🔧 Migrating: Adding 'profilbild' column to login table...")
+            # Spalte hinzufügen mit Default-Wert
+            cursor.execute("""
+                ALTER TABLE login 
+                ADD COLUMN profilbild TEXT DEFAULT 'default_pb.png'
+            """)
+            conn.commit()
+            print("✅ Migration successful!")
+        else:
+            print("✅ 'profilbild' column already exists")
+        
+        conn.close()
+    except Exception as e:
+        print(f"❌ Database migration error: {e}")
+
+# Beim Laden der App die Migration durchführen
+init_db()
+
 def check_login(username, password):
     conn = sqlite3.connect("projekt-verein.db")
     cursor = conn.cursor()
@@ -74,10 +104,10 @@ def register_user():
     # 5. Passwort hashen
     pw_hash = bcrypt.generate_password_hash(password).decode("utf-8")
 
-    # 6. Einfügen
+    # 6. Einfügen (mit Default-Profilbild)
     cursor.execute(
-        "INSERT INTO login (name, passwort) VALUES (?, ?)",
-        (username, pw_hash)
+        "INSERT INTO login (name, passwort, profilbild) VALUES (?, ?, ?)",
+        (username, pw_hash, 'default_pb.png')
     )
     conn.commit()
     conn.close()
@@ -123,4 +153,35 @@ def reset_password():
     # 7. Weiterleitung zum Login
     return render_template("login-2.html", message="Passwort erfolgreich zurückgesetzt!")
 
+
+# ⭐ NEUE FUNKTIONEN: Für Profilbild-Verwaltung ⭐
+
+def get_user_profile(username):
+    """Laden des Benutzer-Profils mit Profilbild"""
+    conn = sqlite3.connect("projekt-verein.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT name, profilbild FROM login WHERE name = ?", (username,))
+    user = cursor.fetchone()
+    
+    conn.close()
+    return user
+
+def update_profile_picture(username, new_picture):
+    """Aktualisiert das Profilbild eines Benutzers"""
+    try:
+        conn = sqlite3.connect("projekt-verein.db")
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            "UPDATE login SET profilbild = ? WHERE name = ?",
+            (new_picture, username)
+        )
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f"Fehler beim Update des Profilbilds: {e}")
+        raise
 

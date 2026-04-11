@@ -239,7 +239,7 @@
 <body>
 
     <header>
-        <img src="./static/Logo_v3.png" class="logo"> <!-- Logo links oben -->
+         <img src="./static/Logo_v3.png" class="logo" onclick="window.location.href='/index'"> <!-- Klickbar: Zur Startseite -->
 
         <div class="title-box"> <!-- Schriftzug mitte-links -->
             <h1>Turnerschaft Herzogenaurach 1861</h1>
@@ -251,16 +251,18 @@
             <a href="/handball">Handball</a>
             <a href="/tennis">Tennis</a>
         </nav>
-
-        <div class="profile-container"> <!-- Profilbild + Username rechts oben -->
-            <img src="./static/pb.png" class="profile-pic" onclick="toggleProfileMenu()">
-            <p class="profil-name">{{ username }}</p>
-            
-            <div class="profile-menu" id="profileMenu">
-                <a href="/profil">Profil anschauen</a>
-                <a href="/logout">Logout</a>
-            </div>
+<div class="profile-container">
+        <!-- Profilbild: Klickbar um Menü zu öffnen -->
+        <img src="./static/{{ profile_picture }}" class="profile-pic" onclick="toggleProfileMenu()">
+        <!-- Benutzername: Dynamisch vom Server ({{ username }}) -->
+        <p class="profil-name">{{ username }}</p>
+        
+        <!-- Dropdown-Menü: Profil & Logout (versteckt, toggle via JavaScript) -->
+        <div class="profile-menu" id="profileMenu">
+            <a href="/profil">Profil anschauen</a> <!-- Zu Profil-Seite -->
+            <a href="/logout">Logout</a>            <!-- Abmelden -->
         </div>
+    </div>
     </header>
 
     <div class="main-layout">
