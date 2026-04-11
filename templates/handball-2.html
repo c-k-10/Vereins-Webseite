@@ -1,10 +1,40 @@
 <!DOCTYPE html>
+<!-- HTML5 Dokumenttyp für modernе Browser -->
 <html lang="de">
+<!-- Deutscher Sprachkontext für SEO und Barrierefreiheit -->
 <head>
+<!-- Zeichencodierung: UTF-8 für internationale Zeichen -->
 <meta charset="UTF-8">
+<!-- Viewport-Einstellung für responsives Design auf Mobilgeräten -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Favicon: Logo in Browser-Tab anzeigen -->
 <link rel="icon" href="/static/Logo_v3.png" type="image/png">
+<!-- Externe CSS-Dateien für Header und Footer -->
+<link rel="stylesheet" href="../static/header.css">
+<link rel="stylesheet" href="../static/footer.css">
+<!-- Seiten-Titel in Browser-Tab -->
 <title>Tabelle – Turnerschaft Herzogenaurach</title>
+
+<!-- ⭐ JAVASCRIPT: Profil-Dropdown-Menü ⭐ -->
+<script>
+// Menü anzeigen/verstecken via Toggle-Klasse
+function toggleProfileMenu() {
+    const menu = document.getElementById('profileMenu');
+    menu.classList.toggle('active'); // Wechselt Klasse für Show/Hide
+}
+
+// Menü schließen, wenn man außerhalb des Profil-Bereichs klickt
+// Verhindert, dass Menü offen bleibt wenn man woanders klickt
+document.addEventListener('click', function(event) {
+    const menu = document.getElementById('profileMenu');
+    const profilePic = document.querySelector('.profile-pic');
+    
+    // .closest() prüft, ob das geklickte Element oder ein Parent die Klasse hat
+    if (!event.target.closest('.profile-container')) {
+        menu.classList.remove('active'); // Menü verstecken
+    }
+});
+</script>
 
 <style>
 
@@ -29,84 +59,7 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* HEADER */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 50;
-    background: rgba(0, 40, 80, 0.55);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.25);
-    box-shadow: 0 0 25px rgba(0,180,255,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 40px;
-}
 
-.logo {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 0 25px rgba(0,180,255,0.7);
-    animation: pulse 3s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
-    50% { box-shadow: 0 0 35px rgba(0,180,255,1); }
-    100% { box-shadow: 0 0 15px rgba(0,180,255,0.4); }
-}
-
-.title-box {
-    margin-left: 40px;
-    text-align: left;
-}
-
-.title-box h1 {
-    margin: 0;
-    font-size: 28px;
-}
-
-.subtitle {
-    font-size: 14px;
-    opacity: 0.85;
-}
-
-/* NAV */
-nav {
-    display: flex;
-    gap: 60px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    position: relative;
-}
-
-nav a::after {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: #00b4ff;
-    transition: 0.3s;
-}
-
-nav a:hover::after,
-nav a.active::after {
-    width: 100%;
-}
-
-nav a.active {
-    color: #00b4ff;
-}
 
 /* CONTENT */
 .content {
@@ -269,21 +222,39 @@ footer {
 
 <body>
 
+<!-- HEADER: Navigation & Branding (CSS in header.css) -->
 <header>
-       <a href="{{ url_for('index') }}">
+    <!-- LOGO: Vereins-Logo in linker oberer Ecke -->
     <img src="./static/Logo_v3.png" class="logo">
-</a>
 
+    <!-- TITLE-BOX: Zentrale Überschrift -->
     <div class="title-box">
-        <h1>Turnerschaft Herzogenaurach 1861</h1>
-        <div class="subtitle">» Meine Stadt – Mein Verein «</div>
+        <h1>Turnerschaft Herzogenaurach 1861</h1> <!-- Haupttitel -->
+        <div class="subtitle">» Meine Stadt – Mein Verein «</div> <!-- Untertitel/Motto -->
     </div>
 
+    <!-- NAVIGATION: Links zu Sportarten -->
     <nav>
-        <a href="/fussball" >Fußball</a>
-        <a href="/handball" class="active">Handball</a>
-        <a href="/tennis">Tennis</a>
+        <a href="/fussball" class="active">Fußball</a>    <!-- Aktuelle Seite (Fußball) -->
+        <a href="/handball">Handball</a>                    <!-- Link zu Handball -->
+        <a href="/tennis">Tennis</a>                        <!-- Link zu Tennis -->
     </nav>
+
+    <!-- ⭐ PROFIL-DROPDOWN: Benutzer-Menü ⭐ -->
+    <!-- Profilbild mit Dropdown-Menü -->
+    <div class="profile-container">
+        <!-- Profilbild: Klickbar um Menü zu öffnen -->
+        <img src="./static/pb.png" class="profile-pic" onclick="toggleProfileMenu()">
+        <!-- Benutzername: Dynamisch vom Server ({{ username }}) -->
+        <p class="profil-name">{{ username }}</p>
+        
+        <!-- Dropdown-Menü: Profil & Logout (versteckt, toggle via JavaScript) -->
+        <div class="profile-menu" id="profileMenu">
+            <a href="/profil">Profil anschauen</a> <!-- Zu Profil-Seite -->
+            <a href="/logout">Logout</a>            <!-- Abmelden -->
+        </div>
+    </div>
+    
 </header>
 
 <div class="content">

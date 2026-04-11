@@ -162,7 +162,7 @@ def fussball():
         placeholders = ','.join('?' for _ in all_spiele_ids)
         rows = conn.execute(f"""
             SELECT id_spiel, reaktion, COUNT(*) as count
-            FROM reaktionen
+            FROM fussball_reaktionen
             WHERE id_spiel IN ({placeholders})
             GROUP BY id_spiel, reaktion
         """, all_spiele_ids).fetchall()
@@ -177,7 +177,7 @@ def fussball():
         placeholders = ','.join('?' for _ in all_spiele_ids)
         rows = conn.execute(f"""
             SELECT user_name, Kommentar, id_spiel
-            FROM kommentare
+            FROM fussball_kommentare
             WHERE id_spiel IN ({placeholders})
             ORDER BY id DESC
         """, all_spiele_ids).fetchall()
