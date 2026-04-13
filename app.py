@@ -5,6 +5,7 @@ import os
 
 DATABASE = os.path.join(os.path.dirname(__file__), "projekt-verein.db")
 app = Flask(__name__, template_folder="templates")
+app.secret_key = 'dein_geheimer_schluessel'
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
