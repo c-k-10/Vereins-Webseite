@@ -5,7 +5,6 @@ import os
 
 DATABASE = os.path.join(os.path.dirname(__file__), "projekt-verein.db")
 app = Flask(__name__, template_folder="templates")
-app.secret_key = 'dein_geheimer_schluessel'
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
@@ -37,8 +36,6 @@ def login():
 def logout():
     session.pop('username', None)
     return redirect("/login2")
-
-# ⭐ NEUE ROUTES: Profilbild-Verwaltung ⭐
 
 #Route für Profil-Seite anzeigen
 @app.route("/profil")
@@ -129,8 +126,6 @@ def pwreset_route():
     return render_template("passwort_vergessen.html")
 
 
-
-
 #=============================== REAKTIONEN ===============================
 
 #Route für das Hinzufügen oder Entfernen von Reaktionen (Fussball)
@@ -180,7 +175,6 @@ def fussball_add_reaction():
         print(f"Fehler: {e}")
         return jsonify({"error": str(e)}), 500
     
-
 #Route für das Hinzufügen oder Entfernen von Reaktionen (Handball)
 @app.route("/handball_add_reaction", methods=["POST"])
 def handball_add_reaction():
@@ -278,10 +272,6 @@ def tennis_add_reaction():
 
 #==========================================================================
 
-
-
-
-
 #Route für die Startseite
 @app.route("/index")
 def index():
@@ -307,7 +297,6 @@ def news_fussball():
 @app.route("/Werbung")
 def news_Werbung():
     return render_template("Werbung-2.html")
-
 
 @app.route("/fussball")
 def fussball():
@@ -385,7 +374,6 @@ def fussball():
         username=username,
         profile_picture=profile_picture
     )
-
 
 @app.route("/handball")
 def handball():
@@ -553,10 +541,6 @@ def registrieren():
 def joke():
     return render_template("joke.html")
 
-
-
-
-
 #Routen für das Hinzufügen von Kommentaren (je Sportart)
 @app.post("/fussball_add_comment")
 def fussball_add_comment():
@@ -614,9 +598,6 @@ def tennis_add_comment():
     conn.close()
 
     return jsonify({"success": True, "user": username})
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
