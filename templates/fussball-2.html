@@ -706,26 +706,22 @@ tr:hover {
         <div class="footer-section">
             <h3>Folge uns</h3>
             <div class="social-links">
-                <!-- INSTAGRAM-LINK: Zur Insta-Seite -->
-                <a href="https://www.instagram.com/sg_frankenpower?igsh=Nmp2eXZsaTYzaHR5" target="_blank">
-                    <img src="./static/instagram.png" alt="Instagram">
-                </a>
-                
-                <!-- FACEBOOK-LINK: Zur Fun-Seite (joke) -->
-                <a href="/joke" target="_blank">
-                    <img src="./static/facebook.png" alt="Facebook">
-                </a>
-                
-                <!-- WHATSAPP-LINK: Zum WhatsApp-Channel -->
-                <a href="https://whatsapp.com/channel/0029Vb3JIr472WU0vyyCq11F" target="_blank">
-                    <img src="./static/youtube.png" alt="WhatsApp">
-                </a>
-                
-                <!-- TIKTOK-LINK: Zum TikTok-Profil -->
-                <a href="https://www.tiktok.com/@sg.frankenpower?_r=1&_t=ZG-94R1UEez4Xw" target="_blank">
-                    <img src="./static/tiktok.png" alt="TikTok">
-                </a>
-            </div>
+                    <a href="https://www.instagram.com/sg_frankenpower?igsh=Nmp2eXZsaTYzaHR5 target="_blank">
+                        <img src="./static/instagram.png" alt="Instagram">
+                    </a>
+
+                    <a href="/joke" target="_blank">
+                        <img src="./static/facebook.png" alt="Facebook" style="width: 35px;">
+                    </a>
+
+                    <a href="https://whatsapp.com/channel/0029Vb3JIr472WU0vyyCq11F" target="_blank">
+                        <img src="./static/whatsapp.png" alt="WhatsApp">
+                    </a>
+
+                    <a href="https://www.tiktok.com/@sg.frankenpower?_r=1&_t=ZG-94R1UEez4Xw" target="_blank">
+                        <img src="./static/tiktok.png" alt="TikTok">
+                    </a>
+                </div>
         </div>
 
     </div>
@@ -776,7 +772,7 @@ function addReaction(el) {
 
     // SCHRITT 5: POST-Request an Backend senden (/add_reaction Endpoint)
     // Sendet: Spiel-ID, Reactions-Typ, User
-    fetch("/add_reaction", {
+    fetch("/fussball_add_reaction", {
         method: "POST", // POST: Daten erstellen/ändern
         headers: { "Content-Type": "application/json" }, // JSON Format
         body: JSON.stringify({
@@ -890,7 +886,7 @@ function addComment(button) {
 
     // SCHRITT 7: POST-Request an Backend (/add_comment Endpoint)
     // Sendet: Spiel-ID, Kommentar-Text
-    fetch("/add_comment", {
+    fetch("/fussball_add_comment", {
         method: "POST", // POST: Neue Daten erstellen
         headers: { "Content-Type": "application/json" }, // JSON Format
         body: JSON.stringify({ 
