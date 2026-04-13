@@ -298,7 +298,7 @@ def news_fussball():
 
 @app.route("/Werbung")
 def news_Werbung():
-    return render_template("Werbung.html")
+    return render_template("Werbung-2.html")
 
 
 @app.route("/fussball")
