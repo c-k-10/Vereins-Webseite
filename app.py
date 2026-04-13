@@ -55,7 +55,9 @@ def profil():
         'banane_pb.png',
         'mc_pb.png',
         'gatze_pb.png',
-        'jonas_pb.png'
+        'jonas_pb.png',
+        'dominik_pb.png',
+        'nils_pb.png'
     ]
     
     # Aktuelles Benutzer-Profil laden
@@ -89,7 +91,9 @@ def update_profile_picture_api():
         'banane_pb.png',
         'mc_pb.png',
         'gatze_pb.png',
-        'jonas_pb.png'
+        'jonas_pb.png',
+         'dominik_pb.png',
+        'nils_pb.png'
         ]
         
         if new_picture not in allowed_pictures:
