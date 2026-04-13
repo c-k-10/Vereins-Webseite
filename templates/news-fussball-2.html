@@ -109,11 +109,13 @@
         .news-track {
             display: flex;
             gap: 35px;
-            animation: scrollNews 25s linear infinite;
+            width: max-content;
+            animation: marquee 25s linear infinite;
         }
 
         .news-item {
             width: 350px;
+            flex-shrink: 0;
             text-align: center;
         }
 
@@ -142,7 +144,7 @@
             opacity: 1;
         }
 
-        @keyframes scrollNews {
+        @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
@@ -276,6 +278,28 @@
 
         <div class="news-marquee">
             <div class="news-track">
+
+                <div class="news-item">
+                    <img src="/static/tennis_news.png" onclick="window.location.href='/news_tennis';">
+                    <div class="news-title" onclick="window.location.href='/news_tennis';">Tennis – Starker Saisonauftakt</div>
+                </div>
+
+                <div class="news-item">
+                    <img src="/static/handball_news.png" onclick="window.location.href='/news_handball';">
+                    <div class="news-title" onclick="window.location.href='/news_handball';">Handball – Derbykrimi entschieden</div>
+                </div>
+
+                <div class="news-item">
+                    <img src="/static/Werbung.png" onclick="window.location.href='/Werbung';">
+                    <div class="news-title" onclick="window.location.href='/Werbung';">Sponsoren & Partner</div>
+                </div>
+
+                <div class="news-item">
+                    <img src="/static/fussball_news.png" onclick="window.location.href='/news_fussball';">
+                    <div class="news-title" onclick="window.location.href='/news_fussball';">Fußball – Spielbericht</div>
+                </div>
+
+                <!-- Duplikat für nahtlosen Loop -->
 
                 <div class="news-item">
                     <img src="/static/tennis_news.png" onclick="window.location.href='/news_tennis';">
