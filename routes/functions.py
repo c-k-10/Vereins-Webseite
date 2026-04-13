@@ -6,7 +6,6 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__, template_folder=".")
 bcrypt = Bcrypt()
 
-# ⭐ MIGRATION: Profilbild-Spalte hinzufügen falls sie nicht existiert
 def init_db():
     """Initialisiert die Datenbank und fügt Spalten hinzu wenn nötig"""
     try:
@@ -33,7 +32,6 @@ def init_db():
     except Exception as e:
         print(f"❌ Database migration error: {e}")
 
-# Beim Laden der App die Migration durchführen
 init_db()
 
 def check_login(username, password):
@@ -153,9 +151,6 @@ def reset_password():
     # 7. Weiterleitung zum Login
     return render_template("login-2.html", message="Passwort erfolgreich zurückgesetzt!")
 
-
-# ⭐ NEUE FUNKTIONEN: Für Profilbild-Verwaltung ⭐
-
 def get_user_profile(username):
     """Laden des Benutzer-Profils mit Profilbild"""
     conn = sqlite3.connect("projekt-verein.db")
@@ -184,4 +179,3 @@ def update_profile_picture(username, new_picture):
     except Exception as e:
         print(f"Fehler beim Update des Profilbilds: {e}")
         raise
-
