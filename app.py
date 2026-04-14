@@ -2,15 +2,40 @@ from flask import Flask, jsonify, redirect, request, render_template, session
 import sqlite3
 from routes.functions import check_login, get_fussball_table_data, get_handball_table_data, get_tennis_table_data, register_user, reset_password, get_user_profile, update_profile_picture
 import os
+import sys
+import webbrowser
+import threading
 
-DATABASE = os.path.join(os.path.dirname(__file__), "projekt-verein.db")
-app = Flask(__name__, template_folder="templates")
-app.secret_key = 'dein_geheimer_schluessel'
+def open_browser():
+    webbrowser.open("http://127.0.0.1:5000/login2")
+
+def app_dir():
+    if getattr(sys, 'frozen', False):
+        return os.path.dirname(sys.executable)
+    return os.path.dirname(os.path.abspath(__file__))
+ 
+## standard path to the database, used for all database actions
+DATABASE = os.path.join(app_dir(), "projekt-verein.db")
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
+
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
+template_folder = resource_path("templates")
+static_folder = resource_path("static")
+
+app = Flask(__name__, template_folder=template_folder, static_folder=static_folder)
+
+
+app.secret_key = 'dein_geheimer_schluessel'
+
+
 
 #Route für die erste seite beim Aufruf vom Localhost (Der Login wird angezeigt)
 @app.route("/")
@@ -601,4 +626,5 @@ def tennis_add_comment():
     return jsonify({"success": True, "user": username})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    threading.Timer(1.2, open_browser).start()
+    app.run(host="127.0.0.1", port=5000, debug=False)
